@@ -1,0 +1,385 @@
+var simplemaps_countrymap_mapdata = {
+  main_settings: {
+    //General settings
+    width: "responsive", //'700' or 'responsive'
+    background_color: "#FFFFFF",
+    background_transparent: "yes",
+    border_color: "#ffffff",
+
+    //State defaults
+    state_description: "State description",
+    state_color: "#807040",
+    state_hover_color: "#496580",
+    state_url: "",
+    border_size: 1.5,
+    all_states_inactive: "no",
+    all_states_zoomable: "yes",
+
+    //Location defaults
+    location_description: "Location description",
+    location_url: "",
+    location_color: "#807040",
+    location_opacity: 0.8,
+    location_hover_opacity: 1,
+    location_size: 25,
+    location_type: "square",
+    location_image_source: "frog.png",
+    location_border_color: "#807040",
+    location_border: 2,
+    location_hover_border: 2.5,
+    all_locations_inactive: "no",
+    all_locations_hidden: "no",
+
+    //Label defaults
+    label_color: "#ffffff",
+    label_hover_color: "#ffffff",
+    label_size: 16,
+    label_font: "Arial",
+    label_display: "auto",
+    label_scale: "yes",
+    hide_labels: "no",
+    hide_eastern_labels: "no",
+
+    //Zoom settings
+    zoom: "yes",
+    manual_zoom: "yes",
+    back_image: "no",
+    initial_back: "no",
+    initial_zoom: "-1",
+    initial_zoom_solo: "no",
+    region_opacity: 1,
+    region_hover_opacity: 0.6,
+    zoom_out_incrementally: "yes",
+    zoom_percentage: 0.99,
+    zoom_time: 0.5,
+
+    //Popup settings
+    popup_color: "white",
+    popup_opacity: 0.9,
+    popup_shadow: 1,
+    popup_corners: 5,
+    popup_font: "12px/1.5 Verdana, Arial, Helvetica, sans-serif",
+    popup_nocss: "no",
+
+    //Advanced settings
+    div: "map",
+    auto_load: "yes",
+    url_new_tab: "no",
+    images_directory: "default",
+    fade_time: 0.1,
+    link_text: "View Website",
+    popups: "detect",
+  },
+  state_specific: {
+    EGALX: {
+      name: "الإسكندرية",
+      description: "2المساحة : 2,299.97	كم",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الإسكندرية",
+    },
+    EGASN: {
+      name: "أسوان",
+      description: "المساحة : 62,726 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/أسوان",
+    },
+    EGAST: {
+      name: "أسيوط",
+      description: "المساحة : 25,926 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/أسيوط",
+    },
+    EGBA: {
+      name: "البحر الأحمر",
+      description: "المساحة : 119,099 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/البحر الأحمر",
+    },
+    EGBH: {
+      name: "البحيرة",
+      description: "المساحة : 9,826 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/البحيرة",
+    },
+    EGBNS: {
+      name: "بني سويف	",
+      description: "المساحة : 10,954 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/بني سويف	",
+    },
+    EGC: {
+      name: "القاهرة",
+      description: "المساحة : 3,085.12 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/القاهرة",
+    },
+    EGDK: {
+      name: "الدقهلية",
+      description: "المساحة : 3,538.23 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الدقهلية",
+    },
+    EGDT: {
+      name: "دمياط",
+      description: "المساحة : 910.26 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/دمياط",
+    },
+    EGFYM: {
+      name: "الفيوم",
+      description: "المساحة : 6,068 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الفيوم",
+    },
+    EGGH: {
+      name: "الغربية",
+      description: "المساحة : 1,942.34 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الغربية",
+    },
+    EGGZ: {
+      name: "الجيزة",
+      description: "المساحة : 85,153 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الجيزة",
+    },
+    EGIS: {
+      name: "الإسماعيلية",
+      description: "المساحة : 5,066.97 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الإسماعيلية",
+    },
+    EGJS: {
+      name: "جنوب سيناء",
+      description: "المساحة : 31,272 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/جنوب سيناء",
+    },
+    EGKB: {
+      name: "القليوبية",
+      description: " المساحة : 1,124.28 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/القليوبية",
+    },
+    EGKFS: {
+      name: "كفر الشيخ",
+      description: "المساحة : 3,466.69 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/كفر الشيخ",
+    },
+    EGKN: {
+      name: "قنا",
+      description: "المساحة : 10,798 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/قنا",
+    },
+    EGLX: {
+      name: "الأقصر",
+      description: "المساحة : 2,409.68 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الأقصر",
+    },
+    EGMN: {
+      name: "المنيا",
+      description: "المساحة : 32,279 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/المنيا",
+    },
+    EGMNF: {
+      name: "المنوفية",
+      description: "المساحة : 2,499 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/المنوفية",
+    },
+    EGMT: {
+      name: "مطروح",
+      description: "المساحة : 166,564 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/مطروح",
+    },
+    EGPTS: {
+      name: "بورسعيد",
+      description: "المساحة : 1,344.96 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/بورسعيد",
+    },
+    EGSHG: {
+      name: "السويس",
+      description: "المساحة : 9,002.21 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/السويس",
+    },
+    EGSHR: {
+      name: "الشرقية",
+      description: "المساحة : 4,911 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الشرقية",
+    },
+    EGSIN: {
+      name: "شمال سيناء",
+      description: "المساحة : 28,992 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/شمال سيناء",
+    },
+    EGSUZ: {
+      name: "السويس",
+      description: "المساحة : 9,002.21 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/السويس",
+    },
+    EGWAD: {
+      name: "الوادي الجديد",
+      description: "المساحة : 440,098 كم2",
+      color: "default",
+      hover_color: "default",
+      url: "/map/الوادي الجديد",
+    },
+  },
+  locations: {
+    0: {
+      name: "Cairo",
+      lat: "30.07708",
+      lng: "31.285909",
+    },
+  },
+  labels: {
+    EGALX: {
+      name: "Al Iskandariyah",
+      parent_id: "EGALX",
+    },
+    EGASN: {
+      name: "Aswan",
+      parent_id: "EGASN",
+    },
+    EGAST: {
+      name: "Asyut",
+      parent_id: "EGAST",
+    },
+    EGBA: {
+      name: "Al Bahr al Ahmar",
+      parent_id: "EGBA",
+    },
+    EGBH: {
+      name: "Al Buhayrah",
+      parent_id: "EGBH",
+    },
+    EGBNS: {
+      name: "Bani Suwayf",
+      parent_id: "EGBNS",
+    },
+    EGC: {
+      name: "Al Qahirah",
+      parent_id: "EGC",
+    },
+    EGDK: {
+      name: "Ad Daqahliyah",
+      parent_id: "EGDK",
+    },
+    EGDT: {
+      name: "Dumyat",
+      parent_id: "EGDT",
+    },
+    EGFYM: {
+      name: "Al Fayyum",
+      parent_id: "EGFYM",
+    },
+    EGGH: {
+      name: "Al Gharbiyah",
+      parent_id: "EGGH",
+    },
+    EGGZ: {
+      name: "Al Jizah",
+      parent_id: "EGGZ",
+    },
+    EGIS: {
+      name: "Al Isma`iliyah",
+      parent_id: "EGIS",
+    },
+    EGJS: {
+      name: "جنوب سيناء",
+      parent_id: "EGJS",
+    },
+    EGKB: {
+      name: "Al Qalyubiyah",
+      parent_id: "EGKB",
+    },
+    EGKFS: {
+      name: "Kafr ash Shaykh",
+      parent_id: "EGKFS",
+    },
+    EGKN: {
+      name: "Qina",
+      parent_id: "EGKN",
+    },
+    EGLX: {
+      name: "Luxor",
+      parent_id: "EGLX",
+    },
+    EGMN: {
+      name: "Al Minya",
+      parent_id: "EGMN",
+    },
+    EGMNF: {
+      name: "Al Minufiyah",
+      parent_id: "EGMNF",
+    },
+    EGMT: {
+      name: "مطروح",
+      parent_id: "EGMT",
+    },
+    EGPTS: {
+      name: "Bur Sa`id",
+      parent_id: "EGPTS",
+    },
+    EGSHG: {
+      name: "Suhaj",
+      parent_id: "EGSHG",
+    },
+    EGSHR: {
+      name: "Ash Sharqiyah",
+      parent_id: "EGSHR",
+    },
+    EGSIN: {
+      name: "شمال سيناء",
+      parent_id: "EGSIN",
+    },
+    EGSUZ: {
+      name: "As Suways",
+      parent_id: "EGSUZ",
+    },
+    EGWAD: {
+      name: "الوادي الجديد",
+      parent_id: "EGWAD",
+    },
+  },
+  legend: {
+    entries: [],
+  },
+  regions: {},
+};
