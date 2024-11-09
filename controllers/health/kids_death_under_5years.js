@@ -9,6 +9,9 @@ const getKids = async (req, res) => {
   try {
     const kids = await Kids.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             المحافظة: "$المحافظة",

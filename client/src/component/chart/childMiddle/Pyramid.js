@@ -97,7 +97,7 @@ const ChartPyramid = ({ data1 }) => {
       },
       title: {
         display: true,
-        text: "Children Under 18 Years",
+        text: "الفئات العمرية",
       },
     },
   };

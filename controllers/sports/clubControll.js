@@ -9,6 +9,9 @@ const getClubs = async (req, res) => {
   try {
     const club = await Club.aggregate([
       {
+        $match: { المحافظه: { $ne: "المحافظه" } },
+      },
+      {
         $group: {
           _id: {
             اتبعية: "$اتبعية",

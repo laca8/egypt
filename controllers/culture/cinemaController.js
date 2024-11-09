@@ -9,6 +9,9 @@ const getCinema = async (req, res) => {
   try {
     const cinema = await Cinema.aggregate([
       {
+        $match: { العام: { $ne: "العام" } },
+      },
+      {
         $group: {
           _id: {
             العام: "$العام",

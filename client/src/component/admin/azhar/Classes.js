@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import axios from "axios";
 import Error from "../../features/Error";
 import Loader from "../../features/Loader";
+import download from "downloadjs";
 const Classes = () => {
   const [json, setJson] = useState("");
   const [file, setFile] = useState("");
@@ -16,12 +17,41 @@ const Classes = () => {
   useEffect(() => {
     const exportCsv = async () => {
       const res = await axios.get(API_URI);
-      console.log(res);
-
       setJson(res?.data?.url);
+      console.log(res);
     };
+
     exportCsv();
   }, []);
+  const downloadFile = async () => {
+    console.log(json);
+
+    await fetch(json)
+      .then((res) => res.blob())
+      .then((blob) => download(blob, json, "csv")) // this line automatically starts a download operation
+      .catch((err) => console.log(err));
+
+    const options = {
+      headers: {
+        "Content-Disposition": `attachment; filename=${json}`,
+      },
+    };
+    fetch(json, options)
+      .then((res) => {
+        const filename = res.headers
+          .get("Content-Disposition")
+          .split("filename=")[1];
+        return { response: res.blob(), filename: filename };
+      })
+      .then(({ response, filename }) => {
+        var file = window.URL.createObjectURL(response);
+        window.location.assign(filename);
+        console.log(filename);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   const handleChange2 = (e) => {
     setFile(e.target.files[0]);
   };
@@ -83,7 +113,7 @@ const Classes = () => {
             style={{ marginRight: "10px" }}
           >
             <a
-              href={`${API_CSV}/azhar/classes/${json}`}
+              href={`../../../csv/azhar/${json}`}
               download={json}
               target="_self"
               rel="noopener noreferrer"
@@ -92,6 +122,14 @@ const Classes = () => {
               Download
             </a>
           </ButtonMaterial>
+
+          <button
+            onClick={() => downloadFile()}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Download Excel
+          </button>
+
           <ButtonMaterial variant="contained" component="label">
             <UploadFileIcon />
             <input hidden onChange={handleChange2} type="file" />

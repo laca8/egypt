@@ -9,6 +9,9 @@ const getStudents = async (req, res) => {
   try {
     const students = await Classes.aggregate([
       {
+        $match: { العام: { $ne: "العام" } },
+      },
+      {
         $group: {
           _id: {
             المنطقة: "$المنطقة",
@@ -82,33 +85,30 @@ const importData = async (req, res) => {
 const exportToCsv = async (req, res) => {
   try {
     console.log("csv");
-
     const data = await Classes.find({});
-    //console.log(data);
-
     const model = mongoXlsx.buildDynamicModel(data);
     mongoXlsx.mongoData2Xlsx(
       data,
       model,
       {
         fileName: "عدد_فصول_الازهر" + Date.now() + ".csv",
-        path: "./public/azhar/classes",
+        path: "./client/csv/azhar",
       },
       function (err, data) {
-        console.log("File saved at:", data.fileName);
-        res.status(200).json({ url: data.fileName });
+        console.log(data);
+        console.log("File saved at:", `${data.path}/${data.fileName}`);
+        console.log(data);
+
+        res.status(200).json({ url: `${data.path}/${data.fileName}` });
         setTimeout(async () => {
           if (!fs.existsSync(data.path)) {
             console.log("Folder does not exist:");
             return;
           }
-
           const files = fs.readdirSync(data.path);
           // console.log(files);
-
           files.forEach((f) => {
             console.log(f);
-
             fs.unlinkSync(data.path + "/" + f);
           });
         }, 600000);

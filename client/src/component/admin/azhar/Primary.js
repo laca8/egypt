@@ -84,7 +84,7 @@ const Primary = () => {
             style={{ marginRight: "10px" }}
           >
             <a
-              href={`${API_CSV}/azhar/primary/${json}`}
+              href={`/azhar/primary/${json}`}
               download={json}
               target="_self"
               rel="noopener noreferrer"

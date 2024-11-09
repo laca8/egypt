@@ -7,5 +7,6 @@ const categorySchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  subs: [],
 });
 module.exports = mongoose.model("category", categorySchema);

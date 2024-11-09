@@ -139,14 +139,14 @@ const ChildMiddle = ({ city }) => {
             style={{
               display: "flex",
               justifyContent: "flex-end",
-              margin: "10px 0",
+
               textAlign: "right",
             }}
           >
             <Typography
               variant="h4"
               style={{
-                margin: "10px auto",
+                margin: "0px auto",
                 textAlign: "center",
                 backgroundColor: "#496580",
                 color: "#fff",

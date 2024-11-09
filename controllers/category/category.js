@@ -16,7 +16,7 @@ const addCategory = async (req, res) => {
   try {
     const category = await Category.create({
       title: req.body.title,
-      image: req?.file?.filename,
+      image: req?.file?.path,
     });
     res.status(201).json(category);
   } catch (err) {
@@ -41,9 +41,35 @@ const deleteCategory = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+const editCategory = async (req, res) => {
+  try {
+    const category = await Category.findOne({ title: req.params.title });
+    const { subs } = req.body;
+    //console.log(subs);
+    if (category) {
+      category.subs = subs;
+      await category.save();
+    }
+    res.status(200).json(category);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
+
+const getCategoryByTitle = async (req, res) => {
+  try {
+    const category = await Category.findOne({ title: req.params.title });
+
+    res.status(200).json(category);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
 module.exports = {
   addCategory,
   deleteCategory,
   getCategories,
+  editCategory,
   upload,
+  getCategoryByTitle,
 };

@@ -10,6 +10,9 @@ const getStudents = async (req, res) => {
   try {
     const students = await Teachers.aggregate([
       {
+        $match: { العام: { $ne: "العام" } },
+      },
+      {
         $group: {
           _id: {
             المنطقة: "$المنطقة",

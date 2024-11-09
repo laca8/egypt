@@ -14,14 +14,14 @@ const Culture = () => {
     >
       <h2
         style={{
-          marginBottom: "10px",
-          marginRight: "25px",
+          margin: "0 auto",
+          textAlign: "center",
           backgroundColor: "#496580",
           color: "#fff",
-          fontWeight: "bold",
-          fontSize: "30px",
-          textAlign: "right",
+          width: "600px",
+          borderRadius: "5px",
           padding: "5px",
+          marginBottom: "5px",
         }}
       >
         الثقافة

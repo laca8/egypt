@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../../component/admin/Sidebar";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import MotherPlace from "../../component/admin/health/MotherPlace";
@@ -19,6 +20,7 @@ import Sport from "./Sport";
 import Population from "./Population";
 import Children from "./Children";
 import International from "./International";
+import SubCategory from "./SubCategory";
 const AdminPanel = () => {
   const { category } = useParams();
   console.log(category);
@@ -61,6 +63,25 @@ const AdminPanel = () => {
       component: <International />,
     },
   ];
+  const [data, setData] = useState([]);
+  const [load, setLoad] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoad(true);
+        const res = await axios.get("/api/category");
+        console.log(res);
+
+        setData(res?.data);
+        setLoad(false);
+      } catch (err) {
+        setLoad(false);
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <MDBRow style={{ height: "100%" }}>
       <MDBCol md="2">

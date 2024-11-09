@@ -83,7 +83,7 @@ const High = () => {
             style={{ marginRight: "10px" }}
           >
             <a
-              href={`${API_CSV}/azhar/high/${json}`}
+              href={`/azhar/high/${json}`}
               download={json}
               target="_self"
               rel="noopener noreferrer"

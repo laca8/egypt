@@ -1,7 +1,7 @@
 const Population = require("../../models/populations/Population");
 const getPopulations = async (req, res) => {
   try {
-    const populations = await Population.find();
+    const populations = await Population.find({ السنة: { $ne: "السنة" } });
 
     res.json(populations);
   } catch (err) {

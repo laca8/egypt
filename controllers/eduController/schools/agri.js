@@ -9,6 +9,9 @@ const getSchools = async (req, res) => {
   try {
     const schools = await Agri.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             السنة: "$السنة",

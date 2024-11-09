@@ -9,6 +9,9 @@ const getTheater = async (req, res) => {
   try {
     const theater = await Theater.aggregate([
       {
+        $match: { العام: { $ne: "العام" } },
+      },
+      {
         $group: {
           _id: {
             العام: "$العام",

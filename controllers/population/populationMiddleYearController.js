@@ -9,6 +9,9 @@ const getData = async (req, res) => {
   try {
     const students = await PopulationMiddle.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             المحافظة: "$المحافظة",

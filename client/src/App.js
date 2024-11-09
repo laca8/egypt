@@ -91,14 +91,18 @@ import TeacherSpecial from "./component/education/private/Teacher";
 import TeacherSecondary from "./component/education/secondary/Teacher";
 import SubCategory from "./pages/admin/SubCategory";
 import City from "./pages/map/City";
+import CategoryDescription from "./pages/dashboard/CategoryDescription";
+import ProtectedRoutes from "./utils/ProtectedRoute";
 function App() {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
   return (
     <Router>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
         <Route path="/Population" element={<Populations />} />
         <Route path="/Education" element={<Education />} />
         <Route path="/pre-primary/students" element={<Students />} />
@@ -199,12 +203,20 @@ function App() {
         <Route path="/international/world/bank" element={<Bank />} />
         <Route path="/international/un" element={<Un />} />
         <Route path="/Sports" element={<Sport />} />
-        {/* <Route path="/" element={<Graphs />} /> */}
-        <Route path="/dashboard/tables" element={<Tables />} />
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/admin/:category" element={<AdminPanel />} />
-        <Route path="/subcategory" element={<SubCategory />} />
         <Route path="/map/:gov" element={<City />} />
+        <Route path="/sub/:category" element={<CategoryDescription />} />
+
+        {/* <Route path="/" element={<Graphs />} /> */}
+        {/* <Route path="/dashboard/tables" element={<Tables />} /> */}
+
+        <Route
+          path="/admin/:category"
+          element={userInfo?.user?.isAdmin ? <AdminPanel /> : <Login />}
+        />
+        <Route
+          path="/admin/sub/:category"
+          element={userInfo?.user?.isAdmin ? <SubCategory /> : <Login />}
+        />
       </Routes>
     </Router>
   );

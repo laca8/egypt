@@ -54,15 +54,14 @@ const LoginScrenn = () => {
             </Form.Group>
             <Button
               type="submit"
-              variant="primary"
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "10px", backgroundColor: "#807040" }}
             >
               Sign In
             </Button>
           </Form>
-          <div style={{ marginTop: "10px" }}>
+          {/* <div style={{ marginTop: "10px" }}>
             don`t have any Account ? <Link to={"/register"}>Sign Up</Link>
-          </div>
+          </div> */}
         </Col>
       </Row>
     </Container>

@@ -9,6 +9,9 @@ const getMothers = async (req, res) => {
   try {
     const mothers = await Mother.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             السنة: "$السنة",

@@ -9,4 +9,8 @@ router
   )
   .get(categoryController.getCategories);
 router.route("/:id").delete(categoryController.deleteCategory);
+router
+  .route("/:title")
+  .put(categoryController.editCategory)
+  .get(categoryController.getCategoryByTitle);
 module.exports = router;

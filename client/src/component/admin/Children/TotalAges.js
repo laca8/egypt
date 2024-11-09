@@ -86,7 +86,7 @@ const TotalAges = () => {
             style={{ marginRight: "10px" }}
           >
             <a
-              href={`${API_CSV}/population/${json}`}
+              href={`/population/${json}`}
               download={json}
               target="_self"
               rel="noopener noreferrer"

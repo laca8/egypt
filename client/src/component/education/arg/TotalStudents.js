@@ -127,35 +127,49 @@ const TotalStudents = () => {
         <Error error={error} />
       ) : students ? (
         <>
-          <Typography variant="p">
-            The total number of students in agriculture school in egypt
-            2017,2018,2019,2020,2021,2022 with division urban and rural,
-            governmental and private , boys and girls
+          <Typography
+            variant="h4"
+            style={{
+              margin: "10px auto",
+              textAlign: "center",
+              backgroundColor: "#496580",
+              color: "#fff",
+              width: "600px",
+              borderRadius: "5px",
+              padding: "5px",
+            }}
+          >
+            الطلاب في المرحلة الثانوية الزراعي
           </Typography>
-          <div className="ag-theme-alpine" style={{ height: 500 }}>
-            <AgGridReact
-              rowData={data}
-              columnDefs={columnsDefs}
-              defaultColDef={defaultColDef}
-              rowSelection="multiple"
-              animateRows={true}
-            />
-          </div>
-          <Typography variant="h4" style={{ marginTop: "20px" }}>
-            Graphs
-          </Typography>
-          <Box sx={{ width: "100%" }}>
+
+          <Box sx={{ width: "100%", backgroundColor: "#807040" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab label="Line" {...a11yProps(0)} />
-                <Tab label="Bar" {...a11yProps(1)} />
+                <Tab
+                  label="Table"
+                  {...a11yProps(0)}
+                  style={{ color: "#fff" }}
+                />
+                <Tab label="Line" {...a11yProps(1)} style={{ color: "#fff" }} />
+                <Tab label="Bar" {...a11yProps(2)} style={{ color: "#fff" }} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
+              <div className="ag-theme-alpine" style={{ height: 500 }}>
+                <AgGridReact
+                  rowData={data}
+                  columnDefs={columnsDefs}
+                  defaultColDef={defaultColDef}
+                  rowSelection="multiple"
+                  animateRows={true}
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
               <Row>
                 <Col>
                   <Card>
@@ -177,7 +191,7 @@ const TotalStudents = () => {
                 <Col></Col>
               </Row>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={2}>
               <Row>
                 <Col>
                   <Card>

@@ -9,6 +9,9 @@ const getCouncil = async (req, res) => {
   try {
     const council = await Council.aggregate([
       {
+        $match: { النوع: { $ne: "النوع" } },
+      },
+      {
         $group: {
           _id: {
             النوع: "$النوع",

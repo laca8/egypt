@@ -11,6 +11,14 @@ import { Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/user/userAction";
+import popImg from "../../img/population.png";
+import azharImg from "../../img/azhar1.jpg";
+import childImg from "../../img/child.png";
+import cultureImg from "../../img/culture.png";
+import eduImg from "../../img/edu.png";
+import sportImg from "../../img/sport.jpg";
+import intImg from "../../img/inter.jpg";
+import healthImg from "../../img/940656.png";
 import axios from "axios";
 import Loader from "./Loader";
 const Header = () => {
@@ -39,6 +47,40 @@ const Header = () => {
     };
     fetchData();
   }, []);
+  const arr = [
+    {
+      title: "Population",
+      img: popImg,
+    },
+    {
+      title: "Children",
+      img: childImg,
+    },
+    {
+      title: "Education",
+      img: eduImg,
+    },
+    {
+      title: "Azhar",
+      img: azharImg,
+    },
+    {
+      title: "Health",
+      img: healthImg,
+    },
+    {
+      title: "Sports",
+      img: sportImg,
+    },
+    {
+      title: "Culture",
+      img: cultureImg,
+    },
+    {
+      title: "International",
+      img: intImg,
+    },
+  ];
   return (
     <Navbar style={{ backgroundColor: "#807040" }}>
       <Container>
@@ -77,9 +119,15 @@ const Header = () => {
               {load && <Loader />}
 
               <Dropdown.Menu>
+                {arr &&
+                  arr?.map((x, i) => (
+                    <Dropdown.Item key={i} href={`/${x?.title}`}>
+                      {x?.title}
+                    </Dropdown.Item>
+                  ))}
                 {data &&
                   data?.map((x, i) => (
-                    <Dropdown.Item key={i} href={`/${x?.title}`}>
+                    <Dropdown.Item key={i} href={`/sub/${x?.title}`}>
                       {x?.title}
                     </Dropdown.Item>
                   ))}
@@ -108,7 +156,6 @@ const Header = () => {
                 style={{
                   backgroundColor: "#807040",
                   border: "2px solid gray",
-                  boxShadow: "4px 4px #807040",
                 }}
                 onClick={() => navigator("/admin/categories")}
               >

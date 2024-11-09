@@ -9,6 +9,9 @@ const getTeachers = async (req, res) => {
   try {
     const teachers = await High.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             المديرية: "$المديرية",

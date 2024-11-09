@@ -10,6 +10,9 @@ const getClasses = async (req, res) => {
   try {
     const classes = await PriClass.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             السنة: "$السنة",

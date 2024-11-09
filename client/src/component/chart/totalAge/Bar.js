@@ -64,7 +64,7 @@ const ChartBar = ({ data1 }) => {
       },
       {
         label: "اناث",
-        data: arr4?.map((x) => x.total1),
+        data: arr4?.map((x) => x.total2),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },

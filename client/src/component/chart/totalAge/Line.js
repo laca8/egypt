@@ -65,7 +65,7 @@ const ChartLine = ({ data1 }) => {
       },
       {
         label: "ريف",
-        data: arr4?.map((x) => x.total1),
+        data: arr4?.map((x) => x.total2),
         borderColor: "brown",
         backgroundColor: "brown",
       },

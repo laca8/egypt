@@ -9,6 +9,9 @@ const getTeachers = async (req, res) => {
   try {
     const teachers = await PrePrimary.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             المديرية: "$المديرية",

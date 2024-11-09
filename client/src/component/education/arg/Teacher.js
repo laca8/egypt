@@ -22,7 +22,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import Box from "@mui/material/Box";
+import ChartLineSex from "../../chart/edu/teacher/ChartLineSex";
 
+import ChartBarTotal from "../../chart/edu/teacher/ChartBarTotal";
+import ChartBarSex from "../../chart/edu/teacher/ChartBarSex";
+import ChartLineTotal from "../../chart/edu/teacher/ChartLineTotal";
 import axios from "axios";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -125,18 +129,77 @@ const Teachers = () => {
         <Error error={error} />
       ) : data ? (
         <>
-          <Typography variant="p" style={{ marginTop: "20px" }}>
-            The total number of teachers
+          <Typography
+            variant="h4"
+            style={{
+              margin: "10px auto",
+              textAlign: "center",
+              backgroundColor: "#496580",
+              color: "#fff",
+              width: "600px",
+              borderRadius: "5px",
+              padding: "5px",
+            }}
+          >
+            المدرسين في المرحلة الثانوية التجارية
           </Typography>
-          <div className="ag-theme-alpine" style={{ height: 500 }}>
-            <AgGridReact
-              rowData={data}
-              columnDefs={columnsDefs}
-              defaultColDef={defaultColDef}
-              rowSelection="multiple"
-              animateRows={true}
-            />
-          </div>
+
+          <Box sx={{ width: "100%", backgroundColor: "#807040" }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab
+                  label="Table"
+                  {...a11yProps(0)}
+                  style={{ color: "#fff" }}
+                />
+                <Tab label="Line" {...a11yProps(1)} style={{ color: "#fff" }} />
+                <Tab label="Bar" {...a11yProps(2)} style={{ color: "#fff" }} />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <div className="ag-theme-alpine" style={{ height: 500 }}>
+                <AgGridReact
+                  rowData={data}
+                  columnDefs={columnsDefs}
+                  defaultColDef={defaultColDef}
+                  rowSelection="multiple"
+                  animateRows={true}
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <Row>
+                <Col>
+                  <Card>
+                    <ChartLineSex data1={data} />
+                  </Card>
+                </Col>
+                <Col>
+                  <Card>
+                    <ChartLineTotal data1={data} />
+                  </Card>
+                </Col>
+              </Row>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <Row>
+                <Col>
+                  <Card>
+                    <ChartBarSex data1={data} />
+                  </Card>
+                </Col>
+                <Col>
+                  <Card>
+                    <ChartBarTotal data1={data} />
+                  </Card>
+                </Col>
+              </Row>
+            </TabPanel>
+          </Box>
         </>
       ) : null}
     </Container>

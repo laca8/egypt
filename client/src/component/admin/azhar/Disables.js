@@ -20,6 +20,7 @@ const Disables = () => {
 
       setJson(res?.data?.url);
     };
+
     exportCsv();
   }, []);
   const handleChange2 = (e) => {
@@ -84,7 +85,7 @@ const Disables = () => {
             style={{ marginRight: "10px" }}
           >
             <a
-              href={`${API_CSV}/azhar/disabled/${json}`}
+              href={`/azhar/disabled/${json}`}
               download={json}
               target="_self"
               rel="noopener noreferrer"

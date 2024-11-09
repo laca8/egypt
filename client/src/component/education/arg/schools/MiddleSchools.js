@@ -76,54 +76,72 @@ const MiddleStudents = ({ city }) => {
         <Error />
       ) : schools ? (
         <>
-          <Typography variant="p">
-            The total number of schools in agriculture education in {city}
-          </Typography>
-          <hr style={{ width: "240px" }} />
-          <Table
-            striped
-            bordered
-            hover
+          <Typography
+            variant="h4"
             style={{
-              marginBottom: "30px",
+              margin: "10px auto",
+              textAlign: "center",
+              backgroundColor: "#496580",
+              color: "#fff",
+              width: "600px",
+              borderRadius: "5px",
+              padding: "5px",
             }}
           >
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>السنة</th>
-                <th>تعبية المدرسة</th>
-                <th>محل الاقامة</th>
-                <th>عدد المدارس</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((pop, index) => (
-                <tr key={index}>
-                  <td>{1 + index}</td>
-                  <td>{pop?._id?.السنة}</td>
-                  <td>{pop?._id?.تبعية}</td>
-                  <td>{pop?._id?.الاقامة}</td>
-                  <td>{pop?.العدد}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <Typography variant="h4" style={{ marginTop: "20px" }}>
-            Graphs
+            المدارس في المرحلة الثانوية الزراعي
           </Typography>
-          <Box sx={{ width: "100%" }}>
+
+          <Box sx={{ width: "100%", backgroundColor: "#807040" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab label="Line" {...a11yProps(0)} />
-                <Tab label="Bar" {...a11yProps(1)} />
+                <Tab
+                  label="Table"
+                  {...a11yProps(0)}
+                  style={{ color: "#fff" }}
+                />
+                <Tab label="Line" {...a11yProps(1)} style={{ color: "#fff" }} />
+                <Tab label="Bar" {...a11yProps(2)} style={{ color: "#fff" }} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
+              <Table
+                striped
+                bordered
+                hover
+                style={{
+                  marginBottom: "30px",
+                  marginTop: "20px",
+                  height: "100px",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>السنة</th>
+                    <th>تبعية المدرسة</th>
+                    <th>محل الاقامة</th>
+                    <th>عدد المدارس</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((pop, index) => (
+                    <tr key={index}>
+                      <td>{1 + index}</td>
+                      <td>{pop?._id?.السنة}</td>
+                      <td>{pop?._id?.تبعية}</td>
+                      <td>{pop?._id?.الاقامة}</td>
+                      <td>{pop?.العدد}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
               <Row>
                 <Col>
                   <Card>
@@ -137,7 +155,7 @@ const MiddleStudents = ({ city }) => {
                 </Col>
               </Row>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={2}>
               <Row style={{ marginTop: "10px" }}>
                 <Col>
                   <Card>

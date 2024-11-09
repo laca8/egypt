@@ -9,6 +9,9 @@ const getSchools = async (req, res) => {
   try {
     const schools = await Hotel.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             السنة: "$السنة",

@@ -84,7 +84,7 @@ const Teachers = () => {
             style={{ marginRight: "10px" }}
           >
             <a
-              href={`${API_CSV}/azhar/Teachers/${json}`}
+              href={`/azhar/Teachers/${json}`}
               download={json}
               target="_self"
               rel="noopener noreferrer"

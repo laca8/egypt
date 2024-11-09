@@ -83,13 +83,14 @@ const Cinema = () => {
             style={{ marginRight: "10px" }}
           >
             <a
-              href={`${API_CSV}/culture/${json}`}
+              href={`/culture/${json}`}
               download={json}
               target="_self"
               rel="noopener noreferrer"
               style={{ color: "#fff" }}
             >
-              Download
+              {json ? "Download" : <Loader />}
+            
             </a>
           </ButtonMaterial>
           <ButtonMaterial variant="contained" component="label">

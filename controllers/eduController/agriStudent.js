@@ -9,6 +9,9 @@ const getStudents = async (req, res) => {
   try {
     const students = await AgrStudent.aggregate([
       {
+        $match: { السنة: { $ne: "السنة" } },
+      },
+      {
         $group: {
           _id: {
             النوع: "$النوع",
