@@ -60,69 +60,111 @@ const editCategory = async (req, res) => {
     }
 
     const results = [];
+    const workbook = xlsx.readFile(req.file.path, {
+      // Enable full Unicode support for Arabic characters
+      codepage: 65001,
+      raw: true,
+    });
 
-    // Create a readable stream for the CSV file
-    fs.createReadStream(req.file.path)
-      .pipe(
-        csv({
-          // Configure CSV parser to handle Arabic content
-          encoding: "utf-8",
-          bom: true,
-          trim: true,
-          columns: true,
-        })
-      )
-      .on("data", (data) => {
-        results.push(data);
-      })
-      .on("end", async () => {
-        try {
-          console.log(results);
-          fs.unlinkSync(req.file.path);
+    // Get the first worksheet
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
 
-          // Import data to MongoDB
-          if (category) {
-            const res = await Category.findOneAndUpdate(
-              {
-                title: req.params.title,
-              },
-              {
-                $push: {
-                  subs: {
-                    id: Math.random()
-                      .toString(36)
-                      .replace(/[^a-z]+/g, "")
-                      .substr(2, 10),
-                    title: req.body.title,
-                    results: results,
-                  },
-                },
-              },
-              {
-                new: true,
-              }
-            );
-          }
-          res.status(200).json("success");
+    // Convert worksheet to JSON
+    // The defval option ensures empty cells are handled properly
+    const jsonData = xlsx.utils.sheet_to_json(worksheet, {
+      defval: null,
+      raw: false,
+    });
+    console.log(jsonData.length);
+    fs.unlinkSync(req.file.path);
 
-          // Clean up: delete the uploaded file
-        } catch (error) {
-          console.log(error);
-
-          res.status(500).json({
-            error: "Import failed",
-            details: error.message,
-          });
+    //       // Import data to MongoDB
+    if (category) {
+      const res = await Category.findOneAndUpdate(
+        {
+          title: req.params.title,
+        },
+        {
+          $push: {
+            subs: {
+              id: Math.random()
+                .toString(36)
+                .replace(/[^a-z]+/g, "")
+                .substr(2, 10),
+              title: req.body.title,
+              results: jsonData,
+            },
+          },
+        },
+        {
+          new: true,
         }
-      })
-      .on("error", (error) => {
-        console.log(error);
+      );
+    }
+    res.status(200).json("success");
+    // Create a readable stream for the CSV file
+    // fs.createReadStream(req.file.path)
+    //   .pipe(
+    //     csv({
+    //       // Configure CSV parser to handle Arabic content
+    //       encoding: "utf-8",
+    //       bom: true,
+    //       trim: true,
+    //       columns: true,
+    //     })
+    //   )
+    //   .on("data", (data) => {
+    //     results.push(data);
+    //   })
+    //   .on("end", async () => {
+    //     try {
+    //       console.log(results);
+    //       fs.unlinkSync(req.file.path);
 
-        res.status(500).json({
-          error: "CSV parsing failed",
-          details: error.message,
-        });
-      });
+    //       // Import data to MongoDB
+    //       if (category) {
+    //         const res = await Category.findOneAndUpdate(
+    //           {
+    //             title: req.params.title,
+    //           },
+    //           {
+    //             $push: {
+    //               subs: {
+    //                 id: Math.random()
+    //                   .toString(36)
+    //                   .replace(/[^a-z]+/g, "")
+    //                   .substr(2, 10),
+    //                 title: req.body.title,
+    //                 results: results,
+    //               },
+    //             },
+    //           },
+    //           {
+    //             new: true,
+    //           }
+    //         );
+    //       }
+    //       res.status(200).json("success");
+
+    //       // Clean up: delete the uploaded file
+    //     } catch (error) {
+    //       console.log(error);
+
+    //       res.status(500).json({
+    //         error: "Import failed",
+    //         details: error.message,
+    //       });
+    //     }
+    //   })
+    //   .on("error", (error) => {
+    //     console.log(error);
+
+    //     res.status(500).json({
+    //       error: "CSV parsing failed",
+    //       details: error.message,
+    //     });
+    //   });
 
     // Clean up: delete uploaded file
   } catch (err) {

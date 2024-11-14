@@ -19,6 +19,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import * as XLSX from "xlsx";
 import {
   MDBCard,
   MDBCardBody,
@@ -131,22 +132,42 @@ const SubCategory = () => {
       console.error("Upload error:", error);
     }
   };
-  const exportCsv = () => {
+  const exportCsv = ({ data = [""], filename = "download.xlsx" }) => {
     console.log("csv");
 
-    const csvContent = [""].join(",") + "\n";
+    // Create a new workbook
+    const workbook = XLSX.utils.book_new();
 
-    const blob = new Blob(["\uFEFF"], {
-      type: "text/csv; charset=utf-8",
+    // Convert data to worksheet
+    const worksheet = XLSX.utils.json_to_sheet(data);
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+    // Generate Excel file buffer
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
     });
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
 
-    link.setAttribute("href", url);
-    link.setAttribute("download", "data.csv");
+    // Create Blob from buffer
+    const blob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+
+    // Create download link
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", filename);
+
+    // Trigger download
     document.body.appendChild(link);
     link.click();
+
+    // Cleanup
     document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
   };
   const removeSub = async (i, x) => {
     setLoad(true);
