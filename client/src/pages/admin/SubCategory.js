@@ -38,7 +38,6 @@ import {
   MDBFile,
 } from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
-import { CSVLink } from "react-csv";
 
 const SubCategory = () => {
   const { category } = useParams();
