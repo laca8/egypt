@@ -14,39 +14,22 @@ import Loader from "../../../component/features/Loader";
 import { storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ButtonMaterial from "@mui/material/Button";
-import { addStudentsAgriAction } from "../../../redux/actions/educationsAction/education";
+import {
+  addStudentsAgriAction,
+  studentsArg,
+} from "../../../redux/actions/educationsAction/education";
 const Students = () => {
-  const cities = [
-    "القاهرة",
-    "الجيزة",
-    "الاسكندرية",
-    "الدقهلية",
-    "البحر الاحمر",
-    "البحيرة",
-    "الفيوم",
-    "الغربية",
-    "الاسماعيلية",
-    "المنوفية",
-    "المنيا",
-    "القليوبية",
-    "الوادي الجديد",
-    "السويس",
-    "اسوان",
-    "اسيوط",
-    "بني سويف",
-    "بورسعيد",
-    "دمياط",
-    "الشرقية",
-    "جنوب سيناء",
-    "كفر الشيخ",
-    "مطروح",
-    "الأقصر",
-    "قنا",
-    "شمال سيناء",
-    "سوهاج",
-  ];
   const [city, setCity] = useState("Egypt");
   const [total, setTotal] = useState(true);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(studentsArg());
+  }, []);
+  const listPreStuReducer = useSelector((state) => state.listPreStuReducer);
+  const { students, error, loading } = listPreStuReducer;
+
+  const cities = [...new Set(students?.map((x) => x?._id?.المديرية))];
+
   useEffect(() => {
     if (city == "Egypt") {
       setTotal(true);
@@ -57,28 +40,6 @@ const Students = () => {
   const [json, setJson] = useState("");
   const [err, setErr] = useState("");
   const [load, setLoad] = useState(false);
-  const dispatch = useDispatch();
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
-    if (file.size > 20000000) {
-      setErr("file size must less than 20MB");
-    } else {
-      setLoad(true);
-      const dataRef = ref(storage, `/files/${file.name}`);
-      uploadBytes(dataRef, file).then(() => {
-        getDownloadURL(dataRef).then((url) => {
-          setLoad(true);
-          console.log(url);
-          if (url) {
-            setLoad(false);
-            setJson(url);
-            console.log(file);
-            setLoad(false);
-          }
-        });
-      });
-    }
-  };
 
   const addStudentsReducer = useSelector((state) => state.addStudentsReducer);
   const { loading: loadingAdd, error: errorAdd, success } = addStudentsReducer;

@@ -709,6 +709,8 @@ const Education = () => {
         </Col>
       </Row>
       <Row style={{ marginTop: "10px", height: "200px" }}>
+        <Col></Col>
+        <Col></Col>
         <Col>
           <Card
             style={{
@@ -784,7 +786,7 @@ const Education = () => {
             </Link>
           </Card>
         </Col>
-        <Col>
+        {/* <Col>
           <Card
             style={{
               padding: "10px",
@@ -828,8 +830,8 @@ const Education = () => {
               عدد المدرسين لكل طالب / حضر ريف / خاصة حكومي
             </Link>
           </Card>
-        </Col>
-        <Col>
+        </Col> */}
+        {/* <Col>
           <Card
             style={{
               padding: "10px",
@@ -888,7 +890,7 @@ const Education = () => {
               نصيب المدرس من الطلاب
             </Link>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
     </Container>
   );

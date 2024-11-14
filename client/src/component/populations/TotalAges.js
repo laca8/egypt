@@ -114,7 +114,7 @@ const TotalAges = () => {
     // },
   ];
   return (
-    <div style={{ marginTop: "40px" }}>
+    <div style={{ marginTop: "10px" }}>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -125,7 +125,7 @@ const TotalAges = () => {
             <Typography
               variant="h4"
               style={{
-                margin: "10px auto",
+                margin: "0 auto 10px",
                 textAlign: "center",
                 backgroundColor: "#496580",
                 color: "#fff",

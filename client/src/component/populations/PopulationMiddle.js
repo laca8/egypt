@@ -114,11 +114,11 @@ const PopulationMiddle = ({ city }) => {
         <Error />
       ) : popMiddle ? (
         <>
-          <Row style={{ marginTop: "40px" }}>
+          <Row style={{ marginTop: "10px" }}>
             <Typography
               variant="h4"
               style={{
-                margin: "10px auto",
+                margin: "0 auto 10px",
                 textAlign: "center",
                 backgroundColor: "#496580",
                 color: "#fff",

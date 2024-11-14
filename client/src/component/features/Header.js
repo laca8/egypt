@@ -49,36 +49,44 @@ const Header = () => {
   }, []);
   const arr = [
     {
-      title: "Population",
+      title: "السكان",
       img: popImg,
+      url: "population",
     },
     {
-      title: "Children",
+      title: "الاطفال",
       img: childImg,
+      url: "children",
     },
     {
-      title: "Education",
+      title: "التعليم",
       img: eduImg,
+      url: "education",
     },
     {
-      title: "Azhar",
+      title: "الازهر",
       img: azharImg,
+      url: "azhar",
     },
     {
-      title: "Health",
+      title: "الصحة",
       img: healthImg,
+      url: "health",
     },
     {
-      title: "Sports",
+      title: "الرياضة",
       img: sportImg,
+      url: "sport",
     },
     {
-      title: "Culture",
+      title: "الثقافة",
       img: cultureImg,
+      url: "culture",
     },
     {
       title: "International",
       img: intImg,
+      url: "International",
     },
   ];
   return (
@@ -121,7 +129,7 @@ const Header = () => {
               <Dropdown.Menu>
                 {arr &&
                   arr?.map((x, i) => (
-                    <Dropdown.Item key={i} href={`/${x?.title}`}>
+                    <Dropdown.Item key={i} href={`/${x?.url}`}>
                       {x?.title}
                     </Dropdown.Item>
                   ))}

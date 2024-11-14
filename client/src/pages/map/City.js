@@ -133,11 +133,11 @@ const City = () => {
               <Tab label="Bar" {...a11yProps(1)} style={{ color: "#fff" }} />
               <Tab label="Pie" {...a11yProps(2)} style={{ color: "#fff" }} />
               <Tab label="Area" {...a11yProps(3)} style={{ color: "#fff" }} />
-              <Tab
+              {/* <Tab
                 label="Pyramid"
                 {...a11yProps(4)}
                 style={{ color: "#fff" }}
-              />
+              /> */}
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>

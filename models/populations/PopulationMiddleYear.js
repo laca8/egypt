@@ -9,7 +9,7 @@ const populationMiddleYearSchema = new mongoose.Schema({
   الشهر: {
     type: String,
   },
-  النوع: {
+  "محل الإقامة": {
     type: String,
   },
   العدد: {

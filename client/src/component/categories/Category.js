@@ -13,6 +13,7 @@ import healthImg from "../../img/940656.png";
 import axios from "axios";
 import Loader from "../features/Loader";
 import GoogleMap from "../map/GoogleMap";
+import Map2 from "../map/Map2";
 const Category = () => {
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
@@ -35,36 +36,44 @@ const Category = () => {
   }, []);
   const arr = [
     {
-      title: "Population",
+      title: "السكان",
       img: popImg,
+      url: "population",
     },
     {
-      title: "Children",
+      title: "الاطفال",
       img: childImg,
+      url: "children",
     },
     {
-      title: "Education",
+      title: "التعليم",
       img: eduImg,
+      url: "education",
     },
     {
-      title: "Azhar",
+      title: "الازهر",
       img: azharImg,
+      url: "azhar",
     },
     {
-      title: "Health",
+      title: "الصحة",
       img: healthImg,
+      url: "health",
     },
     {
-      title: "Sports",
+      title: "الرياضة",
       img: sportImg,
+      url: "sport",
     },
     {
-      title: "Culture",
+      title: "الثقافة",
       img: cultureImg,
+      url: "culture",
     },
     {
       title: "International",
       img: intImg,
+      url: "International",
     },
   ];
 
@@ -104,29 +113,30 @@ const Category = () => {
                             justifyContent: "space-between",
 
                             alignItems: "center",
-                            gap: "5px",
+                            gap: "4px",
                           }}
                         >
                           <Link
-                            to={`/${x?.title}`}
+                            to={`/${x?.url}`}
                             style={{
                               color: "#496580",
                               border: "2px solid #496580",
-                              padding: "5px",
-                              fontSize: "15px",
+                              padding: "2px",
+                              fontSize: "14px",
                               borderRadius: "10px",
                               fontWeight: "bold",
-                              width: "160px",
+                              width: "90px",
+                              textAlign: "center",
                             }}
                           >
-                            Click to view this theme
+                            Click to view
                           </Link>
 
                           <img
                             src={x?.img}
                             style={{
-                              width: "80px",
-                              height: "60px",
+                              width: "50px",
+                              height: "40px",
                               border: "2px solid #807040",
 
                               borderRadius: "50%",
@@ -173,21 +183,22 @@ const Category = () => {
                             style={{
                               color: "#496580",
                               border: "2px solid #496580",
-                              padding: "5px",
-                              fontSize: "15px",
+                              padding: "2px",
+                              fontSize: "14px",
                               borderRadius: "10px",
                               fontWeight: "bold",
-                              width: "160px",
+                              width: "90px",
+                              textAlign: "center",
                             }}
                           >
-                            Click to view this theme
+                            Click to view
                           </Link>
 
                           <img
                             src={x?.image}
                             style={{
-                              width: "80px",
-                              height: "60px",
+                              width: "50px",
+                              height: "40px",
                               border: "2px solid #807040",
 
                               borderRadius: "50%",

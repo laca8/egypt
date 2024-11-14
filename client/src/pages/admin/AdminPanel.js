@@ -27,7 +27,7 @@ const AdminPanel = () => {
 
   const arrCategories = [
     {
-      category: "Azhar",
+      category: "الازهر",
       component: <Azhar />,
     },
     {
@@ -35,27 +35,27 @@ const AdminPanel = () => {
       component: <Category />,
     },
     {
-      category: "Health",
+      category: "الصحة",
       component: <Health />,
     },
     {
-      category: "Education",
+      category: "التعليم",
       component: <Education />,
     },
     {
-      category: "Culture",
+      category: "الثقافة",
       component: <Culture />,
     },
     {
-      category: "Sports",
+      category: "الرياضة",
       component: <Sport />,
     },
     {
-      category: "Population",
+      category: "السكان",
       component: <Population />,
     },
     {
-      category: "Children",
+      category: "الاطفال",
       component: <Children />,
     },
     {

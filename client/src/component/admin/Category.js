@@ -93,7 +93,7 @@ const Category = () => {
 
   return (
     <div style={{ marginTop: "35px", width: "95%" }}>
-      <MDBBtn onClick={toggleOpen} style={{ marginBottom: "10px" }}>
+      <MDBBtn onClick={toggleOpen} style={{ backgroundColor: "#708040" }}>
         Add New Category
       </MDBBtn>
       <MDBModal
@@ -124,7 +124,12 @@ const Category = () => {
             </MDBModalBody>
 
             <MDBModalFooter>
-              <MDBBtn onClick={() => handleSubmit()}>Save</MDBBtn>
+              <MDBBtn
+                onClick={() => handleSubmit()}
+                style={{ backgroundColor: "#708040" }}
+              >
+                save
+              </MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
@@ -144,7 +149,7 @@ const Category = () => {
           >
             <thead style={{ backgroundColor: "#111", color: "#fff" }}>
               <tr>
-                <th>num</th>
+                <th>#</th>
                 <th>Title</th>
                 <th>Image</th>
                 <th>Action</th>

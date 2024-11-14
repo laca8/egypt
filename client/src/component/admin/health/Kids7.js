@@ -13,15 +13,6 @@ const Kids7 = () => {
   const [load, setLoad] = useState(false);
   const API_URI = "/api/health/death/kids/under7days/export/csv";
   const API_CSV = "http://localhost:5000";
-  useEffect(() => {
-    const exportCsv = async () => {
-      const res = await axios.get(API_URI);
-      console.log(res);
-
-      setJson(res?.data?.url);
-    };
-    exportCsv();
-  }, []);
   const handleChange2 = (e) => {
     setFile(e.target.files[0]);
   };
@@ -37,14 +28,13 @@ const Kids7 = () => {
     formData.append("file", file);
     setLoad(true);
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/health/death/kids/under7days",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      if (response?.status == 201) {
+      const response = await fetch("/api/health/death/kids/under7days", {
+        method: "POST",
+        body: formData,
+      });
+      console.log(response);
+
+      if (response?.status == 200 || response?.statusText == "OK") {
         setLoad(false);
         alert("upload success");
       }
@@ -53,6 +43,40 @@ const Kids7 = () => {
 
       setErr("Error uploading file");
       console.error("Upload error:", error);
+    }
+  };
+  const handleExport = async () => {
+    try {
+      setLoad(true);
+      setErr("");
+
+      const response = await fetch(API_URI);
+
+      if (!response.ok) {
+        throw new Error("Export failed");
+      }
+
+      // Get the blob from the response
+      const blob = await response.blob();
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "data.csv";
+
+      // Trigger download
+      document.body.appendChild(a);
+      a.click();
+
+      // Cleanup
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      setErr("Failed to export data. Please try again.");
+      console.error("Export error:", err);
+    } finally {
+      setLoad(false);
     }
   };
   return (
@@ -83,19 +107,16 @@ const Kids7 = () => {
           <ButtonMaterial
             variant="contained"
             component="label"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "10px", backgroundColor: "#407080" }}
+            onClick={handleExport}
           >
-            <a
-              href={`${API_CSV}/health/kids_7days/${json}`}
-              download={json}
-              target="_self"
-              rel="noopener noreferrer"
-              style={{ color: "#fff" }}
-            >
-              Download
-            </a>
+            {load ? "Exporting..." : "Export to CSV"}
           </ButtonMaterial>
-          <ButtonMaterial variant="contained" component="label">
+          <ButtonMaterial
+            variant="contained"
+            component="label"
+            style={{ backgroundColor: "#708040" }}
+          >
             <UploadFileIcon />
             <input hidden onChange={handleChange2} type="file" />
           </ButtonMaterial>
@@ -105,7 +126,7 @@ const Kids7 = () => {
             disabled={load || file == ""}
             style={{ marginLeft: "10px" }}
           >
-            import
+            save
           </ButtonMaterial>
         </div>
       )}

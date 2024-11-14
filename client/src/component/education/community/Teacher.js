@@ -97,13 +97,14 @@ const Teachers = () => {
       field: "_id.السنة",
       sortable: true,
       filter: true,
+      width: 350,
     },
     {
       headerName: "النوع",
       field: "_id.النوع",
       sortable: true,
       filter: true,
-      width: 300,
+      width: 350,
     },
     {
       headerName: "العدد",

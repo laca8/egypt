@@ -14,39 +14,20 @@ import Loader from "../../../component/features/Loader";
 import { storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ButtonMaterial from "@mui/material/Button";
-import { addStudentsPrimaryAction } from "../../../redux/actions/educationsAction/education";
+import {
+  addStudentsPrimaryAction,
+  studentsArg,
+} from "../../../redux/actions/educationsAction/education";
 const Students = () => {
-  const cities = [
-    "القاهرة",
-    "الجيزة",
-    "الاسكندرية",
-    "الدقهلية",
-    "البحر الاحمر",
-    "البحيرة",
-    "الفيوم",
-    "الغربية",
-    "الاسماعيلية",
-    "المنوفية",
-    "المنيا",
-    "القليوبية",
-    "الوادي الجديد",
-    "السويس",
-    "اسوان",
-    "اسيوط",
-    "بني سويف",
-    "بورسعيد",
-    "دمياط",
-    "الشرقية",
-    "جنوب سيناء",
-    "كفر الشيخ",
-    "مطروح",
-    "الأقصر",
-    "قنا",
-    "شمال سيناء",
-    "سوهاج",
-  ];
   const [city, setCity] = useState("Egypt");
   const [total, setTotal] = useState(true);
+  useEffect(() => {
+    dispatch(studentsArg());
+  }, []);
+  const listPreStuReducer = useSelector((state) => state.listPreStuReducer);
+  const { students, error, loading } = listPreStuReducer;
+
+  const cities = [...new Set(students?.map((x) => x?._id?.المديرية))];
   useEffect(() => {
     if (city == "Egypt") {
       setTotal(true);

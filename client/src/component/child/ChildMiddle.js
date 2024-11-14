@@ -146,7 +146,7 @@ const ChildMiddle = ({ city }) => {
             <Typography
               variant="h4"
               style={{
-                margin: "0px auto",
+                margin: "10px auto",
                 textAlign: "center",
                 backgroundColor: "#496580",
                 color: "#fff",

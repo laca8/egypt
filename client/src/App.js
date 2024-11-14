@@ -103,8 +103,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/register" element={<Register />} /> */}
-        <Route path="/Population" element={<Populations />} />
-        <Route path="/Education" element={<Education />} />
+        <Route path="/population" element={<Populations />} />
+        <Route path="/education" element={<Education />} />
         <Route path="/pre-primary/students" element={<Students />} />
         <Route path="/primary/students" element={<StudentsPrimary />} />
         <Route path="/secondary/students" element={<StudentsSecondary />} />
@@ -134,7 +134,7 @@ function App() {
         <Route path="/community/classes" element={<ClasseCommunity />} />
         <Route path="/special/classes" element={<ClasseSpecial />} />
         <Route path="/special/schools" element={<SchoolSpecial />} />
-        <Route path="/Children" element={<Child />} />
+        <Route path="/children" element={<Child />} />
         <Route path="/azhar/primary" element={<PrimaryAzhar />} />
         <Route path="/azhar/secondary" element={<SecondaryAzhar />} />
         <Route path="/azhar/high" element={<HighAzhar />} />
@@ -163,9 +163,9 @@ function App() {
         <Route path="/edu/precentage/classes" element={<PrecentageClasses />} />
         <Route path="/edu/precentage/schools" element={<PrecentageSchools />} />
 
-        <Route path="/Azhar" element={<Azhar />} />
-        <Route path="/Culture" element={<Culture />} />
-        <Route path="/Health" element={<Health />} />
+        <Route path="/azhar" element={<Azhar />} />
+        <Route path="/culture" element={<Culture />} />
+        <Route path="/health" element={<Health />} />
         <Route
           path="/health/death/childs-under-28"
           element={<ChildsUnder28Days />}
@@ -202,7 +202,7 @@ function App() {
         <Route path="/international/dhs" element={<DHS />} />
         <Route path="/international/world/bank" element={<Bank />} />
         <Route path="/international/un" element={<Un />} />
-        <Route path="/Sports" element={<Sport />} />
+        <Route path="/sport" element={<Sport />} />
         <Route path="/map/:gov" element={<City />} />
         <Route path="/sub/:category" element={<CategoryDescription />} />
 

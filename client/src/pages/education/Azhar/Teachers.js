@@ -6,14 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ListGroup from "react-bootstrap/ListGroup";
 
-import TotalStudents from "../../../component/education/azhar/TotalTeachers";
+import TotalTeachers from "../../../component/education/azhar/TotalTeachers";
 const Students = () => {
   return (
-    <Container style={{ marginTop: "20px" }}>
-      <Alert variant="secondary" style={{ width: "300px" }}>
-        Note: Click To Filter,Sort
-      </Alert>
-      <TotalStudents />
+    <Container style={{ marginTop: "10px" }}>
+      <TotalTeachers />
     </Container>
   );
 };

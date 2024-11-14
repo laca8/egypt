@@ -14,39 +14,21 @@ import Loader from "../../../component/features/Loader";
 import { storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ButtonMaterial from "@mui/material/Button";
-import { addSchoolCommunityAction } from "../../../redux/actions/educationsAction/education";
+import {
+  addSchoolCommunityAction,
+  schoolAgri,
+} from "../../../redux/actions/educationsAction/education";
 const Classes = () => {
-  const cities = [
-    "القاهرة",
-    "الجيزة",
-    "الاسكندرية",
-    "الدقهلية",
-    "البحر الاحمر",
-    "البحيرة",
-    "الفيوم",
-    "الغربية",
-    "الاسماعيلية",
-    "المنوفية",
-    "المنيا",
-    "القليوبية",
-    "الوادي الجديد",
-    "السويس",
-    "اسوان",
-    "اسيوط",
-    "بني سويف",
-    "بورسعيد",
-    "دمياط",
-    "الشرقية",
-    "جنوب سيناء",
-    "كفر الشيخ",
-    "مطروح",
-    "الأقصر",
-    "قنا",
-    "شمال سيناء",
-    "سوهاج",
-  ];
+  const dispatch = useDispatch();
   const [city, setCity] = useState("Egypt");
   const [total, setTotal] = useState(true);
+  useEffect(() => {
+    dispatch(schoolAgri());
+  }, []);
+  const listSchoolReducer = useSelector((state) => state.listSchoolReducer);
+  const { schools, error, loading } = listSchoolReducer;
+  const cities = [...new Set(schools?.map((x) => x?._id?.المديرية))];
+
   useEffect(() => {
     if (city == "Egypt") {
       setTotal(true);

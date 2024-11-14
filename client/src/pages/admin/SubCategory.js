@@ -38,122 +38,27 @@ import {
   MDBFile,
 } from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
+import { CSVLink } from "react-csv";
+
 const SubCategory = () => {
   const { category } = useParams();
+  const [file, setFile] = useState("");
+
+  const API_URI = "/api/edu/azhar/classes/export/csv";
   const [load, setLoad] = useState(false);
   const [err, setErr] = useState("");
   const [subData, setSubData] = useState([]);
+  const [title, setTitle] = useState("");
   const [tables, setTables] = useState([
     {
       id: 1,
-      rows: 0,
-      cols: 0,
-      data: Array(0)
+      rows: 2,
+      cols: 2,
+      data: Array(2)
         .fill()
-        .map(() => Array(0).fill("")),
+        .map(() => Array(2).fill("")),
     },
   ]);
-
-  const addTable = () => {
-    setTables([
-      ...tables,
-      {
-        id: tables.length + 1,
-        rows: 2,
-        cols: 2,
-        data: Array(2)
-          .fill()
-          .map(() => Array(2).fill("")),
-      },
-    ]);
-    console.log(tables);
-  };
-
-  const removeTable = (tableId) => {
-    setTables(tables.filter((table) => table.id !== tableId));
-  };
-
-  const addRow = (tableId) => {
-    setTables(
-      tables.map((table) => {
-        if (table.id === tableId) {
-          const newData = [...table.data];
-          newData.push(Array(table.cols).fill(""));
-          return {
-            ...table,
-            rows: table.rows + 1,
-            data: newData,
-          };
-        }
-        return table;
-      })
-    );
-  };
-
-  const removeRow = (tableId) => {
-    setTables(
-      tables.map((table) => {
-        if (table.id === tableId && table.rows > 1) {
-          const newData = table.data.slice(0, -1);
-          return {
-            ...table,
-            rows: table.rows - 1,
-            data: newData,
-          };
-        }
-        return table;
-      })
-    );
-  };
-
-  const addColumn = (tableId) => {
-    setTables(
-      tables.map((table) => {
-        if (table.id === tableId) {
-          const newData = table.data.map((row) => [...row, ""]);
-          return {
-            ...table,
-            cols: table.cols + 1,
-            data: newData,
-          };
-        }
-        return table;
-      })
-    );
-  };
-
-  const removeColumn = (tableId) => {
-    setTables(
-      tables.map((table) => {
-        if (table.id === tableId && table.cols > 1) {
-          const newData = table.data.map((row) => row.slice(0, -1));
-          return {
-            ...table,
-            cols: table.cols - 1,
-            data: newData,
-          };
-        }
-        return table;
-      })
-    );
-  };
-
-  const handleCellChange = (tableId, rowIndex, colIndex, value) => {
-    setTables(
-      tables.map((table) => {
-        if (table.id === tableId) {
-          const newData = [...table.data];
-          newData[rowIndex][colIndex] = value;
-          return {
-            ...table,
-            data: newData,
-          };
-        }
-        return table;
-      })
-    );
-  };
-
   function arrayToObjects(nestedArray) {
     // Extract headers from first row
     const headers = nestedArray[0];
@@ -169,33 +74,6 @@ const SubCategory = () => {
 
     return result;
   }
-  const saveData = async () => {
-    setLoad(true);
-    const headers = tables.map((x) => x.data[0]);
-    //console.log(headers);
-    console.log(tables);
-
-    const data = tables.map((x) => x.data.map((y) => y));
-    console.log(data);
-    if (tables[0].data.length != 0) {
-      data.map((x, i) => {
-        subData.push(arrayToObjects(data[i]));
-        console.log(subData);
-      });
-    }
-    try {
-      const res = await axios.put(`/api/category/${category}`, {
-        subs: subData,
-      });
-      console.log(res);
-      //alert("تم اضافة الجداول....");
-      window.location.reload();
-      setLoad(false);
-    } catch (error) {
-      setLoad(false);
-      setErr(error.response.data.msg);
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -211,12 +89,78 @@ const SubCategory = () => {
     };
     fetchData();
   }, [category]);
-  const removeSub = (i, x) => {
+
+  const handleChange2 = (e) => {
+    setFile(e.target.files[0]);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!file) {
+      setErr("Please select a file");
+      return;
+    }
+
+    const data = tables.map((x) => x.data.map((y) => y));
+    console.log(data);
+    if (tables[0].data.length != 0) {
+      data.map((x, i) => {
+        subData.push(arrayToObjects(data[i]));
+        console.log(subData);
+      });
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("title", title);
+    setLoad(true);
+    try {
+      const response = await fetch(`/api/category/${category}`, {
+        method: "PUT",
+        body: formData,
+      });
+      console.log(response);
+
+      if (response?.status == 200 || response?.statusText == "OK") {
+        setLoad(false);
+        alert("upload success");
+      }
+    } catch (error) {
+      setLoad(false);
+
+      setErr("Error uploading file");
+      console.error("Upload error:", error);
+    }
+  };
+  const exportCsv = () => {
+    console.log("csv");
+
+    const csvContent = [""].join(",") + "\n";
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute("href", url);
+    link.setAttribute("download", "data.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  const removeSub = async (i, x) => {
+    setLoad(true);
     console.log(i);
-    //console.log(x);
-    setSubData(subData.filter((item, index) => i !== index));
-    //saveData();
-    // console.log(subData);
+    console.log(x);
+    try {
+      const res = await axios.put(`/api/category/delete/${category}/${x}`);
+      console.log(res);
+      window.location.reload();
+      alert("تم حذف الجدول");
+      setLoad(false);
+    } catch (err) {
+      setLoad(false);
+      console.log(err);
+      setErr("Error  delete table");
+    }
   };
   return (
     <div>
@@ -263,14 +207,14 @@ const SubCategory = () => {
                       {subData?.map((x, index) => (
                         <div
                           style={{
-                            maxWidth: "800px",
+                            maxWidth: "700px",
                             maxHeight: "600px",
                             overflowX: "auto",
                             overflowY: "auto",
                           }}
                         >
                           <Button
-                            onClick={() => removeSub(index, x)}
+                            onClick={() => removeSub(index, x.id)}
                             variant="danger"
                             className="mb-2"
                           >
@@ -286,7 +230,9 @@ const SubCategory = () => {
                               <tr>
                                 {[
                                   ...new Set(
-                                    [].concat(...x?.map((e) => Object.keys(e)))
+                                    []?.concat(
+                                      ...x?.results?.map((e) => Object.keys(e))
+                                    )
                                   ),
                                 ]?.map((val, index) => (
                                   <th scope="col" key={index}>
@@ -296,9 +242,9 @@ const SubCategory = () => {
                               </tr>
                             </MDBTableHead>
                             <MDBTableBody>
-                              {x?.map((obj, i) => (
+                              {x?.results?.map((obj, i) => (
                                 <tr>
-                                  {Object.getOwnPropertyNames(obj).map(
+                                  {Object.getOwnPropertyNames(obj)?.map(
                                     (val, idx, array) => (
                                       <td>{obj[val]}</td>
                                     )
@@ -312,35 +258,11 @@ const SubCategory = () => {
                     </div>
                   </AccordionDetails>
                 </Accordion>
-
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Button
-                    onClick={addTable}
-                    className="flex items-center gap-2 mb-2"
-                    style={{ backgroundColor: "#807040" }}
-                  >
-                    اضافة جدول
-                    <PlusCircle className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    onClick={() => saveData()}
-                    className="flex items-center gap-2 mb-2"
-                    style={{ backgroundColor: "#496580", fontWeight: "bold" }}
-                  >
-                    حفظ
-                  </Button>
-                </div>
               </div>
 
-              {tables.map((table) => (
+              {tables?.map((table) => (
                 <div
-                  key={table.id}
+                  key={table?.id}
                   className="rounded-lg p-4 bg-white shadow-md mb-2"
                   style={{
                     border: "2px solid #807040",
@@ -349,94 +271,79 @@ const SubCategory = () => {
                     overflowX: "auto",
                   }}
                 >
-                  <div className="flex justify-between items-center ">
-                    <h3
-                      className="text-lg font-semibold m-auto p-2 text-black "
-                      style={{
-                        border: "2px solid #496580",
-                        width: "100px",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      جدول {table.id}
-                    </h3>
-                    <div
-                      className="flex flex-row gap-4"
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "4px",
-                        marginTop: "5px",
-                        marginBottom: "5px",
-                      }}
-                    >
-                      <Button
-                        onClick={() => addRow(table.id)}
-                        variant="success"
-                        size="sm"
-                      >
-                        صف <PlusCircle className="w-4 h-4 mr-1" />
-                      </Button>
-                      <Button
-                        onClick={() => removeRow(table.id)}
-                        variant="danger"
-                        size="sm"
-                      >
-                        صف <MinusCircle className="w-4 h-4 mr-1" />
-                      </Button>
-                      <Button
-                        onClick={() => addColumn(table.id)}
-                        variant="success"
-                        size="sm"
-                      >
-                        عمود <PlusCircle className="w-4 h-4 mr-1" />
-                      </Button>
-                      <Button
-                        onClick={() => removeColumn(table.id)}
-                        variant="danger"
-                        size="sm"
-                      >
-                        عمود <MinusCircle className="w-4 h-4 mr-1" />
-                      </Button>
-                      <Button
-                        onClick={() => removeTable(table.id)}
-                        variant="danger"
-                        size="lg"
-                      >
-                        حذف الجدول
-                      </Button>
-                    </div>
-                  </div>
-
                   <div className="overflow-x-auto">
-                    <table
-                      className="min-w-full border-collapse"
-                      style={{ backgroundColor: "#496580", padding: "2px" }}
-                    >
-                      <tbody>
-                        {table.data.map((row, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {row.map((cell, colIndex) => (
-                              <td key={colIndex} className="border p-2">
-                                <input
-                                  type="text"
-                                  value={cell}
-                                  onChange={(e) =>
-                                    handleCellChange(
-                                      table.id,
-                                      rowIndex,
-                                      colIndex,
-                                      e.target.value
-                                    )
-                                  }
-                                  className="w-full p-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    <div style={{ padding: "8px", border: "1px solid gray" }}>
+                      {load ? (
+                        <Loader />
+                      ) : err ? (
+                        <Error error={err} />
+                      ) : (
+                        <div
+                          style={{
+                            marginBottom: "10px",
+                            padding: "8px",
+                          }}
+                        >
+                          <Typography
+                            variant="h4"
+                            style={{
+                              padding: "5px",
+                              backgroundColor: "#807040",
+                              color: "#fff",
+                              borderRadius: "5px",
+                              marginBottom: "5px",
+                            }}
+                          >
+                            {category}
+                          </Typography>
+                          <div style={{ display: "flex", gap: "10px" }}>
+                            <ButtonMaterial
+                              onClick={handleSubmit}
+                              variant="outlined"
+                              disabled={load || file == ""}
+                              style={{ marginLeft: "10px" }}
+                            >
+                              save
+                            </ButtonMaterial>
+
+                            <Form.Group controlId="email">
+                              {/* <Form.Label>اسم الجدول</Form.Label> */}
+                              <Form.Control
+                                style={{ fontWeight: "bold" }}
+                                type="text"
+                                placeholder="ادخل اسم الجدول"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                              ></Form.Control>
+                            </Form.Group>
+
+                            <ButtonMaterial
+                              variant="contained"
+                              component="label"
+                              style={{ backgroundColor: "#708040" }}
+                            >
+                              <UploadFileIcon />
+                              <input
+                                hidden
+                                onChange={handleChange2}
+                                type="file"
+                              />
+                            </ButtonMaterial>
+                            <ButtonMaterial
+                              style={{
+                                marginRight: "10px",
+                                backgroundColor: "#407080",
+                                color: "#fff",
+                                borderRadius: "4px",
+                              }}
+                              onClick={exportCsv}
+                            >
+                              {load ? "Exporting..." : "Export to CSV"}
+                            </ButtonMaterial>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}

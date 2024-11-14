@@ -32,7 +32,7 @@ import PrimaryStudents from "../../component/admin/education/students/PrimaryStu
 import SecondaryStudents from "../../component/admin/education/students/SecondaryStudents";
 import HighStudents from "../../component/admin/education/students/HighStudents";
 import IndStudents from "../../component/admin/education/students/IndStudents";
-import AgriStudents from "../../component/admin/education/students/IndStudents";
+import AgriStudents from "../../component/admin/education/students/AgriStudents";
 import CommericalStudents from "../../component/admin/education/students/CommericalStudents";
 import HotelStudents from "../../component/admin/education/students/HotelStudents";
 import CommunityStudents from "../../component/admin/education/students/CommunityStudents";

@@ -88,40 +88,65 @@ const CategoryDescription = () => {
       </div>
       <div>
         {data?.map((x, index) => (
-          <div
-            style={{
-              maxHeight: "800px",
-              overflowX: "auto",
-              overflowY: "auto",
-            }}
-          >
-            <MDBTable
-              bordered
-              borderColor="dark"
+          <div style={{ marginBottom: "10px" }}>
+            {x?.title && (
+              <Typography
+                variant="h6"
+                style={{
+                  textAlign: "center",
+                  backgroundColor: "#496580",
+                  color: "#fff",
+                  width: "auto",
+                  borderRadius: "5px",
+                  padding: "5px",
+                  marginBottom: "10px",
+                }}
+              >
+                {x?.title}
+              </Typography>
+            )}
+            <div
               dir="rtl"
-              className="table-secondary"
+              style={{
+                maxHeight: "700px",
+                overflowX: "auto",
+                overflowY: "auto",
+              }}
             >
-              <MDBTableHead className="table-dark">
-                <tr>
-                  {[
-                    ...new Set([].concat(...x?.map((e) => Object.keys(e)))),
-                  ]?.map((val, index) => (
-                    <th scope="col" key={index}>
-                      {val}
-                    </th>
-                  ))}
-                </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-                {x?.map((obj, i) => (
+              <MDBTable
+                bordered
+                borderColor="dark"
+                dir="rtl"
+                className="table-secondary"
+              >
+                <MDBTableHead className="table-dark">
                   <tr>
-                    {Object.getOwnPropertyNames(obj).map((val, idx, array) => (
-                      <td>{obj[val]}</td>
-                    ))}
+                    {[
+                      ...new Set(
+                        [].concat(...x?.results?.map((e) => Object.keys(e)))
+                      ),
+                    ]
+                      ?.filter((val) => val != "_v")
+                      ?.map((val, index) => (
+                        <th scope="col" key={index}>
+                          {val}
+                        </th>
+                      ))}
                   </tr>
-                ))}
-              </MDBTableBody>
-            </MDBTable>
+                </MDBTableHead>
+                <MDBTableBody>
+                  {x?.results?.map((obj, i) => (
+                    <tr>
+                      {Object.getOwnPropertyNames(obj)
+                        ?.filter((y) => obj[y] !== "")
+                        ?.map((val, idx, array) => (
+                          <td>{obj[val]}</td>
+                        ))}
+                    </tr>
+                  ))}
+                </MDBTableBody>
+              </MDBTable>
+            </div>
           </div>
         ))}
       </div>

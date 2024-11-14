@@ -11,6 +11,14 @@ router
 router.route("/:id").delete(categoryController.deleteCategory);
 router
   .route("/:title")
-  .put(categoryController.editCategory)
+  .put(
+    categoryController.upload.single("file"),
+    categoryController.editCategory
+  )
+
   .get(categoryController.getCategoryByTitle);
+router
+  .route("/delete/:category/:id")
+  .put(categoryController.deleteSubCategoryByTitleOfCategory);
+
 module.exports = router;

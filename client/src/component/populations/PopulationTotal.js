@@ -189,7 +189,9 @@ const PopulationTotal = () => {
               </div>
             ))}
           {userInfo?.user?.isAdmin ? (
-            <Button onClick={() => updatePar()}>save</Button>
+            <Button onClick={() => updatePar()} style={{ marginBottom: "5px" }}>
+              save
+            </Button>
           ) : null}
 
           {/* <Family

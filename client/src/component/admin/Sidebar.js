@@ -61,31 +61,31 @@ const SidebarCom = () => {
 
   const arr = [
     {
-      title: "Population",
+      title: "السكان",
       img: popImg,
     },
     {
-      title: "Children",
+      title: "الاطفال",
       img: childImg,
     },
     {
-      title: "Education",
+      title: "التعليم",
       img: eduImg,
     },
     {
-      title: "Azhar",
+      title: "الازهر",
       img: azharImg,
     },
     {
-      title: "Health",
+      title: "الصحة",
       img: healthImg,
     },
     {
-      title: "Sports",
+      title: "الرياضة",
       img: sportImg,
     },
     {
-      title: "Culture",
+      title: "الثقافة",
       img: cultureImg,
     },
     {

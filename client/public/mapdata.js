@@ -107,7 +107,7 @@ var simplemaps_countrymap_mapdata = {
       url: "/map/البحيرة",
     },
     EGBNS: {
-      name: "بني سويف	",
+      name: "بني سويف",
       description: "المساحة : 10,954 كم2",
       color: "default",
       hover_color: "default",
@@ -258,7 +258,7 @@ var simplemaps_countrymap_mapdata = {
       description: "المساحة : 440,098 كم2",
       color: "default",
       hover_color: "default",
-      url: "/map/الوادي الجديد",
+      url: "/map/الوادى الجديد",
     },
   },
   locations: {

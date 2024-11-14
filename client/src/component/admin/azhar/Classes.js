@@ -7,6 +7,9 @@ import axios from "axios";
 import Error from "../../features/Error";
 import Loader from "../../features/Loader";
 import download from "downloadjs";
+import { DSVRowArray } from "d3";
+import * as d3 from "d3";
+//import csv from "../../../csv/azhar/data.csv";
 const Classes = () => {
   const [json, setJson] = useState("");
   const [file, setFile] = useState("");
@@ -14,44 +17,7 @@ const Classes = () => {
   const [load, setLoad] = useState(false);
   const API_URI = "/api/edu/azhar/classes/export/csv";
   const API_CSV = "http://localhost:5000";
-  useEffect(() => {
-    const exportCsv = async () => {
-      const res = await axios.get(API_URI);
-      setJson(res?.data?.url);
-      console.log(res);
-    };
 
-    exportCsv();
-  }, []);
-  const downloadFile = async () => {
-    console.log(json);
-
-    await fetch(json)
-      .then((res) => res.blob())
-      .then((blob) => download(blob, json, "csv")) // this line automatically starts a download operation
-      .catch((err) => console.log(err));
-
-    const options = {
-      headers: {
-        "Content-Disposition": `attachment; filename=${json}`,
-      },
-    };
-    fetch(json, options)
-      .then((res) => {
-        const filename = res.headers
-          .get("Content-Disposition")
-          .split("filename=")[1];
-        return { response: res.blob(), filename: filename };
-      })
-      .then(({ response, filename }) => {
-        var file = window.URL.createObjectURL(response);
-        window.location.assign(filename);
-        console.log(filename);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
   const handleChange2 = (e) => {
     setFile(e.target.files[0]);
   };
@@ -71,7 +37,9 @@ const Classes = () => {
         method: "POST",
         body: formData,
       });
-      if (response?.status == 201) {
+      console.log(response);
+
+      if (response?.status == 200 || response?.statusText == "OK") {
         setLoad(false);
         alert("upload success");
       }
@@ -80,6 +48,40 @@ const Classes = () => {
 
       setErr("Error uploading file");
       console.error("Upload error:", error);
+    }
+  };
+  const handleExport = async () => {
+    try {
+      setLoad(true);
+      setErr("");
+
+      const response = await fetch(API_URI);
+
+      if (!response.ok) {
+        throw new Error("Export failed");
+      }
+
+      // Get the blob from the response
+      const blob = await response.blob();
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "عدد_فصول_الازهر.csv";
+
+      // Trigger download
+      document.body.appendChild(a);
+      a.click();
+
+      // Cleanup
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      setErr("Failed to export data. Please try again.");
+      console.error("Export error:", err);
+    } finally {
+      setLoad(false);
     }
   };
   return (
@@ -108,29 +110,19 @@ const Classes = () => {
             عدد الفصول الازهر
           </Typography>
           <ButtonMaterial
+            onClick={handleExport}
             variant="contained"
             component="label"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "10px", backgroundColor: "#407080" }}
           >
-            <a
-              href={`../../../csv/azhar/${json}`}
-              download={json}
-              target="_self"
-              rel="noopener noreferrer"
-              style={{ color: "#fff" }}
-            >
-              Download
-            </a>
+            {load ? "Exporting..." : "Export to CSV"}
           </ButtonMaterial>
 
-          <button
-            onClick={() => downloadFile()}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          <ButtonMaterial
+            variant="contained"
+            component="label"
+            style={{ backgroundColor: "#708040" }}
           >
-            Download Excel
-          </button>
-
-          <ButtonMaterial variant="contained" component="label">
             <UploadFileIcon />
             <input hidden onChange={handleChange2} type="file" />
           </ButtonMaterial>
@@ -140,7 +132,7 @@ const Classes = () => {
             disabled={load || file == ""}
             style={{ marginLeft: "10px" }}
           >
-            import
+            save
           </ButtonMaterial>
         </div>
       )}

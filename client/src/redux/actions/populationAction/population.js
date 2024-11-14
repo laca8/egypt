@@ -53,6 +53,7 @@ export const listPopMiddle = (city) => async (dispatch) => {
   });
   try {
     const res = await axios.get(`/api/population/total/${city}`);
+    console.log(res);
     dispatch({
       type: LIST_POPULATIONS_MIDDLE_SUCCESS,
       payload: res.data,
