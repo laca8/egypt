@@ -39,6 +39,7 @@ import {
   MDBFile,
 } from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const SubCategory = () => {
   const { category } = useParams();
@@ -97,7 +98,11 @@ const SubCategory = () => {
     e.preventDefault();
 
     if (!file) {
-      setErr("Please select a file");
+      alert("Please select a file");
+      return;
+    }
+    if (!title) {
+      alert("Please enter name table");
       return;
     }
 
@@ -227,57 +232,46 @@ const SubCategory = () => {
                   </AccordionSummary>
                   <AccordionDetails>
                     <div>
-                      {subData?.map((x, index) => (
-                        <div
-                          style={{
-                            maxWidth: "700px",
-                            maxHeight: "600px",
-                            overflowX: "auto",
-                            overflowY: "auto",
-                          }}
+                      <div
+                        style={{
+                          maxWidth: "700px",
+                          maxHeight: "600px",
+                          overflowX: "auto",
+                          overflowY: "auto",
+                        }}
+                      >
+                        <MDBTable
+                          bordered
+                          borderColor="dark"
+                          dir="rtl"
+                          className="table-secondary"
                         >
-                          <Button
-                            onClick={() => removeSub(index, x.id)}
-                            variant="danger"
-                            className="mb-2"
-                          >
-                            حذف
-                          </Button>
-                          <MDBTable
-                            bordered
-                            borderColor="dark"
-                            dir="rtl"
-                            className="table-secondary"
-                          >
-                            <MDBTableHead variant="dark">
+                          <MDBTableHead variant="dark">
+                            <tr>
+                              <th>مسلسل</th>
+                              <th>اسم الجدول</th>
+                              <th>#</th>
+                            </tr>
+                          </MDBTableHead>
+                          <MDBTableBody>
+                            {subData?.map((x, index) => (
                               <tr>
-                                {[
-                                  ...new Set(
-                                    []?.concat(
-                                      ...x?.results?.map((e) => Object.keys(e))
-                                    )
-                                  ),
-                                ]?.map((val, index) => (
-                                  <th scope="col" key={index}>
-                                    {val}
-                                  </th>
-                                ))}
+                                <td>{index + 1}</td>
+                                <td>{x?.title}</td>
+                                <td>
+                                  <Button
+                                    onClick={() => removeSub(index, x.id)}
+                                    variant="danger"
+                                    className="mb-2"
+                                  >
+                                    <DeleteIcon />
+                                  </Button>
+                                </td>
                               </tr>
-                            </MDBTableHead>
-                            <MDBTableBody>
-                              {x?.results?.map((obj, i) => (
-                                <tr>
-                                  {Object.getOwnPropertyNames(obj)?.map(
-                                    (val, idx, array) => (
-                                      <td>{obj[val]}</td>
-                                    )
-                                  )}
-                                </tr>
-                              ))}
-                            </MDBTableBody>
-                          </MDBTable>
-                        </div>
-                      ))}
+                            ))}
+                          </MDBTableBody>
+                        </MDBTable>
+                      </div>
                     </div>
                   </AccordionDetails>
                 </Accordion>
@@ -289,7 +283,6 @@ const SubCategory = () => {
                   className="rounded-lg p-4 bg-white shadow-md mb-2"
                   style={{
                     border: "2px solid #807040",
-
                     width: "100%",
                     overflowX: "auto",
                   }}

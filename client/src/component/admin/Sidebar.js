@@ -182,8 +182,14 @@ const SidebarCom = () => {
               onClick={() => navigator(`/admin/sub/${x?.title}`)}
             >
               <img
-                style={{ width: "40px", height: "40px", borderRadius: "50%" }}
                 src={x?.image}
+                style={{
+                  width: "45px",
+                  height: "45px",
+                  border: "2px solid #807040",
+
+                  borderRadius: "50%",
+                }}
               />
               <Typography
                 className="text-sidebar"

@@ -17,6 +17,8 @@ import {
   MDBInput,
   MDBFile,
 } from "mdb-react-ui-kit";
+import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
+
 import { Table } from "react-bootstrap";
 import axios from "axios";
 import Loader from "../../component/features/Loader";
@@ -137,25 +139,27 @@ const Category = () => {
       {load && <Loader />}
       <MDBRow style={{ marginLeft: "10px" }}>
         <div style={{ height: "400px", overflowY: "auto" }}>
-          <Table
+          <MDBTable
+            dir="rtl"
             striped
             bordered
             hover
             style={{
               marginTop: "10px",
               height: "100px",
-              textAlign: "left",
+
+              backgroundColor: "whitesmoke",
             }}
           >
-            <thead style={{ backgroundColor: "#111", color: "#fff" }}>
+            <MDBTableHead>
               <tr>
+                <th>مسلسل</th>
+                <th>الاسم</th>
+                <th>الصورة</th>
                 <th>#</th>
-                <th>Title</th>
-                <th>Image</th>
-                <th>Action</th>
               </tr>
-            </thead>
-            <tbody style={{ backgroundColor: "whitesmoke", color: "#111" }}>
+            </MDBTableHead>
+            <MDBTableBody>
               {data?.map((x, index) => (
                 <tr key={index}>
                   <td>{1 + index}</td>
@@ -163,9 +167,13 @@ const Category = () => {
                   <td>
                     <img
                       src={x?.image}
-                      alt=""
-                      style={{ width: "45px", height: "45px" }}
-                      className="rounded-circle"
+                      style={{
+                        width: "45px",
+                        height: "45px",
+                        border: "2px solid #807040",
+
+                        borderRadius: "50%",
+                      }}
                     />
                   </td>
                   <td>
@@ -179,8 +187,8 @@ const Category = () => {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </Table>
+            </MDBTableBody>
+          </MDBTable>
         </div>
       </MDBRow>
     </div>
