@@ -93,6 +93,7 @@ import SubCategory from "./pages/admin/SubCategory";
 import City from "./pages/map/City";
 import CategoryDescription from "./pages/dashboard/CategoryDescription";
 import ProtectedRoutes from "./utils/ProtectedRoute";
+import CategoriesResults from "./pages/dashboard/CategoriesResults";
 function App() {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -204,7 +205,11 @@ function App() {
         <Route path="/international/un" element={<Un />} />
         <Route path="/sport" element={<Sport />} />
         <Route path="/map/:gov" element={<City />} />
-        <Route path="/sub/:category" element={<CategoryDescription />} />
+        <Route path="/sub/:category" element={<CategoriesResults />} />
+        <Route
+          path="/sub/:category/:idResults"
+          element={<CategoryDescription />}
+        />
 
         {/* <Route path="/" element={<Graphs />} /> */}
         {/* <Route path="/dashboard/tables" element={<Tables />} /> */}
@@ -212,6 +217,10 @@ function App() {
         <Route
           path="/admin/:category"
           element={userInfo?.user?.isAdmin ? <AdminPanel /> : <Login />}
+        />
+        <Route
+          path="/admin/sub/:category"
+          element={userInfo?.user?.isAdmin ? <SubCategory /> : <Login />}
         />
         <Route
           path="/admin/sub/:category"

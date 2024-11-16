@@ -20,5 +20,7 @@ router
 router
   .route("/delete/:category/:id")
   .put(categoryController.deleteSubCategoryByTitleOfCategory);
-
+router
+  .route("/:category/:idResults")
+  .get(categoryController.getCategoryByTitleAndIdResults);
 module.exports = router;

@@ -213,7 +213,22 @@ const deleteSubCategoryByTitleOfCategory = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+
+const getCategoryByTitleAndIdResults = async (req, res) => {
+  const { idResults } = req.params;
+  try {
+    const data = await Category.findOne({
+      title: req.params.category,
+      subs: { $elemMatch: { id: idResults } },
+    });
+    const sub = await data?.subs?.filter((x) => x.id == idResults);
+    res.status(200).json(sub);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+};
 module.exports = {
+  getCategoryByTitleAndIdResults,
   addCategory,
   deleteCategory,
   getCategories,

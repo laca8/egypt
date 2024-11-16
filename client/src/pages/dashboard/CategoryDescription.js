@@ -7,19 +7,22 @@ import { Container } from "react-bootstrap";
 import { Typography } from "@mui/material";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 const CategoryDescription = () => {
-  const { category } = useParams();
+  const { category, idResults } = useParams();
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
   const [err, setErr] = useState("");
   const [all1, setAll1] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
+      console.log(idResults, category);
+
       setLoad(true);
       try {
-        const res = await axios.get(`/api/category/${category}`);
+        const res = await axios.get(`/api/category/${category}/${idResults}`);
         //console.log(res?.data?.subs);
+        console.log(res);
 
-        setData(res?.data?.subs);
+        setData(res?.data);
 
         setAll1(res?.data?.subs[0]);
         console.log(
@@ -63,32 +66,9 @@ const CategoryDescription = () => {
     <Container>
       {load && <Loader />}
       {err && <Error error={err} />}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          margin: "10px 0",
-          textAlign: "right",
-        }}
-      >
-        <Typography
-          variant="h4"
-          style={{
-            margin: "10px auto",
-            textAlign: "center",
-            backgroundColor: "#496580",
-            color: "#fff",
-            width: "600px",
-            borderRadius: "5px",
-            padding: "5px",
-          }}
-        >
-          {category}
-        </Typography>
-      </div>
       <div>
         {data?.map((x, index) => (
-          <div style={{ marginBottom: "10px" }}>
+          <div style={{ margin: "10px 0" }}>
             {x?.title && (
               <Typography
                 variant="h6"
