@@ -11,10 +11,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  listPopMiddle,
-  listPopAgeByCity,
-} from "../../redux/actions/populationAction/population";
+
 import {
   Form,
   Button,
@@ -77,27 +74,7 @@ const City = () => {
     setValue(newValue);
   };
   const { gov } = useParams();
-  const listPopMiddleReducer = useSelector(
-    (state) => state.listPopMiddleReducer
-  );
-  const { popMiddle } = listPopMiddleReducer;
-  const listPopAgeReducer = useSelector((state) => state.listPopAgeReducer);
-  const { popAge, loading, error } = listPopAgeReducer;
-  useEffect(() => {
-    dispatch(listPopMiddle(gov));
-    dispatch(listPopAgeByCity(gov));
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`/api/area/${gov}`);
-        console.log(res);
 
-        setArea(res?.data);
-      } catch (error) {
-        console.log(error.response.data.msg);
-      }
-    };
-    fetchData();
-  }, [gov]);
   return (
     <Container>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -117,9 +94,9 @@ const City = () => {
         </Typography>
       </div>
 
-      {loading ? (
+      {"loading" ? (
         <Loader />
-      ) : error ? (
+      ) : "error" ? (
         <Error />
       ) : (
         <Box sx={{ width: "100%", backgroundColor: "#807040" }} dir="ltr">
@@ -145,7 +122,7 @@ const City = () => {
               <Col>
                 <Card>
                   <ChartLine
-                    data1={popMiddle}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"
@@ -158,7 +135,7 @@ const City = () => {
               <Col>
                 <Card>
                   <LineAge
-                    data1={popAge}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"
@@ -175,7 +152,7 @@ const City = () => {
               <Col>
                 <Card>
                   <ChartBar
-                    data1={popMiddle}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"
@@ -188,7 +165,7 @@ const City = () => {
               <Col>
                 <Card>
                   <BarAge
-                    data1={popAge}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"
@@ -205,7 +182,7 @@ const City = () => {
               <Col>
                 <Card>
                   <PieAge2
-                    data1={popAge}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"
@@ -218,7 +195,7 @@ const City = () => {
               <Col>
                 <Card>
                   <PieAge
-                    data1={popAge}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"
@@ -233,7 +210,7 @@ const City = () => {
               <Col>
                 <Card>
                   <PiePop2
-                    data1={popMiddle}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"
@@ -246,7 +223,7 @@ const City = () => {
               <Col>
                 <Card>
                   <PiePop
-                    data1={popMiddle}
+                    data1={[""]}
                     filter1="ذكور"
                     filter2="إناث"
                     color1="rgba(53, 162, 235, 0.5)"

@@ -7,64 +7,29 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { Typography } from "@mui/material";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { listCategoryByTitle } from "../../redux/actions/category/categoryAction";
 const CategoriesResults = () => {
+  const dispatch = useDispatch();
   const { category } = useParams();
-  const [data, setData] = useState([]);
-  const [load, setLoad] = useState(false);
-  const [err, setErr] = useState("");
-  const [all1, setAll1] = useState([]);
+
   useEffect(() => {
-    const fetchData = async () => {
-      setLoad(true);
-      try {
-        const res = await axios.get(`/api/category/${category}`);
-        //console.log(res?.data?.subs);
-
-        setData(res?.data?.subs);
-
-        setAll1(res?.data?.subs[0]);
-        console.log(
-          [
-            ...new Set(
-              [].concat(...res?.data?.subs[0]?.map((e) => Object.keys(e)))
-            ),
-          ].map((x) => x)
-        );
-
-        console.log(
-          res?.data?.subs[0].map((obj, index) =>
-            Object.getOwnPropertyNames(obj).map((val, idx, array) => val[idx])
-          )
-        );
-        console.log(
-          res?.data?.subs?.forEach((x) => {
-            return x;
-          })
-        );
-        let result = [];
-        console.log(
-          res?.data?.subs?.forEach((first, i) => {
-            return first.forEach((second) => {
-              console.log(second);
-              result.push(second);
-            });
-          })
-        );
-        console.log(result);
-
-        setLoad(false);
-      } catch (error) {
-        setErr(error?.response?.data?.msg);
-        setLoad(false);
-      }
-    };
-    fetchData();
+    dispatch(listCategoryByTitle(category));
   }, [category]);
+  const listCategoryByTitlReducer = useSelector(
+    (state) => state.listCategoryByTitlReducer
+  );
+  const {
+    loading,
+    error,
+    category: dataCat,
+    categories,
+  } = listCategoryByTitlReducer;
+
   return (
     <Container>
-      {load && <Loader />}
-      {err && <Error error={err} />}
+      {loading && <Loader />}
+      {error && <Error error={error} />}
       <div
         style={{
           display: "flex",
@@ -99,7 +64,7 @@ const CategoriesResults = () => {
                 backgroundColor: "#807040",
               }}
             >
-              {data?.map((x, index) => (
+              {dataCat?.subs?.map((x, index) => (
                 <Link
                   to={`/sub/${category}/${x.id}`}
                   style={{

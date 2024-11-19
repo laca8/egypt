@@ -11,86 +11,31 @@ import { Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/user/userAction";
-import popImg from "../../img/population.png";
-import azharImg from "../../img/azhar1.jpg";
-import childImg from "../../img/child.png";
-import cultureImg from "../../img/culture.png";
-import eduImg from "../../img/edu.png";
-import sportImg from "../../img/sport.jpg";
-import intImg from "../../img/inter.jpg";
-import healthImg from "../../img/940656.png";
+
 import axios from "axios";
 import Loader from "./Loader";
+import { listCategory } from "../../redux/actions/category/categoryAction";
+import { listCategoryReducer } from "../../redux/reducers/category/categoryReducer";
 const Header = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const userLoginReducer = useSelector((state) => state.userLoginReducer);
-  const { loading, error, userInfo } = userLoginReducer;
+  const { userInfo } = userLoginReducer;
   const handleLogout = () => {
     dispatch(logout());
   };
-  const [data, setData] = useState([]);
-  const [load, setLoad] = useState(false);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoad(true);
-        const res = await axios.get("/api/category");
-        console.log(res);
-
-        setData(res?.data);
-        setLoad(false);
-      } catch (err) {
-        setLoad(false);
-        console.log(err);
-      }
-    };
-    fetchData();
+    dispatch(listCategory());
   }, []);
-  const arr = [
-    {
-      title: "السكان",
-      img: popImg,
-      url: "population",
-    },
-    {
-      title: "الاطفال",
-      img: childImg,
-      url: "children",
-    },
-    {
-      title: "التعليم",
-      img: eduImg,
-      url: "education",
-    },
-    {
-      title: "الازهر",
-      img: azharImg,
-      url: "azhar",
-    },
-    {
-      title: "الصحة",
-      img: healthImg,
-      url: "health",
-    },
-    {
-      title: "الرياضة",
-      img: sportImg,
-      url: "sport",
-    },
-    {
-      title: "الثقافة",
-      img: cultureImg,
-      url: "culture",
-    },
-    {
-      title: "International",
-      img: intImg,
-      url: "International",
-    },
-  ];
+  const listCategoryReducer = useSelector((state) => state.listCategoryReducer);
+  const {
+    loading: loadingCat,
+    error: errorCat,
+    category: dataCat,
+    categories,
+  } = listCategoryReducer;
   return (
-    <Navbar style={{ backgroundColor: "#807040" }}>
+    <Navbar style={{ backgroundColor: "#807040" }} dir="ltr">
       <Container>
         <Navbar.Brand href="/">
           <Typography
@@ -104,43 +49,35 @@ const Header = () => {
             />
           </Typography>
         </Navbar.Brand>
-        {/* <Navbar.Brand href="/categories">
-          <Typography
-            variant="p"
-            component="div"
-            style={{ marginRight: "30px", color: "#fff", cursor: "pointer" }}
-          >
-            Categories
-          </Typography>
-        </Navbar.Brand> */}
+
         <Navbar.Brand>
           <Typography>
-            <Dropdown variant="Secondary">
-              <Dropdown.Toggle
-                id="dropdown-basic"
-                variant="Secondary"
-                style={{ color: "#fff" }}
-              >
-                Themes
-              </Dropdown.Toggle>
+            {loadingCat ? (
+              <Loader />
+            ) : (
+              <Dropdown variant="Secondary">
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  variant="Secondary"
+                  style={{ color: "#fff" }}
+                >
+                  Themes
+                </Dropdown.Toggle>
 
-              {load && <Loader />}
-
-              <Dropdown.Menu>
-                {arr &&
-                  arr?.map((x, i) => (
-                    <Dropdown.Item key={i} href={`/${x?.url}`}>
-                      {x?.title}
-                    </Dropdown.Item>
-                  ))}
-                {data &&
-                  data?.map((x, i) => (
-                    <Dropdown.Item key={i} href={`/sub/${x?.title}`}>
-                      {x?.title}
-                    </Dropdown.Item>
-                  ))}
-              </Dropdown.Menu>
-            </Dropdown>
+                <Dropdown.Menu>
+                  {categories &&
+                    categories?.map((x, i) => (
+                      <Dropdown.Item
+                        key={i}
+                        href={`/sub/${x?.title}`}
+                        style={{ color: "#333", textAlign: "right" }}
+                      >
+                        {x?.title}
+                      </Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
           </Typography>
         </Navbar.Brand>
         <Navbar.Brand>
@@ -163,9 +100,9 @@ const Header = () => {
               <Button
                 style={{
                   backgroundColor: "#807040",
-                  border: "2px solid gray",
+                  border: "2px solid #807040",
                 }}
-                onClick={() => navigator("/admin/categories")}
+                onClick={() => navigator("/admin/sub/categories")}
               >
                 admin
               </Button>
