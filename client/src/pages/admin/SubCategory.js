@@ -97,6 +97,12 @@ const SubCategory = () => {
     formData.append("title", title);
 
     dispatch(AddSubCategory(category, formData));
+    setTitle("");
+    setLine("");
+    setImageBar("");
+    setImagePie("");
+    setImagePyramid("");
+    setFile("");
 
     if (success) {
       alert("تم اضافة الجدول");
@@ -343,7 +349,11 @@ const SubCategory = () => {
                                     id="selectedImage"
                                     src={URL.createObjectURL(image_pyramid)}
                                     alt="pyramid"
-                                    style={{ width: "90px", height: "50px" }}
+                                    style={{
+                                      width: "90px",
+                                      height: "50px",
+                                      border: "1px solid #708040",
+                                    }}
                                   />
                                 )}
                               </div>
@@ -371,7 +381,12 @@ const SubCategory = () => {
                                     id="selectedImage"
                                     src={URL.createObjectURL(image_pie)}
                                     alt="pie"
-                                    style={{ width: "90px", height: "50px" }}
+                                    style={{
+                                      width: "90px",
+                                      height: "50px",
+
+                                      border: "1px solid #708040",
+                                    }}
                                   />
                                 )}
                               </div>
@@ -400,7 +415,12 @@ const SubCategory = () => {
                                     id="selectedImage"
                                     src={URL.createObjectURL(image_bar)}
                                     alt="bar"
-                                    style={{ width: "90px", height: "50px" }}
+                                    style={{
+                                      width: "90px",
+                                      height: "50px",
+
+                                      border: "1px solid #708040",
+                                    }}
                                   />
                                 )}
                               </div>
@@ -428,7 +448,12 @@ const SubCategory = () => {
                                     id="selectedImage"
                                     src={URL.createObjectURL(line)}
                                     alt="line"
-                                    style={{ width: "90px", height: "50px" }}
+                                    style={{
+                                      width: "90px",
+                                      height: "50px",
+
+                                      border: "1px solid #708040",
+                                    }}
                                   />
                                 )}
                               </div>

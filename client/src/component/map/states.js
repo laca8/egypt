@@ -234,7 +234,7 @@ const states = [
     lng: 32.50517,
   },
   {
-    name: "الوادي الجديد",
+    name: "الوادى الجديد",
     description: "المساحة : 440,098 كم2",
     color: "default",
     hover_color: "default",

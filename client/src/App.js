@@ -34,10 +34,6 @@ function App() {
         />
 
         <Route
-          path="/admin/:category"
-          element={userInfo?.user?.isAdmin ? <AdminPanel /> : <Login />}
-        />
-        <Route
           path="/admin/sub/:category"
           element={userInfo?.user?.isAdmin ? <AdminPanel /> : <Login />}
         />

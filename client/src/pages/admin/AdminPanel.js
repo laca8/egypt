@@ -5,11 +5,18 @@ import { Row, Col, Card, Container } from "react-bootstrap";
 
 import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import SubCategory from "./SubCategory";
 import Category from "../../component/admin/Category";
 const AdminPanel = () => {
+  const navigator = useNavigate();
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  useEffect(() => {
+    if (!userInfo?.user?.isAdmin) {
+      navigator("/login");
+    }
+  }, [userInfo?.user?.isAdmin]);
   const { category } = useParams();
   console.log(category);
 

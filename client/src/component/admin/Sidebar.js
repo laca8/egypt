@@ -130,10 +130,12 @@ const SidebarCom = () => {
   return (
     <div
       style={{
-        maxHeight: "100%",
         // border: "1px solid gray",
-        backgroundColor: "whitesmoke",
-        boxShadow: "2px 0px #888",
+        backgroundColor: "#807040",
+        boxShadow: "1px 0  #333",
+        height: "100vh",
+        overflowY: "auto",
+        color: "#fff",
       }}
     >
       {loadingCat && <Loader />}
@@ -143,10 +145,10 @@ const SidebarCom = () => {
           style={{
             display: "flex",
             padding: "10px",
-            borderBottom: "1px solid #496580",
+            borderBottom: "1px solid #fff",
             alignItems: "center",
             gap: "10px",
-            color: "#496580",
+            color: "#fff",
             cursor: "pointer",
           }}
           onClick={() => navigator(`/admin/categories`)}
@@ -177,16 +179,17 @@ const SidebarCom = () => {
               style={{
                 display: "flex",
                 padding: "10px",
-                borderBottom: "1px solid #496580",
+                borderBottom: "1px solid #fff",
                 alignItems: "center",
                 gap: "10px",
-                color: "#496580",
+                color: "#fff",
+
                 cursor: "pointer",
               }}
               onClick={() => navigator(`/admin/sub/${x?.title}`)}
             >
               <img
-              alt=''
+                alt=""
                 src={`/uploads/${x?.image}`}
                 style={{
                   width: "45px",

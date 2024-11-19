@@ -120,36 +120,30 @@ const CategoryDescription = () => {
                     {...a11yProps(0)}
                     style={{ color: "#fff" }}
                   />
-                  {x?.image_line && (
-                    <Tab
-                      label="Line"
-                      {...a11yProps(1)}
-                      style={{ color: "#fff" }}
-                    />
-                  )}
 
-                  {x?.image_bar && (
-                    <Tab
-                      label="Bar"
-                      {...a11yProps(2)}
-                      style={{ color: "#fff" }}
-                    />
-                  )}
-                  {x?.image_pie && (
-                    <Tab
-                      label="Pie"
-                      {...a11yProps(3)}
-                      style={{ color: "#fff" }}
-                    />
-                  )}
-                  {x?.image_pyramid && (
-                    <Tab
-                      label="Pyramid"
-                      {...a11yProps(4)}
-                      style={{ color: "#fff" }}
-                    />
-                  )}
-                  {/* <Tab label="Pie" {...a11yProps(2)} /> */}
+                  <Tab
+                    label="Line"
+                    {...a11yProps(1)}
+                    style={{ color: "#fff" }}
+                  />
+
+                  <Tab
+                    label="Bar"
+                    {...a11yProps(2)}
+                    style={{ color: "#fff" }}
+                  />
+
+                  <Tab
+                    label="Pie"
+                    {...a11yProps(3)}
+                    style={{ color: "#fff" }}
+                  />
+
+                  <Tab
+                    label="Pyramid"
+                    {...a11yProps(4)}
+                    style={{ color: "#fff" }}
+                  />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0} dir="rtl">
@@ -183,11 +177,13 @@ const CategoryDescription = () => {
                       ...new Set(
                         [].concat(...x?.results?.map((e) => Object.keys(e)))
                       ),
-                    ]?.map((val, index) => {
-                      return {
-                        field: val,
-                      };
-                    })}
+                    ]
+                      ?.filter((y) => y != "__EMPTY")
+                      ?.map((val, index) => {
+                        return {
+                          field: val,
+                        };
+                      })}
                     sideBar={"columns"}
                     autoGroupColumnDef={autoGroupColumnDef}
                     defaultColDef={defaultColDef}
@@ -205,7 +201,7 @@ const CategoryDescription = () => {
                     <img
                       style={{ width: "100%" }}
                       alt=""
-                      src={`/uploads/${x?.image_line}`}
+                      src={`/uploads/${x.image_line}`}
                     />
                   </div>
                 </TabPanel>
@@ -216,7 +212,7 @@ const CategoryDescription = () => {
                     <img
                       style={{ width: "100%" }}
                       alt=""
-                      src={`/uploads/${x?.image_bar}`}
+                      src={`/uploads/${x.image_bar}`}
                     />
                   </div>
                 </TabPanel>
@@ -227,7 +223,7 @@ const CategoryDescription = () => {
                     <img
                       style={{ width: "100%" }}
                       alt=""
-                      src={`/uploads/${x?.image_pie}`}
+                      src={`/uploads/${x.image_pie}`}
                     />
                   </div>
                 </TabPanel>
@@ -238,7 +234,7 @@ const CategoryDescription = () => {
                     <img
                       style={{ width: "100%" }}
                       alt=""
-                      src={`/uploads/${x?.image_pyramid}`}
+                      src={`/uploads/${x.image_pyramid}`}
                     />
                   </div>
                 </TabPanel>

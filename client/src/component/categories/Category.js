@@ -37,7 +37,7 @@ const Category = () => {
                       }}
                     >
                       <Card.Body>
-                        <h3
+                        <h4
                           style={{
                             color: "#fff",
                             backgroundColor: "#807040",
@@ -46,7 +46,7 @@ const Category = () => {
                           }}
                         >
                           {x?.title}
-                        </h3>
+                        </h4>
                         <Card.Text className="categories-content-card-text">
                           <div
                             style={{

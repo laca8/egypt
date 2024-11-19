@@ -100,7 +100,7 @@ const Header = () => {
               <Button
                 style={{
                   backgroundColor: "#807040",
-                  border: "2px solid #807040",
+                  boxShadow: "1px 1px 1px 1px #444",
                 }}
                 onClick={() => navigator("/admin/sub/categories")}
               >
