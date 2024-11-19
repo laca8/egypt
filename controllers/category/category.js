@@ -2,17 +2,21 @@ const Category = require("../../models/category/Category");
 const multer = require("multer");
 const xlsx = require("xlsx");
 var fs = require("fs");
-const { stringify } = require("csv-stringify");
-const json2csv = require("json2csv").parse;
-const excelToJson = require("convert-excel-to-json");
+const path = require("path");
 
-const csv = require("csv-parser");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/images");
+    // Determine destination based on file type
+    const dest = file.fieldname === "image" ? "uploads/" : "uploads/";
+    cb(null, dest);
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    // Create unique filename with timestamp
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
   },
 });
 
@@ -24,7 +28,7 @@ const addCategory = async (req, res) => {
   try {
     const category = await Category.create({
       title: req.body.title,
-      image: req?.file?.path,
+      image: req.file?.filename,
     });
     res.status(201).json(category);
   } catch (err) {
@@ -42,25 +46,31 @@ const getCategories = async (req, res) => {
   }
 };
 const deleteCategory = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+
   try {
-    await Category.findByIdAndDelete({ _id: req.params.id });
+    await Category.findByIdAndDelete({ _id: id });
     res.status(200).json("success");
   } catch (err) {
+    console.log(err);
+
     return res.status(500).json({ msg: err.message });
   }
 };
 const editCategory = async (req, res) => {
-  console.log(req.file.path);
+  console.log(req.files.file[0].path);
 
   try {
     const category = await Category.findOne({ title: req.params.title });
     const { subs } = req.body;
-    if (!req.file) {
+
+    if (!req.files.file[0]?.path) {
       return res.status(400).send("No file uploaded");
     }
 
     const results = [];
-    const workbook = xlsx.readFile(req.file.path, {
+    const workbook = xlsx.readFile(req.files.file[0]?.path, {
       // Enable full Unicode support for Arabic characters
       codepage: 65001,
       raw: true,
@@ -77,10 +87,11 @@ const editCategory = async (req, res) => {
       raw: false,
     });
     console.log(jsonData.length);
-    fs.unlinkSync(req.file.path);
+    // console.log(jsonData);
+    fs.unlinkSync(req.files.file[0]?.path);
 
     //       // Import data to MongoDB
-    if (category) {
+    if (category && jsonData) {
       const res = await Category.findOneAndUpdate(
         {
           title: req.params.title,
@@ -94,6 +105,19 @@ const editCategory = async (req, res) => {
                 .substr(2, 10),
               title: req.body.title,
               results: jsonData,
+              image_line: req?.files?.line
+                ? req?.files?.line[0]?.filename
+                : null,
+              image_bar: req?.files?.image_bar
+                ? req?.files?.image_bar[0]?.filename
+                : null,
+              image_pie: req?.files?.image_pie
+                ? req?.files?.image_pie[0]?.filename
+                : null,
+              image_pyramid: req?.files?.image_pyramid
+                ? req?.files?.image_pyramid[0]?.filename
+                : null,
+              date: Date.now(),
             },
           },
         },
@@ -102,74 +126,10 @@ const editCategory = async (req, res) => {
         }
       );
     }
-    res.status(200).json("success");
-    // Create a readable stream for the CSV file
-    // fs.createReadStream(req.file.path)
-    //   .pipe(
-    //     csv({
-    //       // Configure CSV parser to handle Arabic content
-    //       encoding: "utf-8",
-    //       bom: true,
-    //       trim: true,
-    //       columns: true,
-    //     })
-    //   )
-    //   .on("data", (data) => {
-    //     results.push(data);
-    //   })
-    //   .on("end", async () => {
-    //     try {
-    //       console.log(results);
-    //       fs.unlinkSync(req.file.path);
 
-    //       // Import data to MongoDB
-    //       if (category) {
-    //         const res = await Category.findOneAndUpdate(
-    //           {
-    //             title: req.params.title,
-    //           },
-    //           {
-    //             $push: {
-    //               subs: {
-    //                 id: Math.random()
-    //                   .toString(36)
-    //                   .replace(/[^a-z]+/g, "")
-    //                   .substr(2, 10),
-    //                 title: req.body.title,
-    //                 results: results,
-    //               },
-    //             },
-    //           },
-    //           {
-    //             new: true,
-    //           }
-    //         );
-    //       }
-    //       res.status(200).json("success");
-
-    //       // Clean up: delete the uploaded file
-    //     } catch (error) {
-    //       console.log(error);
-
-    //       res.status(500).json({
-    //         error: "Import failed",
-    //         details: error.message,
-    //       });
-    //     }
-    //   })
-    //   .on("error", (error) => {
-    //     console.log(error);
-
-    //     res.status(500).json({
-    //       error: "CSV parsing failed",
-    //       details: error.message,
-    //     });
-    //   });
-
-    // Clean up: delete uploaded file
+    return res.status(200).json("success");
   } catch (err) {
     console.log(err);
-
     return res.status(500).json({ msg: err.message });
   }
 };

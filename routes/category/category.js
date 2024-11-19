@@ -12,7 +12,17 @@ router.route("/:id").delete(categoryController.deleteCategory);
 router
   .route("/:title")
   .put(
-    categoryController.upload.single("file"),
+    categoryController.upload.fields([
+      { name: "file", maxCount: 1 },
+      { name: "line", maxCount: 1 },
+      { name: "image_bar", maxCount: 1 },
+      { name: "image_pie", maxCount: 1 },
+      { name: "image_pyramid", maxCount: 1 },
+    ]),
+
+    // categoryController.upload.single("image_bar"),
+    // categoryController.upload.single("image_pie"),
+    // categoryController.upload.single("image_pyramid"),
     categoryController.editCategory
   )
 

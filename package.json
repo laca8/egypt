@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ag-grid-react": "^32.3.3",
     "bcryptjs": "^2.4.3",
     "browserslist": "^4.21.4",
     "caniuse-lite": "^1.0.30001442",
