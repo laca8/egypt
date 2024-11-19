@@ -100,8 +100,8 @@ const SubCategory = () => {
 
     if (success) {
       alert("تم اضافة الجدول");
-      dispatch(listCategoryByTitle(category));
     }
+    dispatch(listCategoryByTitle(category));
   };
   const exportCsv = ({ data = [""], filename = "download.xlsx" }) => {
     console.log("csv");
