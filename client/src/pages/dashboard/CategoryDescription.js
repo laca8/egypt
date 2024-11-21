@@ -51,6 +51,7 @@ function a11yProps(index) {
 
 const CategoryDescription = () => {
   const [cho, setCho] = useState("");
+  const [images, setImages] = useState([]);
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -84,7 +85,23 @@ const CategoryDescription = () => {
       minWidth: 200,
     };
   }, []);
-
+  useEffect(() => {
+    dataCat?.map((x) => {
+      if (x.image_line != null) {
+        images.push({ image: x.image_line, title: "line" });
+      }
+      if (x.image_bar != null) {
+        images.push({ image: x.image_bar, title: "bar" });
+      }
+      if (x.image_pie != null) {
+        images.push({ image: x.image_pie, title: "pie" });
+      }
+      if (x.image_pyramid != null) {
+        images.push({ image: x.image_pyramid, title: "pyramid" });
+      }
+    });
+    console.log(images);
+  }, [dataCat]);
   return (
     <Container>
       {loading && <Loader />}
@@ -121,29 +138,19 @@ const CategoryDescription = () => {
                     style={{ color: "#fff" }}
                   />
 
-                  <Tab
-                    label="Line"
-                    {...a11yProps(1)}
-                    style={{ color: "#fff" }}
-                  />
-
-                  <Tab
-                    label="Bar"
-                    {...a11yProps(2)}
-                    style={{ color: "#fff" }}
-                  />
-
-                  <Tab
-                    label="Pie"
-                    {...a11yProps(3)}
-                    style={{ color: "#fff" }}
-                  />
-
-                  <Tab
-                    label="Pyramid"
-                    {...a11yProps(4)}
-                    style={{ color: "#fff" }}
-                  />
+                  {images
+                    ?.filter(
+                      (obj, index, self) =>
+                        index ===
+                        self.findIndex((t) => t["title"] === obj["title"])
+                    )
+                    ?.map((z, i) => (
+                      <Tab
+                        label={z?.title}
+                        {...a11yProps(i + 1)}
+                        style={{ color: "#fff" }}
+                      />
+                    ))}
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0} dir="rtl">
@@ -195,50 +202,22 @@ const CategoryDescription = () => {
                   />
                 </div>
               </TabPanel>
-              {x?.image_line && (
-                <TabPanel value={value} index={1}>
-                  <div style={{ backgroundColor: "#fff" }}>
-                    <img
-                      style={{ width: "100%" }}
-                      alt=""
-                      src={`/uploads/${x.image_line}`}
-                    />
-                  </div>
-                </TabPanel>
-              )}
-              {x?.image_bar && (
-                <TabPanel value={value} index={2}>
-                  <div style={{ backgroundColor: "#fff" }}>
-                    <img
-                      style={{ width: "100%" }}
-                      alt=""
-                      src={`/uploads/${x.image_bar}`}
-                    />
-                  </div>
-                </TabPanel>
-              )}
-              {x?.image_pie && (
-                <TabPanel value={value} index={3}>
-                  <div style={{ backgroundColor: "#fff" }}>
-                    <img
-                      style={{ width: "100%" }}
-                      alt=""
-                      src={`/uploads/${x.image_pie}`}
-                    />
-                  </div>
-                </TabPanel>
-              )}
-              {x?.image_pyramid && (
-                <TabPanel value={value} index={4}>
-                  <div style={{ backgroundColor: "#fff" }}>
-                    <img
-                      style={{ width: "100%" }}
-                      alt=""
-                      src={`/uploads/${x.image_pyramid}`}
-                    />
-                  </div>
-                </TabPanel>
-              )}
+              {images
+                ?.filter(
+                  (obj, index, self) =>
+                    index === self.findIndex((t) => t["title"] === obj["title"])
+                )
+                ?.map((z, i) => (
+                  <TabPanel value={value} index={1 + i}>
+                    <div style={{ backgroundColor: "#fff" }}>
+                      <img
+                        style={{ width: "100%" }}
+                        alt=""
+                        src={`/uploads/${z.image}`}
+                      />
+                    </div>
+                  </TabPanel>
+                ))}
             </Box>
           </div>
         ))}

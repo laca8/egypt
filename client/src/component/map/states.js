@@ -1,12 +1,13 @@
+
 const states = [
   {
     name: "الإسكندرية",
-    description: "2المساحة : 2,299.97	كم",
+    description: "2المساحة : 2,299.97",
     color: "default",
     hover_color: "default",
     url: "/map/الإسكندرية",
     lat: 31.200092,
-    lng: 29.918739,
+    lng: 29.892540,
   },
   {
     name: "أسوان",
@@ -14,8 +15,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/أسوان",
-    lat: 24.088938,
-    lng: 32.89983,
+    lat: 24.088409,
+    lng: 32.898941,
   },
   {
     name: "أسيوط",
@@ -23,8 +24,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/أسيوط",
-    lat: 29.99983,
-    lng: 31.19561,
+    lat: 27.181580,
+    lng: 31.186730,
   },
   {
     name: "البحر الأحمر",
@@ -32,8 +33,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/البحر الأحمر",
-    lat: 29.96447,
-    lng: 31.212891,
+    lat: 24.718800,
+    lng: 34.141760,
   },
   {
     name: "البحيرة",
@@ -50,8 +51,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/بني سويف	",
-    lat: 30.095779,
-    lng: 31.222509,
+    lat: 29.0744,
+    lng: 31.0859,
   },
   {
     name: "القاهرة",
@@ -59,8 +60,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/القاهرة",
-    lat: 30.04442,
-    lng: 31.235712,
+    lat: 30.0444,
+    lng: 31.2357,
   },
   {
     name: "الدقهلية",
@@ -69,7 +70,7 @@ const states = [
     hover_color: "default",
     url: "/map/الدقهلية",
     lat: 31.06142,
-    lng: 31.65901,
+    lng: 31.3785,
   },
   {
     name: "دمياط",
@@ -77,8 +78,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/دمياط",
-    lat: 31.515159,
-    lng: 31.81152,
+    lat: 31.4175,
+    lng: 31.8144,
   },
   {
     name: "الفيوم",
@@ -86,8 +87,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/الفيوم",
-    lat: 29.309469,
-    lng: 30.843121,
+    lat: 29.3085,
+    lng: 30.8428,
   },
   {
     name: "الغربية",
@@ -104,8 +105,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/الجيزة",
-    lat: 30.01222,
-    lng: 31.20889,
+    lat: 30.0131,
+    lng: 31.2089,
   },
   {
     name: "الإسماعيلية",
@@ -113,8 +114,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/الإسماعيلية",
-    lat: 30.59283,
-    lng: 32.27167,
+    lat: 30.58283,
+    lng: 32.26167,
   },
   {
     name: "جنوب سيناء",
@@ -149,7 +150,7 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/قنا",
-    lat: 26.18412,
+    lat: 26.1555,
     lng: 32.74078,
   },
   {
@@ -194,17 +195,8 @@ const states = [
     color: "default",
     hover_color: "default",
     url: "/map/بورسعيد",
-    lat: 31.10344,
-    lng: 30.63972,
-  },
-  {
-    name: "السويس",
-    description: "المساحة : 9,002.21 كم2",
-    color: "default",
-    hover_color: "default",
-    url: "/map/السويس",
-    lat: 29.9783,
-    lng: 32.50517,
+    lat: 31.2567,
+    lng: 32.2989,
   },
   {
     name: "الشرقية",
