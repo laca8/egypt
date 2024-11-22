@@ -101,7 +101,7 @@ const CategoryDescription = () => {
       }
     });
     console.log(images);
-  }, [dataCat]);
+  }, [dataCat, data]);
   return (
     <Container>
       {loading && <Loader />}

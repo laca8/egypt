@@ -4,7 +4,12 @@ import "./App.css";
 import Home from "./pages/Home";
 import Header from "./component/features/Header";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import Login from "./pages/user/Login";
 
@@ -33,10 +38,15 @@ function App() {
           element={<CategoryDescription />}
         />
 
-        <Route
+        {/* <Route
           path="/admin/sub/:category"
-          element={userInfo?.user?.isAdmin ? <AdminPanel /> : <Login />}
-        />
+          element={
+            userInfo?.user?.isAdmin ? <AdminPanel /> : <Navigate to="/login" />
+          }
+        /> */}
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/admin/sub/:category" element={<AdminPanel />} />
+        </Route>
       </Routes>
     </Router>
   );

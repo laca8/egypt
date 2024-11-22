@@ -12,11 +12,7 @@ import Category from "../../component/admin/Category";
 const AdminPanel = () => {
   const navigator = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  useEffect(() => {
-    if (!userInfo?.user?.isAdmin) {
-      navigator("/login");
-    }
-  }, [userInfo?.user?.isAdmin]);
+
   const { category } = useParams();
   console.log(category);
 
