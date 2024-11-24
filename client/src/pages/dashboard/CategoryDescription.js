@@ -82,7 +82,7 @@ const CategoryDescription = () => {
       }
     });
     console.log(images);
-  }, [dataCat?.length]);
+  }, [dataCat?.length, loading]);
 
   const [data, setData] = useState(dataCat);
   const defaultColDef = useMemo(
@@ -139,25 +139,19 @@ const CategoryDescription = () => {
                     style={{ color: "#fff" }}
                   />
 
-                  {images.length != 0 ? (
-                    images
-                      ?.filter(
-                        (obj, index, self) =>
-                          index ===
-                          self.findIndex((t) => t["title"] === obj["title"])
-                      )
-                      ?.map((z, i) => (
-                        <Tab
-                          label={z?.title}
-                          {...a11yProps(i + 1)}
-                          style={{ color: "#fff" }}
-                        />
-                      ))
-                  ) : (
-                    <span className="text-white flext item-center mt-1">
-                      Loading Graphs.....
-                    </span>
-                  )}
+                  {images
+                    ?.filter(
+                      (obj, index, self) =>
+                        index ===
+                        self.findIndex((t) => t["title"] === obj["title"])
+                    )
+                    ?.map((z, i) => (
+                      <Tab
+                        label={z?.title}
+                        {...a11yProps(i + 1)}
+                        style={{ color: "#fff" }}
+                      />
+                    ))}
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0} dir="rtl">
