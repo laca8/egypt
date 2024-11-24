@@ -41,9 +41,9 @@ const Header = () => {
           <Typography
             variant="h6"
             component="div"
-            style={{ marginRight: "30px", cursor: "pointer" }}
-          >
+            style={{ marginRight: "30px", cursor: "pointer" }}>
             <img
+              alt="icon"
               src="https://cdn-icons-png.flaticon.com/512/2257/2257295.png"
               style={{ width: "40px" }}
             />
@@ -59,8 +59,7 @@ const Header = () => {
                 <Dropdown.Toggle
                   id="dropdown-basic"
                   variant="Secondary"
-                  style={{ color: "#fff" }}
-                >
+                  style={{ color: "#fff" }}>
                   Themes
                 </Dropdown.Toggle>
 
@@ -70,8 +69,7 @@ const Header = () => {
                       <Dropdown.Item
                         key={i}
                         href={`/sub/${x?.title}`}
-                        style={{ color: "#333", textAlign: "right" }}
-                      >
+                        style={{ color: "#333", textAlign: "right" }}>
                         {x?.title}
                       </Dropdown.Item>
                     ))}
@@ -100,14 +98,27 @@ const Header = () => {
               <Button
                 style={{
                   backgroundColor: "#807040",
-                  boxShadow: "1px 1px 1px 1px #444",
+                  boxShadow: "1px 1px 1px 1px #807040",
+                  border: "1px solid #fff",
                 }}
-                onClick={() => navigator("/admin/sub/categories")}
-              >
+                onClick={() => navigator("/admin/sub/categories")}>
                 admin
               </Button>
             </div>
           ) : null}
+        </Navbar.Brand>
+        <Navbar.Brand>
+          <div style={{ marginLeft: "20px" }}>
+            <Button
+              style={{
+                backgroundColor: "#807040",
+                boxShadow: "0.5px 0.5px 0.5px 1px #807040",
+                border: "1px solid #fff",
+              }}
+              onClick={() => navigator("/dashboard")}>
+              dashboard
+            </Button>
+          </div>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
@@ -117,8 +128,7 @@ const Header = () => {
                 display: "flex",
                 justifyContent: "flex-end",
                 textAlign: "center",
-              }}
-            >
+              }}>
               {userInfo?.user?.name ? (
                 <Button variant="danger" onClick={handleLogout}>
                   Sign Out
@@ -126,8 +136,7 @@ const Header = () => {
               ) : (
                 <Button
                   variant="outline-success"
-                  onClick={() => navigator("/login")}
-                >
+                  onClick={() => navigator("/login")}>
                   Sign In
                 </Button>
               )}

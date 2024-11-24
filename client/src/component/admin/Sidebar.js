@@ -136,8 +136,7 @@ const SidebarCom = () => {
         height: "100vh",
         overflowY: "auto",
         color: "#fff",
-      }}
-    >
+      }}>
       {loadingCat && <Loader />}
       <div>
         <div
@@ -151,8 +150,7 @@ const SidebarCom = () => {
             color: "#fff",
             cursor: "pointer",
           }}
-          onClick={() => navigator(`/admin/categories`)}
-        >
+          onClick={() => navigator(`/admin/sub/categories`)}>
           <img
             alt=""
             style={{
@@ -166,8 +164,7 @@ const SidebarCom = () => {
             className="text-sidebar"
             style={{
               fontWeight: "bold",
-            }}
-          >
+            }}>
             Categories
           </Typography>
         </div>
@@ -186,8 +183,7 @@ const SidebarCom = () => {
 
                 cursor: "pointer",
               }}
-              onClick={() => navigator(`/admin/sub/${x?.title}`)}
-            >
+              onClick={() => navigator(`/admin/sub/${x?.title}`)}>
               <img
                 alt=""
                 src={`/uploads/${x?.image}`}
@@ -204,8 +200,7 @@ const SidebarCom = () => {
                 style={{
                   textAlign: "left",
                   fontWeight: "bold",
-                }}
-              >
+                }}>
                 {x?.title}
               </Typography>
             </div>

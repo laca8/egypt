@@ -27,8 +27,7 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -67,6 +66,23 @@ const CategoryDescription = () => {
     (state) => state.getSubCategoryReducer
   );
   const { loading, error, category: dataCat } = getSubCategoryReducer;
+  useEffect(() => {
+    dataCat?.map((x) => {
+      if (x?.image_line != null) {
+        images.push({ image: x.image_line, title: "line" });
+      }
+      if (x?.image_bar != null) {
+        images.push({ image: x.image_bar, title: "bar" });
+      }
+      if (x?.image_pie != null) {
+        images.push({ image: x.image_pie, title: "pie" });
+      }
+      if (x?.image_pyramid != null) {
+        images.push({ image: x.image_pyramid, title: "pyramid" });
+      }
+    });
+    console.log(images);
+  }, [dataCat?.length]);
 
   const [data, setData] = useState(dataCat);
   const defaultColDef = useMemo(
@@ -85,23 +101,10 @@ const CategoryDescription = () => {
       minWidth: 200,
     };
   }, []);
+
   useEffect(() => {
-    dataCat?.map((x) => {
-      if (x.image_line != null) {
-        images.push({ image: x.image_line, title: "line" });
-      }
-      if (x.image_bar != null) {
-        images.push({ image: x.image_bar, title: "bar" });
-      }
-      if (x.image_pie != null) {
-        images.push({ image: x.image_pie, title: "pie" });
-      }
-      if (x.image_pyramid != null) {
-        images.push({ image: x.image_pyramid, title: "pyramid" });
-      }
-    });
-    console.log(images);
-  }, [dataCat, data]);
+    console.log(dataCat);
+  }, [cho]);
   return (
     <Container>
       {loading && <Loader />}
@@ -120,8 +123,7 @@ const CategoryDescription = () => {
                   borderRadius: "5px",
                   padding: "5px",
                   marginBottom: "10px",
-                }}
-              >
+                }}>
                 {x?.title}
               </Typography>
             )}
@@ -130,50 +132,61 @@ const CategoryDescription = () => {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  aria-label="basic tabs example"
-                >
+                  aria-label="basic tabs example">
                   <Tab
                     label="Table"
                     {...a11yProps(0)}
                     style={{ color: "#fff" }}
                   />
 
-                  {images
-                    ?.filter(
-                      (obj, index, self) =>
-                        index ===
-                        self.findIndex((t) => t["title"] === obj["title"])
-                    )
-                    ?.map((z, i) => (
-                      <Tab
-                        label={z?.title}
-                        {...a11yProps(i + 1)}
-                        style={{ color: "#fff" }}
-                      />
-                    ))}
+                  {images.length != 0 ? (
+                    images
+                      ?.filter(
+                        (obj, index, self) =>
+                          index ===
+                          self.findIndex((t) => t["title"] === obj["title"])
+                      )
+                      ?.map((z, i) => (
+                        <Tab
+                          label={z?.title}
+                          {...a11yProps(i + 1)}
+                          style={{ color: "#fff" }}
+                        />
+                      ))
+                  ) : (
+                    <span className="text-white flext item-center mt-1">
+                      Loading Graphs.....
+                    </span>
+                  )}
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0} dir="rtl">
-                <Form.Select
-                  aria-label="Default select example"
-                  value={cho}
-                  onChange={(e) => setCho(e.target.value)}
-                >
-                  <option value={""}>اختر</option>
-                  {x?.results
-                    .filter(
-                      (obj, index, self) =>
-                        index ===
-                        self.findIndex((t) => t["المحافظة"] === obj["المحافظة"])
-                    )
-                    ?.map((z) => (
-                      <option>{z["المحافظة"]}</option>
-                    ))}
-                </Form.Select>
+                {[
+                  ...new Set(
+                    [].concat(...x?.results?.map((e) => Object.keys(e)))
+                  ),
+                ]?.includes("المحافظة") ? (
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={cho}
+                    onChange={(e) => setCho(e.target.value)}>
+                    <option value={""}>اختر</option>
+                    {x?.results
+                      .filter(
+                        (obj, index, self) =>
+                          index ===
+                          self.findIndex(
+                            (t) => t["المحافظة"] === obj["المحافظة"]
+                          )
+                      )
+                      ?.map((z) => (
+                        <option>{z["المحافظة"]}</option>
+                      ))}
+                  </Form.Select>
+                ) : null}
                 <div
                   className={"ag-theme-alpine"}
-                  style={{ height: 500, marginTop: "5px" }}
-                >
+                  style={{ height: 500, marginTop: "5px" }}>
                   <AgGridReact
                     rowData={
                       cho == ""

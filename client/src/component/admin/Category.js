@@ -69,27 +69,44 @@ const Category = () => {
   const toggleOpen = () => setBasicModal(!basicModal);
 
   const handleChange2 = (e) => {
+    const x = e.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
+    const maxSize = 1 * 1024 * 1024; // 5MB in bytes
+    if (!x) return;
+
+    // Validate file type
+    if (!allowedTypes.includes(x.type)) {
+      alert("Invalid file type. Please upload a JPEG, PNG, JPG.");
+      return;
+    }
+
+    // Validate file size
+    if (x.size > maxSize) {
+      alert("File is too large. Maximum size is 1MB.");
+      return;
+    }
     setFile(e.target.files[0]);
   };
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("title", title);
+    if (!file) {
+      alert("please choose image..");
+      return;
+    }
     if (file) {
       formData.append("image", file);
     }
     dispatch(AddCategory(formData));
-
-    if (success) {
-      alert("added category success...");
-      dispatch(listCategory());
-    }
+    setBasicModal(!basicModal);
+    dispatch(listCategory());
   };
   const handleRemove = async (id) => {
     console.log(id);
     dispatch(deleteCategory(id));
     dispatch(listCategory());
   };
-  // const columnsDefs = [
+
   //   {
   //     headerName: "#",
   //     cellRenderer: (p) => <DeleteButtonComponent id={p.data._id} />,
@@ -137,8 +154,7 @@ const Category = () => {
         dir="ltr"
         open={basicModal}
         onClose={() => setBasicModal(false)}
-        tabIndex="-1"
-      >
+        tabIndex="-1">
         <MDBModalDialog>
           <MDBModalContent>
             <MDBModalHeader>
@@ -146,8 +162,7 @@ const Category = () => {
               <MDBBtn
                 className="btn-close"
                 color="none"
-                onClick={toggleOpen}
-              ></MDBBtn>
+                onClick={toggleOpen}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>
               <MDBInput
@@ -158,14 +173,17 @@ const Category = () => {
                 type="text"
                 style={{ marginBottom: "10px" }}
               />
-              <MDBFile onChange={handleChange2} id="customFile" />
+              <MDBFile
+                onChange={handleChange2}
+                id="customFile"
+                accept="image/*"
+              />
             </MDBModalBody>
 
             <MDBModalFooter>
               <MDBBtn
                 onClick={() => handleSubmit()}
-                style={{ backgroundColor: "#708040" }}
-              >
+                style={{ backgroundColor: "#708040" }}>
                 save
               </MDBBtn>
             </MDBModalFooter>
@@ -198,8 +216,7 @@ const Category = () => {
                 height: "100px",
 
                 backgroundColor: "whitesmoke",
-              }}
-            >
+              }}>
               <MDBTableHead>
                 <tr>
                   <th>مسلسل</th>
@@ -230,8 +247,7 @@ const Category = () => {
                       <Button
                         variant="outlined"
                         color="error"
-                        onClick={() => handleRemove(x?._id)}
-                      >
+                        onClick={() => handleRemove(x?._id)}>
                         <DeleteIcon />
                       </Button>
                     </td>

@@ -20,6 +20,7 @@ import City from "./pages/map/City";
 import CategoryDescription from "./pages/dashboard/CategoryDescription";
 import ProtectedRoutes from "./utils/ProtectedRoute";
 import CategoriesResults from "./pages/dashboard/CategoriesResults";
+import Dashboard from "./pages/dashboard/Dashboard";
 function App() {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -37,6 +38,7 @@ function App() {
           path="/sub/:category/:idResults"
           element={<CategoryDescription />}
         />
+        <Route path="/dashboard" element={<Dashboard />} />
 
         {/* <Route
           path="/admin/sub/:category"

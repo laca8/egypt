@@ -57,21 +57,110 @@ const SubCategory = () => {
   const [title, setTitle] = useState("");
 
   const handleChange2 = (e) => {
+    const x = e.target.files[0];
+    const allowedTypes = [
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.ms-excel.sheet.macroEnabled.12",
+    ];
+    const maxSize = 2.5 * 1024 * 1024; // 2MB in bytes
+    if (!x) return;
+
+    // Validate file type
+    if (!allowedTypes.includes(x.type)) {
+      console.log(x.type);
+
+      alert("Invalid file type. Please upload a EXCEL");
+      return;
+    }
+
+    // Validate file size
+    if (x.size > maxSize) {
+      alert("File is too large. Maximum size is 2MB.");
+      return;
+    }
+
     setFile(e.target.files[0]);
   };
   const handleChangeLine = (e) => {
+    const x = e.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
+    const maxSize = 1 * 1024 * 1024; // 5MB in bytes
+    if (!x) return;
+
+    // Validate file type
+    if (!allowedTypes.includes(x.type)) {
+      alert("Invalid file type. Please upload a JPEG, PNG, JPG.");
+      return;
+    }
+
+    // Validate file size
+    if (x.size > maxSize) {
+      alert("File is too large. Maximum size is 1MB.");
+      return;
+    }
+
     setLine(e.target.files[0]);
     console.log(line);
   };
   const handleChangeBar = (e) => {
+    const x = e.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
+    const maxSize = 1 * 1024 * 1024; // 5MB in bytes
+    if (!x) return;
+
+    // Validate file type
+    if (!allowedTypes.includes(x.type)) {
+      alert("Invalid file type. Please upload a JPEG, PNG, JPG.");
+      return;
+    }
+
+    // Validate file size
+    if (x.size > maxSize) {
+      alert("File is too large. Maximum size is 1MB.");
+      return;
+    }
     setImageBar(e.target.files[0]);
     console.log(image_bar);
   };
   const handleChangePie = (e) => {
+    const x = e.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
+    const maxSize = 1 * 1024 * 1024; // 5MB in bytes
+    if (!x) return;
+
+    // Validate file type
+    if (!allowedTypes.includes(x.type)) {
+      alert("Invalid file type. Please upload a JPEG, PNG, JPG.");
+      return;
+    }
+
+    // Validate file size
+    if (x.size > maxSize) {
+      alert("File is too large. Maximum size is 1MB.");
+      return;
+    }
+    setFile(e.target.files[0]);
     setImagePie(e.target.files[0]);
     console.log(image_pie);
   };
   const handleChangePyramid = (e) => {
+    const x = e.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
+    const maxSize = 1 * 1024 * 1024; // 5MB in bytes
+    if (!x) return;
+
+    // Validate file type
+    if (!allowedTypes.includes(x.type)) {
+      alert("Invalid file type. Please upload a JPEG, PNG, JPG.");
+      return;
+    }
+
+    // Validate file size
+    if (x.size > maxSize) {
+      alert("File is too large. Maximum size is 1MB.");
+      return;
+    }
     setImagePyramid(e.target.files[0]);
     console.log(image_pyramid);
   };
@@ -79,7 +168,7 @@ const SubCategory = () => {
     e.preventDefault();
 
     if (!file) {
-      alert("Please select a file");
+      alert("Please select a excel file");
       return;
     }
     if (!title) {
@@ -104,9 +193,6 @@ const SubCategory = () => {
     setImagePyramid("");
     setFile("");
 
-    if (success) {
-      alert("تم اضافة الجدول");
-    }
     dispatch(listCategoryByTitle(category));
   };
   const exportCsv = ({ data = [""], filename = "download.xlsx" }) => {
@@ -199,19 +285,16 @@ const SubCategory = () => {
                     borderRadius: "5px",
                     padding: "5px",
                     marginBottom: "5px",
-                  }}
-                >
+                  }}>
                   {category}
                 </h2>
                 <Accordion
                   className="mt-2 mb-2 "
-                  style={{ backgroundColor: "whitesmoke" }}
-                >
+                  style={{ backgroundColor: "whitesmoke" }}>
                   <AccordionSummary
                     expandIcon={<ArrowDownwardIcon />}
                     aria-controls="panel1-content"
-                    id="panel1-header"
-                  >
+                    id="panel1-header">
                     <Typography>الجداول السابقة</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
@@ -222,8 +305,7 @@ const SubCategory = () => {
                           maxHeight: "600px",
                           overflowX: "auto",
                           overflowY: "auto",
-                        }}
-                      >
+                        }}>
                         <MDBTable bordered className="table-secondary">
                           <MDBTableHead variant="dark">
                             <tr>
@@ -241,8 +323,7 @@ const SubCategory = () => {
                                   <Button
                                     variant="outlined"
                                     color="error"
-                                    onClick={() => removeSub(index, x.id)}
-                                  >
+                                    onClick={() => removeSub(index, x.id)}>
                                     <DeleteIcon />
                                   </Button>
                                 </td>
@@ -262,8 +343,7 @@ const SubCategory = () => {
                   border: "2px solid #807040",
                   width: "100%",
                   overflowX: "auto",
-                }}
-              >
+                }}>
                 <div className="overflow-x-auto">
                   {loading ? (
                     <Loader />
@@ -273,8 +353,7 @@ const SubCategory = () => {
                     <div
                       style={{
                         padding: "8px",
-                      }}
-                    >
+                      }}>
                       <Row>
                         <div
                           style={{
@@ -283,8 +362,7 @@ const SubCategory = () => {
                             gap: "10px",
                             justifyContent: "space-between",
                             alignItems: "end",
-                          }}
-                        >
+                          }}>
                           <Form.Group style={{ width: "100%" }}>
                             <Form.Label>اسم الجدول</Form.Label>
                             <Form.Control
@@ -292,29 +370,29 @@ const SubCategory = () => {
                               type="text"
                               placeholder="ادخل اسم الجدول"
                               value={title}
-                              onChange={(e) => setTitle(e.target.value)}
-                            ></Form.Control>
+                              onChange={(e) =>
+                                setTitle(e.target.value)
+                              }></Form.Control>
                           </Form.Group>
                           <div
                             style={{
                               display: "flex",
                               flexDirection: "row",
                               width: "100%",
-                            }}
-                          >
+                            }}>
                             <ButtonMaterial
                               variant="contained"
                               component="label"
                               style={{
                                 backgroundColor: "#708040",
                                 width: "41%",
-                              }}
-                            >
+                              }}>
                               <UploadFileIcon />
                               <input
                                 hidden
                                 onChange={handleChange2}
                                 type="file"
+                                accept=".xlsx"
                               />
                             </ButtonMaterial>
                             <ButtonMaterial
@@ -325,8 +403,7 @@ const SubCategory = () => {
                                 borderRadius: "4px",
                                 width: "50%",
                               }}
-                              onClick={exportCsv}
-                            >
+                              onClick={exportCsv}>
                               {loading ? "Exporting..." : "Export to Excel"}
                             </ButtonMaterial>
                           </div>
@@ -340,8 +417,7 @@ const SubCategory = () => {
                               justifyContent: "space-between",
                               marginTop: "20px",
                               marginBottom: "20px",
-                            }}
-                          >
+                            }}>
                             <div>
                               <div className="mb-1 d-flex justify-content-center">
                                 {image_pyramid && (
@@ -363,13 +439,13 @@ const SubCategory = () => {
                                   component="label"
                                   style={{
                                     backgroundColor: "#708040",
-                                  }}
-                                >
+                                  }}>
                                   Image Pyramid
                                   <input
                                     hidden
                                     onChange={handleChangePyramid}
                                     type="file"
+                                    accept="image/*"
                                   />
                                 </ButtonMaterial>
                               </div>
@@ -396,13 +472,13 @@ const SubCategory = () => {
                                   component="label"
                                   style={{
                                     backgroundColor: "#708040",
-                                  }}
-                                >
+                                  }}>
                                   Image Pie
                                   <input
                                     hidden
                                     onChange={handleChangePie}
                                     type="file"
+                                    accept="image/*"
                                   />
                                 </ButtonMaterial>
                               </div>
@@ -430,13 +506,13 @@ const SubCategory = () => {
                                   component="label"
                                   style={{
                                     backgroundColor: "#708040",
-                                  }}
-                                >
+                                  }}>
                                   Image Bar
                                   <input
                                     hidden
                                     onChange={handleChangeBar}
                                     type="file"
+                                    accept="image/*"
                                   />
                                 </ButtonMaterial>
                               </div>
@@ -463,13 +539,13 @@ const SubCategory = () => {
                                   component="label"
                                   style={{
                                     backgroundColor: "#708040",
-                                  }}
-                                >
+                                  }}>
                                   Image Line
                                   <input
                                     hidden
                                     onChange={handleChangeLine}
                                     type="file"
+                                    accept="image/*"
                                   />
                                 </ButtonMaterial>
                               </div>
@@ -481,8 +557,7 @@ const SubCategory = () => {
                           onClick={handleSubmit}
                           variant="outlined"
                           disabled={loading || file == ""}
-                          style={{ width: "100px", margin: "auto" }}
-                        >
+                          style={{ width: "100px", margin: "auto" }}>
                           save
                         </ButtonMaterial>
                       </Row>

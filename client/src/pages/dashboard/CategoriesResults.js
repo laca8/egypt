@@ -36,8 +36,7 @@ const CategoriesResults = () => {
           justifyContent: "flex-end",
           margin: "10px 0",
           textAlign: "right",
-        }}
-      >
+        }}>
         <Typography
           variant="h4"
           style={{
@@ -48,8 +47,7 @@ const CategoriesResults = () => {
             width: "600px",
             borderRadius: "5px",
             padding: "5px",
-          }}
-        >
+          }}>
           {category}
         </Typography>
       </div>
@@ -62,8 +60,7 @@ const CategoriesResults = () => {
                 fontWeight: "bold",
                 marginBottom: "5px",
                 backgroundColor: "#807040",
-              }}
-            >
+              }}>
               {dataCat?.subs?.map((x, index) => (
                 <Link
                   to={`/sub/${category}/${x.id}`}
@@ -76,8 +73,7 @@ const CategoriesResults = () => {
                     margin: "5px",
                     fontWeight: "bold",
                     color: "#fff",
-                  }}
-                >
+                  }}>
                   {x?.title}
                 </Link>
               ))}
