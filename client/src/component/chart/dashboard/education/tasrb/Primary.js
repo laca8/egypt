@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import axios from "axios";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -19,15 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const ChartBar = ({ arr }) => {
-  // console.log(
-  //   arr &&
-  //     JSON.parse(arr).map((x) =>
-  //       Number(x["العدد"].replace(",", "").replace(",", ""))
-  //     )
-  // );
-
+const ChartBarStud = ({ arr }) => {
   const options = {
     responsive: true,
     plugins: {
@@ -36,30 +27,29 @@ const ChartBar = ({ arr }) => {
       },
       title: {
         display: true,
-        text: "اجمالي أعداد الأطفال",
+        text: "التسرب من التعليم المرحلة الأبتدائية",
       },
     },
   };
-
   const data = {
     labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+
     datasets: [
       {
-        label: "الأطفال",
-        data:
-          arr &&
-          JSON.parse(arr).map((x) =>
-            Number(x["العدد"].replace(",", "").replace(",", ""))
-          ),
+        label: "ذكور",
+        backgroundColor: "#807040",
+        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
+      },
+
+      {
+        label: "إناث",
         backgroundColor: "#496580",
+
+        data: arr && JSON.parse(arr)?.map((x) => x["إناث"]),
       },
     ],
   };
-
-  return (
-    <>
-      <Bar options={options} data={data} />
-    </>
-  );
+  return <Bar data={data} options={options} />;
 };
-export default ChartBar;
+
+export default ChartBarStud;

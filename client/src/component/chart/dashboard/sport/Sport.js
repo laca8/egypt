@@ -21,25 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const labels = ["Sport"];
-
-const Sport = () => {
-  const dispatch = useDispatch();
-  const [clubs, setClubs] = useState([]);
-  const [councils, setCouncils] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/api/total/sport");
-        setClubs(res?.data?.club[0]?.total_clubs);
-        setCouncils(res?.data.council[0]?.total_counil);
-        console.log(res?.data?.club[0]?.total_clubs);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+const Sport = ({ arr }) => {
   const options = {
     responsive: true,
     plugins: {
@@ -48,23 +30,24 @@ const Sport = () => {
       },
       title: {
         display: true,
-        text: "Sport",
+        text: "الرياضة",
       },
     },
   };
 
   const data = {
-    labels,
+    labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
     datasets: [
       {
-        label: "Clubs",
-        data: [clubs]?.map((x) => x),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        label: "اجمالى الاندیه",
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["اجمالى الاندیه"])),
+        backgroundColor: "#807040",
       },
       {
-        label: "Young`s Centers",
-        data: [councils]?.map((x) => x),
-        backgroundColor: "brown",
+        label: "اجمالى مراكز الشباب",
+        data:
+          arr && JSON.parse(arr)?.map((x) => Number(x["اجمالى مراكز الشباب"])),
+        backgroundColor: "#496580",
       },
     ],
   };

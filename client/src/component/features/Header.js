@@ -65,14 +65,16 @@ const Header = () => {
 
                 <Dropdown.Menu>
                   {categories &&
-                    categories?.map((x, i) => (
-                      <Dropdown.Item
-                        key={i}
-                        href={`/sub/${x?.title}`}
-                        style={{ color: "#333", textAlign: "right" }}>
-                        {x?.title}
-                      </Dropdown.Item>
-                    ))}
+                    categories
+                      ?.filter((x) => x.title !== "Dashboard")
+                      ?.map((x, i) => (
+                        <Dropdown.Item
+                          key={i}
+                          href={`/sub/${x?.title}`}
+                          style={{ color: "#333", textAlign: "right" }}>
+                          {x?.title}
+                        </Dropdown.Item>
+                      ))}
                 </Dropdown.Menu>
               </Dropdown>
             )}

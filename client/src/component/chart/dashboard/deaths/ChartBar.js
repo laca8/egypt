@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,8 +8,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
-
+import { Bar, Line } from "react-chartjs-2";
+import axios from "axios";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,69 +18,56 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const labels = ["1 To 5 Years ", "- 1 Year", "- 28 Days", "- 7 Days"];
-
-const males = [4943, 19187, 10006, 3835];
-const females = [4160, 16010, 7197, 2673];
-
-const ChartBar = () => {
+const ChartBarStud = ({ arr }) => {
+  console.log(arr && JSON.parse(arr)?.map((x) => x["الوفيات"]));
   const options = {
     responsive: true,
-
-    scales: {
-      y: {
-        ticks: {
-          color: "black",
-          font: {
-            size: 10,
-          },
-        },
-      },
-      x: {
-        ticks: {
-          color: "black",
-          font: {
-            size: 10,
-          },
-        },
-      },
+    legend: {
+      display: false,
     },
 
+    type: "bar",
+    scales: {
+      xAxes: [
+        {
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          stacked: true,
+        },
+      ],
+    },
     plugins: {
       legend: {
         position: "top",
-        labels: {
-          fontSize: 8,
-        },
       },
       title: {
         display: true,
-        text: "Children Mortality",
+        text: "المواليد والوفيات",
       },
     },
   };
-
   const data = {
-    labels,
+    labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+
     datasets: [
       {
-        label: "Males",
-        data: males?.map((x) => x),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        label: "المواليد",
+        backgroundColor: "#807040",
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["المواليد"])),
       },
+
       {
-        label: "Females",
-        data: females?.map((x) => x),
-        backgroundColor: "brown",
+        label: "الوفيات",
+        backgroundColor: "#496580",
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["الوفيات"])),
       },
     ],
   };
-
-  return (
-    <>
-      <Bar options={options} data={data} style={{ fontSize: "5px" }} />
-    </>
-  );
+  return <Bar data={data} options={options} />;
 };
-export default ChartBar;
+
+export default ChartBarStud;

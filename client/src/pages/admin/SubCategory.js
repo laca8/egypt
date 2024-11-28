@@ -140,9 +140,7 @@ const SubCategory = () => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setFile(e.target.files[0]);
     setImagePie(e.target.files[0]);
-    console.log(image_pie);
   };
   const handleChangePyramid = (e) => {
     const x = e.target.files[0];
@@ -162,7 +160,6 @@ const SubCategory = () => {
       return;
     }
     setImagePyramid(e.target.files[0]);
-    console.log(image_pyramid);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -35,26 +35,37 @@ const Map2 = () => {
   const handleInfo = (x) => {
     setDesc(x);
   };
+  const [data, setData] = useState([]);
   const listCategoryReducer = useSelector((state) => state.listCategoryReducer);
   const { loading, error, categories } = listCategoryReducer;
   useEffect(() => {
-    // if (categories) {
-    //   console.log(
-    //     categories
-    //       ?.filter((y) => y.title == "السكان")
-    //       ?.map((y) =>
-    //         y?.subs
-    //           ?.filter((z) => z.title == "السكان أول العام")
-    //           ?.map((z) =>
-    //             z.results
-    //               ?.filter((c) => c["المحافظة"] == "القاهرة")
-    //               ?.sort((a, b) => b["السنة"] - a["السنة"])
-    //               .slice(0, 2)
-    //               ?.map((v) => v)
-    //           )
-    //       )
-    //   );
-    // }
+    setData(
+      categories
+        ?.filter((z) => z.title == "الفئات العمرية")
+        .map((x) =>
+          x.subs.map((z) =>
+            z.results
+              ?.filter((c) => c["القسم أو المركز"] == "قسم التبين")
+              ?.reduce((acc, curr) => {
+                const value = parseFloat(curr["عدد السكان"]) || 0;
+                const existingItem = acc.find(
+                  (item) => item["النوع"] === curr["النوع"]
+                );
+
+                if (existingItem) {
+                  existingItem["عدد السكان"] =
+                    parseInt(existingItem["عدد السكان"]) + value;
+                } else {
+                  acc.push({ ...curr, value: value.toString() });
+                }
+
+                return acc;
+              }, [])
+          )
+        )
+    );
+
+    console.log(data);
   }, []);
   return (
     <div style={{ height: "500px" }}>
@@ -69,7 +80,7 @@ const Map2 = () => {
         {places?.map((x, i) => (
           <Marker
             key={i}
-            position={[x.latitude, x.longitude]}
+            position={[x.lat, x.lng]}
             icon={
               new L.Icon({
                 iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png`,
@@ -81,7 +92,67 @@ const Map2 = () => {
               })
             }>
             <Popup>
-              <p>{x.name}</p>
+              <p
+                style={{
+                  width: "100%",
+                  borderBottom: "1px solid #807040",
+                  padding: "2px",
+                }}>
+                <span style={{ marginBottom: "2px", padding: "2px" }}>
+                  محافظة {x["المحافظة"]}, {x["المركز"]}
+                </span>
+              </p>
+              <span
+                style={{
+                  textAlign: "right",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                }}>
+                عدد السكان
+              </span>
+              {categories
+                ?.filter((y) => y.title == "الفئات العمرية")
+                ?.map((y) =>
+                  y?.subs
+                    ?.filter((z) => z.title == "عدد السكان فئات عمرية")
+                    ?.map((z) =>
+                      z?.results
+                        ?.filter((c) => c["القسم أو المركز"] == x["المركز"])
+
+                        ?.reduce((acc, curr) => {
+                          const value = parseFloat(curr["عدد السكان"]) || 0;
+                          const existingItem = acc.find(
+                            (item) => item["النوع"] === curr["النوع"]
+                          );
+
+                          if (existingItem) {
+                            existingItem["عدد السكان"] =
+                              parseInt(existingItem["عدد السكان"]) + value;
+                          } else {
+                            acc.push({ ...curr, value: value.toString() });
+                          }
+
+                          return acc;
+                        }, [])
+
+                        ?.map((v) => (
+                          <span
+                            style={{
+                              margin: "2px 2px ",
+                              color: "#fff",
+                              padding: "5px",
+                              backgroundColor: "#807040",
+                              textAlign: "right",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "start",
+                            }}>
+                            {v["النوع"]}: {v["عدد السكان"]}
+                          </span>
+                        ))
+                    )
+                )}
             </Popup>
           </Marker>
         ))}
@@ -92,6 +163,25 @@ const Map2 = () => {
             // onClick={() => handleClick(x.url)}
           >
             <Popup>
+              <p
+                style={{
+                  width: "100%",
+                  borderBottom: "1px solid #807040",
+                  padding: "2px",
+                }}>
+                <span style={{ marginBottom: "2px", padding: "2px" }}>
+                  محافظة {x["name"]}
+                </span>
+              </p>
+              <span
+                style={{
+                  textAlign: "right",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                }}>
+                عدد السكان
+              </span>
               {categories
                 ?.filter((y) => y.title == "السكان")
                 ?.map((y) =>
@@ -103,46 +193,22 @@ const Map2 = () => {
                         ?.sort((a, b) => b["السنة"] - a["السنة"])
                         .slice(0, 2)
                         ?.map((v) => (
-                          <div>
-                            <p
-                              style={{
-                                width: "100%",
-                                borderBottom: "1px solid #807040",
-                                padding: "2px",
-                              }}>
-                              <span
-                                style={{ marginBottom: "2px", padding: "2px" }}>
-                                {v["المحافظة"]}, {v["السنة"]}, {v["النوع"]}
-                              </span>
-                              <br />
-                              <span style={{ padding: "2px" }}>
-                                عدد السكان:{" "}
-                                <span
-                                  style={{
-                                    padding: "2px",
-                                    backgroundColor: "#807040",
-                                    color: "#fff",
-                                  }}>
-                                  {v["عدد السكان"]}
-                                </span>
-                              </span>
-                            </p>
-                          </div>
+                          <span
+                            style={{
+                              margin: "2px 2px ",
+                              color: "#fff",
+                              padding: "5px",
+                              backgroundColor: "#807040",
+                              textAlign: "right",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "start",
+                            }}>
+                            {v["النوع"]}: {v["عدد السكان"]}
+                          </span>
                         ))
                     )
                 )}
-              {/* <Button
-                style={{
-                  backgroundColor: "#708040",
-                }}>
-                <a
-                  href={`${x.url}`}
-                  style={{
-                    color: "#fff",
-                  }}>
-                  المراكز
-                </a>
-              </Button> */}
             </Popup>
           </Marker>
         ))}

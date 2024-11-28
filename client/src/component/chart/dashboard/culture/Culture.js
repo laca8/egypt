@@ -18,26 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const Culture = () => {
-  const [cin18, setCin18] = useState("");
-  const [cin19, setCin19] = useState("");
-  const [th18, setTh18] = useState("");
-  const [th19, setTh19] = useState("");
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/api/edu/total/cul");
-        setCin18(res?.data?.cinema18[0]?.total_cinema);
-        setCin19(res?.data?.cinema19[0]?.total_cinema);
-        setTh18(res?.data?.theater18[0]?.total_theaters);
-        setTh19(res?.data?.theater19[0]?.total_theaters);
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+const Culture = ({ arr }) => {
   const options = {
     responsive: true,
     legend: {
@@ -63,30 +44,25 @@ const Culture = () => {
       },
       title: {
         display: true,
-        text: "Culture",
+        text: "عدد الوفيات دون الخامسة",
       },
     },
   };
   const data = {
-    labels: ["2018", "2019"],
+    labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+
     datasets: [
       {
-        label: "Theaters",
-        backgroundColor: "brown",
-
-        borderWidth: 1,
-        stack: 1,
-
-        data: [th18, th19],
+        label: "ذكور",
+        backgroundColor: "#807040",
+        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
       },
+
       {
-        label: "Cinema",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        label: "إناث",
+        backgroundColor: "#496580",
 
-        borderWidth: 1,
-        stack: 1,
-
-        data: [cin18, cin19],
+        data: arr && JSON.parse(arr)?.map((x) => x["إناث"]),
       },
     ],
   };

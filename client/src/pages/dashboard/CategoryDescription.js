@@ -139,12 +139,13 @@ const CategoryDescription = () => {
                     style={{ color: "#fff" }}
                   />
 
-                  {images
-                    ?.filter(
-                      (obj, index, self) =>
-                        index ===
-                        self.findIndex((t) => t["title"] === obj["title"])
-                    )
+                  {x?.images
+                    // ?.filter(
+                    //   (obj, index, self) =>
+                    //     index ===
+                    //     self.findIndex((t) => t["title"] === obj["title"])
+                    // )
+                    ?.filter((obj, index) => obj?.image != null)
                     ?.map((z, i) => (
                       <Tab
                         label={z?.title}
@@ -209,11 +210,8 @@ const CategoryDescription = () => {
                   />
                 </div>
               </TabPanel>
-              {images
-                ?.filter(
-                  (obj, index, self) =>
-                    index === self.findIndex((t) => t["title"] === obj["title"])
-                )
+              {x?.images
+                ?.filter((obj, index) => obj?.image != null)
                 ?.map((z, i) => (
                   <TabPanel value={value} index={1 + i}>
                     <div style={{ backgroundColor: "#fff" }}>

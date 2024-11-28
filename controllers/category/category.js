@@ -59,7 +59,7 @@ const deleteCategory = async (req, res) => {
   }
 };
 const editCategory = async (req, res) => {
-  console.log(req.files.file[0].path);
+  //console.log(req.files);
 
   try {
     const category = await Category.findOne({ title: req.params.title });
@@ -105,18 +105,33 @@ const editCategory = async (req, res) => {
                 .substr(2, 10),
               title: req.body.title,
               results: jsonData,
-              image_line: req?.files?.line
-                ? req?.files?.line[0]?.filename
-                : null,
-              image_bar: req?.files?.image_bar
-                ? req?.files?.image_bar[0]?.filename
-                : null,
-              image_pie: req?.files?.image_pie
-                ? req?.files?.image_pie[0]?.filename
-                : null,
-              image_pyramid: req?.files?.image_pyramid
-                ? req?.files?.image_pyramid[0]?.filename
-                : null,
+              images: [
+                {
+                  title: "Line",
+                  image: req?.files?.line
+                    ? req?.files?.line[0]?.filename
+                    : null,
+                },
+                {
+                  title: "Bar",
+                  image: req?.files?.image_bar
+                    ? req?.files?.image_bar[0]?.filename
+                    : null,
+                },
+                {
+                  title: "Pie",
+                  image: req?.files?.image_pie
+                    ? req?.files?.image_pie[0]?.filename
+                    : null,
+                },
+                {
+                  title: "Pyramid",
+                  image: req?.files?.image_pyramid
+                    ? req?.files?.image_pyramid[0]?.filename
+                    : null,
+                },
+              ],
+
               date: Date.now(),
             },
           },

@@ -28,68 +28,66 @@ const Category = () => {
           ) : (
             <Row>
               {categories &&
-                categories?.map((x, i) => (
-                  <Col style={{ marginBottom: "5px" }}>
-                    <Card
-                      style={{
-                        background: "none",
-                        border: "2px solid #807040",
-                      }}
-                    >
-                      <Card.Body>
-                        <h4
-                          style={{
-                            color: "#fff",
-                            backgroundColor: "#807040",
-                            padding: "4px",
-                            textAlign: "center",
-                          }}
-                        >
-                          {x?.title}
-                        </h4>
-                        <Card.Text className="categories-content-card-text">
-                          <div
+                categories
+                  ?.filter((x) => x.title !== "Dashboard")
+                  ?.map((x, i) => (
+                    <Col style={{ marginBottom: "5px" }}>
+                      <Card
+                        style={{
+                          background: "none",
+                          border: "2px solid #807040",
+                        }}>
+                        <Card.Body>
+                          <h4
                             style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-
-                              alignItems: "center",
-                              gap: "5px",
-                            }}
-                          >
-                            <Link
-                              to={`/sub/${x?.title}`}
+                              color: "#fff",
+                              backgroundColor: "#807040",
+                              padding: "4px",
+                              textAlign: "center",
+                            }}>
+                            {x?.title}
+                          </h4>
+                          <Card.Text className="categories-content-card-text">
+                            <div
                               style={{
-                                color: "#496580",
-                                border: "2px solid #496580",
-                                padding: "2px",
-                                fontSize: "14px",
-                                borderRadius: "10px",
-                                fontWeight: "bold",
-                                width: "90px",
-                                textAlign: "center",
-                              }}
-                            >
-                              Click to view
-                            </Link>
+                                display: "flex",
+                                justifyContent: "space-between",
 
-                            <img
-                              src={`/uploads/${x?.image}`}
-                              alt=""
-                              style={{
-                                width: "50px",
-                                height: "40px",
-                                border: "2px solid #807040",
+                                alignItems: "center",
+                                gap: "5px",
+                              }}>
+                              <Link
+                                to={`/sub/${x?.title}`}
+                                style={{
+                                  color: "#496580",
+                                  border: "2px solid #496580",
+                                  padding: "2px",
+                                  fontSize: "14px",
+                                  borderRadius: "10px",
+                                  fontWeight: "bold",
+                                  width: "90px",
+                                  textAlign: "center",
+                                }}>
+                                Click to view
+                              </Link>
 
-                                borderRadius: "50%",
-                              }}
-                            />
-                          </div>
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
+                              <img
+                                src={`/uploads/${x?.image}`}
+                                alt=""
+                                style={{
+                                  width: "50px",
+                                  height: "40px",
+                                  border: "2px solid #807040",
+
+                                  borderRadius: "50%",
+                                }}
+                              />
+                            </div>
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))}
             </Row>
           )}
         </Col>
