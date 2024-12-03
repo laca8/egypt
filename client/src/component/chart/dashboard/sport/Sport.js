@@ -24,6 +24,13 @@ ChartJS.register(
 const Sport = ({ arr }) => {
   const options = {
     responsive: true,
+       scales: {
+            xAxes: [{
+                ticks: {
+                    minRotation: 90
+                }
+            }]
+        },
     plugins: {
       legend: {
         position: "top",
