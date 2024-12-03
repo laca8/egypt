@@ -86,7 +86,10 @@ const Dashboard = () => {
                 />
               </Card>
             </Col>
-            <Col>
+            
+          </Row>
+    <Row style={{ marginTop: "10px" }}>
+    <Col>
               <Card style={{ padding: "10px" }}>
                 <ChartBarStud
                   arr={category?.subs
@@ -98,7 +101,9 @@ const Dashboard = () => {
                 />
               </Card>
             </Col>
-          </Row>
+    <Col>
+    </Col>
+    </Row>
           <Row style={{ marginTop: "10px" }}>
             <Col>
               <Card style={{ padding: "10px" }}>
