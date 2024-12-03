@@ -47,6 +47,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px" }}>
                 <ChartBar
+    colors={colors}
                   arr={category?.subs
                     ?.filter((x) => x.title === "أعداد الأطفال")
                     ?.map((x) => JSON.stringify(x.results))}
@@ -106,8 +107,16 @@ const Dashboard = () => {
                 />
               </Card>
             </Col>
-    <Col>
-    </Col>
+      <Col>
+              <Card style={{ padding: "10px" }}>
+                <Culture
+     colors={colors}
+                  arr={category?.subs
+                    ?.filter((x) => x.title === "عدد الوفيات دون الخامسة")
+                    ?.map((x) => JSON.stringify(x.results))}
+                />
+              </Card>
+            </Col>
     </Row>
           <Row style={{ marginTop: "10px" }}>
             <Col>
@@ -149,14 +158,7 @@ const Dashboard = () => {
             </Col>
 
             <Col>
-              <Card style={{ padding: "10px" }}>
-                <Culture
-     colors={colors}
-                  arr={category?.subs
-                    ?.filter((x) => x.title === "عدد الوفيات دون الخامسة")
-                    ?.map((x) => JSON.stringify(x.results))}
-                />
-              </Card>
+            
             </Col>
           </Row>
         </>
