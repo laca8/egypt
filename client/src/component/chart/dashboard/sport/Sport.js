@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const Sport = ({ arr }) => {
+const Sport = ({ arr,colors }) => {
   const options = {
     scales: {
     x: {
@@ -51,13 +51,13 @@ const Sport = ({ arr }) => {
       {
         label: "اجمالى الاندیه",
         data: arr && JSON.parse(arr)?.map((x) => Number(x["اجمالى الاندیه"])),
-        backgroundColor: "#807040",
+        backgroundColor: colors[0],
       },
       {
         label: "اجمالى مراكز الشباب",
         data:
           arr && JSON.parse(arr)?.map((x) => Number(x["اجمالى مراكز الشباب"])),
-        backgroundColor: "#496580",
+        backgroundColor: colors[1],
       },
     ],
   };
