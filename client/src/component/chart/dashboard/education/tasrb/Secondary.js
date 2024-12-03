@@ -45,21 +45,16 @@ const ChartBarStud = ({ arr }) => {
 
     datasets: [
       {
-        label: "مدارس",
+        label: "ذكور",
         backgroundColor: "#807040",
-        data: arr && JSON.parse(arr)?.map((x) => x["مدارس"]),
+        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
       },
+     
       {
-        label: "الفصول",
-        backgroundColor: "brown",
-
-        data: arr && JSON.parse(arr)?.map((x) => x["فصول"]),
-      },
-      {
-        label: "التلاميذ",
+        label: "إناث",
         backgroundColor: "#496580",
 
-        data: arr && JSON.parse(arr)?.map((x) => x["تلاميذ"]),
+        data: arr && JSON.parse(arr)?.map((x) => x["إناث"]),
       },
     ],
   };
