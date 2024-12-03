@@ -25,6 +25,7 @@ import { listCategoryByTitle } from "../../redux/actions/category/categoryAction
 import Primary from "../../component/chart/dashboard/education/tasrb/Primary";
 import Secondary from "../../component/chart/dashboard/education/tasrb/Secondary";
 const Dashboard = () => {
+  const colors = ['#876FD4','#F5921B','#4394E5','#87BB62','red']
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategoryByTitle("Dashboard"));
@@ -55,6 +56,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px", marginTop: "10px" }}>
                 <Sport
+                    colors={colors}
                   arr={category?.subs
                     ?.filter((x) => x.title === "الرياضة")
                     ?.map((x) => JSON.stringify(x.results))}
