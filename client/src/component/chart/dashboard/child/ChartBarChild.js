@@ -39,15 +39,15 @@ const ChartBar = ({ arr }) => {
         text: "الأطفال",
       },
     },
-   config: {
   scales: {
-    xAxes: [{
+    x: {
       ticks: {
-        maxRotation: 0 // angle in degrees
+        minRotation: 90, // This rotates the labels 90 degrees
+        maxRotation: 90  // This ensures they don't rotate beyond 90 degrees
       }
-    }]
-  }
-}
+    }
+  },
+  maintainAspectRatio: false,
   };
 
   const data = {
