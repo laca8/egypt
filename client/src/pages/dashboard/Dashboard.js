@@ -68,6 +68,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px" }}>
                 <ChartBarClasses
+     colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) => x.title === "المعاهد والفصول والتلاميذ الازهر"
@@ -79,6 +80,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px" }}>
                 <ChartBarTeacher
+     colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) =>
@@ -94,6 +96,7 @@ const Dashboard = () => {
     <Col>
               <Card style={{ padding: "10px" }}>
                 <ChartBarStud
+     colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) =>
@@ -110,6 +113,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px" }}>
                 <Primary
+     colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) => x.title === "التسرب من التعليم المرحلة الأبتدائية"
@@ -121,6 +125,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px" }}>
                 <Secondary
+     colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) => x.title === "التسرب من التعليم المرحلة الأعدادية"
@@ -135,6 +140,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px" }}>
                 <ChartBarDeaths
+     colors={colors}
                   arr={category?.subs
                     ?.filter((x) => x.title === "المواليد والوفيات")
                     ?.map((x) => JSON.stringify(x.results))}
@@ -145,6 +151,7 @@ const Dashboard = () => {
             <Col>
               <Card style={{ padding: "10px" }}>
                 <Culture
+     colors={colors}
                   arr={category?.subs
                     ?.filter((x) => x.title === "عدد الوفيات دون الخامسة")
                     ?.map((x) => JSON.stringify(x.results))}
