@@ -18,7 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const ChartBarStud = ({ arr }) => {
+const ChartBarStud = ({ arr,colors }) => {
   const options = {
     responsive: true,
     scales: {
@@ -46,14 +46,14 @@ const ChartBarStud = ({ arr }) => {
     datasets: [
       {
         label: "المعاهد",
-        backgroundColor: "#807040",
+        backgroundColor: colors[0],
         data:
           arr &&
           JSON.parse(arr)?.map((x) => Number(x["معاهد"].replace(",", ""))),
       },
       {
         label: "الفصول",
-        backgroundColor: "green",
+        backgroundColor: colors[1],
 
         data:
           arr &&
@@ -61,7 +61,7 @@ const ChartBarStud = ({ arr }) => {
       },
       {
         label: "التلاميذ",
-        backgroundColor: "#496580",
+        backgroundColor: colors[2],
 
         data:
           arr &&
