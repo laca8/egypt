@@ -36,23 +36,25 @@ const ChartBar = ({ arr }) => {
       },
       title: {
         display: true,
-        text: "اجمالي أعداد الأطفال",
+        text: "الأطفال",
       },
     },
-     scales: {
-            xAxes: [{
-                ticks: {
-                    minRotation: 90
-                }
-            }]
-        },
+   config: {
+  scales: {
+    xAxes: [{
+      ticks: {
+        maxRotation: 0 // angle in degrees
+      }
+    }]
+  }
+}
   };
 
   const data = {
     labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
     datasets: [
       {
-        label: "الأطفال",
+        label: "اجمالي اعداد الأطفال",
         data:
           arr &&
           JSON.parse(arr).map((x) =>
