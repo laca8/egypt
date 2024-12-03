@@ -39,11 +39,7 @@ const ChartBarStud = ({ arr }) => {
         text: "المدارس التجريبي",
       },
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+  
   };
   const data = {
     labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
