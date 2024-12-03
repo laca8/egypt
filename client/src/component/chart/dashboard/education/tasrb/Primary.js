@@ -21,6 +21,15 @@ ChartJS.register(
 const ChartBarStud = ({ arr }) => {
   const options = {
     responsive: true,
+    scales: {
+    x: {
+      ticks: {
+        minRotation: 90, // This rotates the labels 90 degrees
+        maxRotation: 90  // This ensures they don't rotate beyond 90 degrees
+      }
+    }
+  },
+  maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
