@@ -20,7 +20,7 @@ ChartJS.register(
   Legend
 );
 
-const ChartBar = ({ arr }) => {
+const ChartBar = ({ arr,colors }) => {
   // console.log(
   //   arr &&
   //     JSON.parse(arr).map((x) =>
@@ -60,7 +60,7 @@ const ChartBar = ({ arr }) => {
           JSON.parse(arr).map((x) =>
             Number(x["العدد"].replace(",", "").replace(",", ""))
           ),
-        backgroundColor: "#496580",
+        backgroundColor: colors[0],
       },
     ],
   };
