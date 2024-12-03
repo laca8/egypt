@@ -39,6 +39,13 @@ const ChartBar = ({ arr }) => {
         text: "اجمالي أعداد الأطفال",
       },
     },
+     scales: {
+            xAxes: [{
+                ticks: {
+                    minRotation: 90
+                }
+            }]
+        },
   };
 
   const data = {
