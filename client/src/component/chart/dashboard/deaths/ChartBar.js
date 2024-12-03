@@ -18,7 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const ChartBarStud = ({ arr }) => {
+const ChartBarStud = ({ arr,colors }) => {
   console.log(arr && JSON.parse(arr)?.map((x) => x["الوفيات"]));
   const options = {
     responsive: true,
@@ -52,13 +52,13 @@ const ChartBarStud = ({ arr }) => {
     datasets: [
       {
         label: "المواليد",
-        backgroundColor: "#807040",
+        backgroundColor: colors[0],
         data: arr && JSON.parse(arr)?.map((x) => Number(x["المواليد"])),
       },
 
       {
         label: "الوفيات",
-        backgroundColor: "#496580",
+        backgroundColor: colors[1],
 
         data: arr && JSON.parse(arr)?.map((x) => Number(x["الوفيات"])),
       },
