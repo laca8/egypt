@@ -39,11 +39,7 @@ const ChartBarStud = ({ arr }) => {
         text: "التعليم قبل الجامعي",
       },
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+
   };
 
   const data = {
