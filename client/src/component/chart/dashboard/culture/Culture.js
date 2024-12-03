@@ -18,7 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const Culture = ({ arr }) => {
+const Culture = ({ arr,colors }) => {
   const options = {
     responsive: true,
     legend: {
@@ -51,13 +51,13 @@ const Culture = ({ arr }) => {
     datasets: [
       {
         label: "ذكور",
-        backgroundColor: "#807040",
+        backgroundColor: colors[0],
         data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
       },
 
       {
         label: "إناث",
-        backgroundColor: "#496580",
+        backgroundColor: colors[1],
 
         data: arr && JSON.parse(arr)?.map((x) => x["إناث"]),
       },
