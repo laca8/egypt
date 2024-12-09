@@ -26,7 +26,7 @@ const ChartBarStud = ({ arr, colors }) => {
         ticks: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
 
@@ -51,7 +51,7 @@ const ChartBarStud = ({ arr, colors }) => {
         labels: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
         },
@@ -60,7 +60,7 @@ const ChartBarStud = ({ arr, colors }) => {
         display: true,
         color: "white",
         font: {
-          size: 14,
+          size: 10,
           weight: "bold",
         },
         text: "التسرب من التعليم المرحلة الأبتدائية",
