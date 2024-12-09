@@ -27,7 +27,7 @@ const Culture = ({ arr, colors }) => {
       labels: {
         color: "white",
         font: {
-          size: 14,
+          size: 10,
           weight: "bold",
         },
       },
@@ -39,7 +39,7 @@ const Culture = ({ arr, colors }) => {
         ticks: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
           minRotation: 90, // This rotates the labels 90 degrees
@@ -62,7 +62,7 @@ const Culture = ({ arr, colors }) => {
         labels: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
         },
@@ -72,10 +72,10 @@ const Culture = ({ arr, colors }) => {
         display: true,
         color: "white",
         font: {
-          size: 14,
+          size: 10,
           weight: "bold",
         },
-        text: "نسب المصريين المستخدمين للانترنت",
+       
       },
     },
   };
