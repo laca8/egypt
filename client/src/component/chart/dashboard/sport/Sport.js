@@ -28,7 +28,7 @@ const Sport = ({ arr, colors }) => {
         ticks: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
 
@@ -55,7 +55,7 @@ const Sport = ({ arr, colors }) => {
         labels: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
         },
@@ -65,7 +65,7 @@ const Sport = ({ arr, colors }) => {
         text: "الرياضة",
         color: "white",
         font: {
-          size: 14,
+          size: 10,
           weight: "bold",
         },
       },
