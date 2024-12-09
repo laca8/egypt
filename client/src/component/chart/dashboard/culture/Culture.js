@@ -18,32 +18,61 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const Culture = ({ arr }) => {
+const Culture = ({ arr, colors }) => {
   const options = {
     responsive: true,
     legend: {
-      display: false,
+      labels: {
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
+      },
     },
 
     type: "bar",
     scales: {
-      xAxes: [
-        {
-          stacked: true,
+      x: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+          minRotation: 90, // This rotates the labels 90 degrees
+          maxRotation: 90, // This ensures they don't rotate beyond 90 degrees
         },
-      ],
-      yAxes: [
-        {
-          stacked: true,
+      },
+      y: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 10,
+            weight: "bold",
+          },
         },
-      ],
+      },
     },
+    maintainAspectRatio: false,
     plugins: {
       legend: {
+        labels: {
+          color: "white",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
         position: "top",
       },
       title: {
         display: true,
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
         text: "عدد الوفيات دون الخامسة",
       },
     },
@@ -54,13 +83,13 @@ const Culture = ({ arr }) => {
     datasets: [
       {
         label: "ذكور",
-        backgroundColor: "#807040",
+        backgroundColor: colors[0],
         data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
       },
 
       {
         label: "إناث",
-        backgroundColor: "#496580",
+        backgroundColor: colors[1],
 
         data: arr && JSON.parse(arr)?.map((x) => x["إناث"]),
       },

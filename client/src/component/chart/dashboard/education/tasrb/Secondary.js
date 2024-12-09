@@ -18,15 +18,51 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const ChartBarStud = ({ arr }) => {
+const ChartBarStud = ({ arr, colors }) => {
   const options = {
     responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+
+          minRotation: 90, // This rotates the labels 90 degrees
+          maxRotation: 90, // This ensures they don't rotate beyond 90 degrees
+        },
+      },
+      y: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 10,
+            weight: "bold",
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
+        labels: {
+          color: "white",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
       },
       title: {
         display: true,
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
         text: "التسرب من التعليم المرحلة الأعدادية",
       },
     },
@@ -36,21 +72,16 @@ const ChartBarStud = ({ arr }) => {
 
     datasets: [
       {
-        label: "مدارس",
-        backgroundColor: "#807040",
-        data: arr && JSON.parse(arr)?.map((x) => x["مدارس"]),
+        label: "ذكور",
+        backgroundColor: colors[0],
+        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
       },
-      {
-        label: "الفصول",
-        backgroundColor: "brown",
 
-        data: arr && JSON.parse(arr)?.map((x) => x["فصول"]),
-      },
       {
-        label: "التلاميذ",
-        backgroundColor: "#496580",
+        label: "إناث",
+        backgroundColor: colors[1],
 
-        data: arr && JSON.parse(arr)?.map((x) => x["تلاميذ"]),
+        data: arr && JSON.parse(arr)?.map((x) => x["إناث"]),
       },
     ],
   };

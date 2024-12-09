@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +8,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import axios from "axios";
+import { Bar, Line } from "react-chartjs-2";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -19,42 +18,92 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const labels = ["Males", "Females"];
-
-const International = () => {
-  let options = {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+const Culture = ({ arr, colors }) => {
+  // console.log(arr);
+  // console.log(JSON.parse(arr)?.map((x) => Number(x["النسب"].split("%")[0])));
+  const options = {
+    responsive: true,
     legend: {
       labels: {
-        fontSize: 10,
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
       },
     },
-    title: {
-      display: true,
-      text: "Percentage of children (aged 1-14 years) who experienced any physical punishment and/or psychological aggression by caregivers",
+
+    type: "line",
+    scales: {
+      x: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+          minRotation: 90, // This rotates the labels 90 degrees
+          maxRotation: 90, // This ensures they don't rotate beyond 90 degrees
+        },
+      },
+      y: {
+        ticks: {
+          color: "white",
+          font: {
+            size: 10,
+            weight: "bold",
+          },
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: "white",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+        position: "top",
+      },
+      title: {
+        display: true,
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
+        text: "نسب المصريين المستخدمين للانترنت",
+      },
     },
   };
-
   const data = {
-    labels,
+    labels:
+      arr &&
+      JSON.parse(arr)
+        ?.sort((a, b) => a["المحافظة"] - b["المحافظة"])
+        ?.map((x) => x["المحافظة"]),
+
     datasets: [
       {
-        label: "Children (aged 1-14 years) physical punishment",
-        data: [93.4, 92.6]?.map((x) => x),
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        label:
+          "نسب المصريين من (17:4 سنة) طبقاً لإستخــدام الفرد للانترنت تعداد 2017",
+
+        data:
+          arr &&
+          JSON.parse(arr)
+            ?.sort((a, b) => -b["المحافظة"] - a["المحافظة"])
+
+            ?.map((x) => Number(x["النسب"].split("%")[0])),
+        borderColor: colors[2],
+        backgroundColor: colors[2],
+        pointBackgroundColor: colors[2],
       },
     ],
   };
-
-  return (
-    <>
-      <Bar options={options} data={data} />
-    </>
-  );
+  return <Line data={data} options={options} />;
 };
-export default International;
+
+export default Culture;

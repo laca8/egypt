@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios";
 import { Bar } from "react-chartjs-2";
 ChartJS.register(
   CategoryScale,
@@ -19,35 +18,11 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const ChartBar = ({ arr, colors }) => {
-  // console.log(
-  //   arr &&
-  //     JSON.parse(arr).map((x) =>
-  //       Number(x["العدد"].replace(",", "").replace(",", ""))
-  //     )
-  // );
-
+const Culture = ({ arr, colors }) => {
   const options = {
     responsive: true,
-    plugins: {
-      legend: {
-        labels: {
-          color: "white",
-          font: {
-            size: 14,
-            weight: "bold",
-          },
-        },
-      },
-      tooltip: {
-        bodyFont: {
-          weight: "bold",
-        },
-      },
-      title: {
-        display: true,
-        text: "الأطفال",
+    legend: {
+      labels: {
         color: "white",
         font: {
           size: 14,
@@ -55,6 +30,8 @@ const ChartBar = ({ arr, colors }) => {
         },
       },
     },
+
+    type: "bar",
     scales: {
       x: {
         ticks: {
@@ -63,7 +40,6 @@ const ChartBar = ({ arr, colors }) => {
             size: 14,
             weight: "bold",
           },
-
           minRotation: 90, // This rotates the labels 90 degrees
           maxRotation: 90, // This ensures they don't rotate beyond 90 degrees
         },
@@ -79,27 +55,48 @@ const ChartBar = ({ arr, colors }) => {
       },
     },
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: "white",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+        position: "top",
+      },
+      title: {
+        display: true,
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
+        text: "  اعداد مستخدمين الانترنت",
+      },
+    },
   };
-
   const data = {
     labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+
     datasets: [
       {
-        label: "اجمالي اعداد الأطفال",
+        label: " لايستخدم الانترنت",
+        backgroundColor: colors[2],
         data:
-          arr &&
-          JSON.parse(arr).map((x) =>
-            Number(x["العدد"].replace(",", "").replace(",", ""))
-          ),
-        backgroundColor: colors[0],
+          arr && JSON.parse(arr)?.map((x) => Number(x[" لايستخدم الانترنت"])),
+      },
+
+      {
+        label: "يستخدم  الانترنت",
+        backgroundColor: colors[3],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["يستخدم  الانترنت"])),
       },
     ],
   };
-
-  return (
-    <>
-      <Bar options={options} data={data} />
-    </>
-  );
+  return <Bar data={data} options={options} />;
 };
-export default ChartBar;
+
+export default Culture;

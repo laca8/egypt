@@ -24,7 +24,11 @@ import Sport from "../../component/chart/dashboard/sport/Sport";
 import { listCategoryByTitle } from "../../redux/actions/category/categoryAction";
 import Primary from "../../component/chart/dashboard/education/tasrb/Primary";
 import Secondary from "../../component/chart/dashboard/education/tasrb/Secondary";
+import International from "../../component/chart/dashboard/culture/International";
+import Internet from "../../component/chart/dashboard/culture/Internet";
+import Disable from "../../component/chart/dashboard/culture/Disable";
 const Dashboard = () => {
+  const colors = ["#876FD4", "#F5921B", "#4394E5", "#87BB62", "red"];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategoryByTitle("Dashboard"));
@@ -44,8 +48,13 @@ const Dashboard = () => {
         <>
           <Row style={{ marginTop: "10px" }}>
             <Col>
-              <Card style={{ padding: "10px" }}>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(10,22,0,1)",
+                }}>
                 <ChartBar
+                  colors={colors}
                   arr={category?.subs
                     ?.filter((x) => x.title === "أعداد الأطفال")
                     ?.map((x) => JSON.stringify(x.results))}
@@ -53,8 +62,13 @@ const Dashboard = () => {
               </Card>
             </Col>
             <Col>
-              <Card style={{ padding: "10px", marginTop: "10px" }}>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(10,22,44,1)",
+                }}>
                 <Sport
+                  colors={colors}
                   arr={category?.subs
                     ?.filter((x) => x.title === "الرياضة")
                     ?.map((x) => JSON.stringify(x.results))}
@@ -64,8 +78,10 @@ const Dashboard = () => {
           </Row>
           <Row style={{ marginTop: "10px" }}>
             <Col>
-              <Card style={{ padding: "10px" }}>
+              <Card
+                style={{ padding: "10px", backgroundColor: "rgba(0,22,0,50)" }}>
                 <ChartBarClasses
+                  colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) => x.title === "المعاهد والفصول والتلاميذ الازهر"
@@ -75,8 +91,13 @@ const Dashboard = () => {
               </Card>
             </Col>
             <Col>
-              <Card style={{ padding: "10px" }}>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(10,22,0,20)",
+                }}>
                 <ChartBarTeacher
+                  colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) =>
@@ -86,9 +107,16 @@ const Dashboard = () => {
                 />
               </Card>
             </Col>
+          </Row>
+          <Row style={{ marginTop: "10px" }}>
             <Col>
-              <Card style={{ padding: "10px" }}>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(10,0,0,144)",
+                }}>
                 <ChartBarStud
+                  colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) =>
@@ -98,11 +126,30 @@ const Dashboard = () => {
                 />
               </Card>
             </Col>
+            <Col>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(10,22,44,180)",
+                }}>
+                <Culture
+                  colors={colors}
+                  arr={category?.subs
+                    ?.filter((x) => x.title === "عدد الوفيات دون الخامسة")
+                    ?.map((x) => JSON.stringify(x.results))}
+                />
+              </Card>
+            </Col>
           </Row>
           <Row style={{ marginTop: "10px" }}>
             <Col>
-              <Card style={{ padding: "10px" }}>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(10,20,10,90)",
+                }}>
                 <Primary
+                  colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) => x.title === "التسرب من التعليم المرحلة الأبتدائية"
@@ -112,8 +159,13 @@ const Dashboard = () => {
               </Card>
             </Col>
             <Col>
-              <Card style={{ padding: "10px" }}>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(10,22,44,1)",
+                }}>
                 <Secondary
+                  colors={colors}
                   arr={category?.subs
                     ?.filter(
                       (x) => x.title === "التسرب من التعليم المرحلة الأعدادية"
@@ -126,8 +178,10 @@ const Dashboard = () => {
 
           <Row style={{ marginTop: "10px" }}>
             <Col>
-              <Card style={{ padding: "10px" }}>
+              <Card
+                style={{ padding: "10px", backgroundColor: "rgba(1,2,3,4)" }}>
                 <ChartBarDeaths
+                  colors={colors}
                   arr={category?.subs
                     ?.filter((x) => x.title === "المواليد والوفيات")
                     ?.map((x) => JSON.stringify(x.results))}
@@ -136,10 +190,47 @@ const Dashboard = () => {
             </Col>
 
             <Col>
-              <Card style={{ padding: "10px" }}>
-                <Culture
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(0,0,10,200)",
+                }}>
+                <International
+                  colors={colors}
                   arr={category?.subs
-                    ?.filter((x) => x.title === "عدد الوفيات دون الخامسة")
+                    ?.filter(
+                      (x) =>
+                        x.title ===
+                        "نسب المصريين من (17:4 سنة) طبقاً لإستخــدام الفرد للانترنت تعداد 2017"
+                    )
+                    ?.map((x) => JSON.stringify(x.results))}
+                />
+              </Card>
+            </Col>
+          </Row>
+          <Row style={{ marginTop: "10px" }}>
+            <Col>
+              <Card
+                style={{ padding: "10px", backgroundColor: "rgba(0,0,0,1)" }}>
+                <Internet
+                  colors={colors}
+                  arr={category?.subs
+                    ?.filter((x) => x.title === "أعداد مستخدمين الانترنت")
+                    ?.map((x) => JSON.stringify(x.results))}
+                />
+              </Card>
+            </Col>
+
+            <Col>
+              <Card
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgba(50,10,0,200)",
+                }}>
+                <Disable
+                  colors={colors}
+                  arr={category?.subs
+                    ?.filter((x) => x.title === "الاعاقات")
                     ?.map((x) => JSON.stringify(x.results))}
                 />
               </Card>
