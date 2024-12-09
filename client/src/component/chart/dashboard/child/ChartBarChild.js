@@ -35,7 +35,7 @@ const ChartBar = ({ arr, colors }) => {
         labels: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
         },
@@ -50,7 +50,7 @@ const ChartBar = ({ arr, colors }) => {
         text: "الأطفال",
         color: "white",
         font: {
-          size: 14,
+          size: 10,
           weight: "bold",
         },
       },
@@ -60,7 +60,7 @@ const ChartBar = ({ arr, colors }) => {
         ticks: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
 
