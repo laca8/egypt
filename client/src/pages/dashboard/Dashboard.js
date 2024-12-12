@@ -47,7 +47,7 @@ const Dashboard = () => {
         <Error error={error} />
       ) : (
         <>
-        <Alert severity="info" dir='rtl' style={{ marginTop: "10px" }}>
+        <Alert severity="info" dir='rtl' style={{ marginTop: "10px" ,fontSize:'20px',fontWeight:"bold"}}>
   <AlertTitle>ملاحظة</AlertTitle>
   يمكنك تحديد اي فئة تريد ان تراها في الرسومات البيانية عن طريقة الضغط علي الفئات الاخري
 </Alert>
