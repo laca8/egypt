@@ -95,6 +95,30 @@ const Culture = ({ arr, colors }) => {
 
         data: arr && JSON.parse(arr)?.map((x) => Number(x["undrstand"])),
       },
+      {
+        label: "  السمــع ( حتى أثناء إستخدام سماعة أذن ) صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[2],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["hear"])),
+      },
+        {
+        label: " التذكر أو التركيز_صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[3],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["rem"])),
+      },
+              {
+        label: " رعاية نفسه ( الإستحمام ،اللبــس ، ... )_صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[4],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["him"])),
+      },
+                 {
+        label: "المشى أو صعود السلالم_ صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[5],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["walk"])),
+      },
     ],
   };
   return <Bar data={data} options={options} />;
