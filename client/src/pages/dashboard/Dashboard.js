@@ -29,7 +29,7 @@ import Internet from "../../component/chart/dashboard/culture/Internet";
 import Disable from "../../component/chart/dashboard/culture/Disable";
 import {AlertTitle,Alert} from '@mui/material';
 const Dashboard = () => {
-  const colors = ["#876FD4", "#F5921B", "#4394E5", "#87BB62", "red"];
+  const colors = ["#876FD4", "#F5921B", "#4394E5", "#87BB62", "red","purple"];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategoryByTitle("Dashboard"));
