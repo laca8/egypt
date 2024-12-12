@@ -27,6 +27,7 @@ import Secondary from "../../component/chart/dashboard/education/tasrb/Secondary
 import International from "../../component/chart/dashboard/culture/International";
 import Internet from "../../component/chart/dashboard/culture/Internet";
 import Disable from "../../component/chart/dashboard/culture/Disable";
+import {AlertTitle,Alert} from '@mui/material';
 const Dashboard = () => {
   const colors = ["#876FD4", "#F5921B", "#4394E5", "#87BB62", "red"];
   const dispatch = useDispatch();
@@ -46,6 +47,10 @@ const Dashboard = () => {
         <Error error={error} />
       ) : (
         <>
+        <Alert severity="info" dir='rtl'>
+  <AlertTitle>ملاحظة</AlertTitle>
+  يمكنك تحديد اي فئة تريد ان تراها في الرسومات البيانية عن طريقة الضغط علي الفئات الاخري
+</Alert>
           <Row style={{ marginTop: "10px" }}>
             <Col>
               <Card
