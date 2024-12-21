@@ -126,7 +126,9 @@ const SidebarCom = () => {
     category: dataCat,
     categories,
   } = listCategoryReducer;
-
+  const handlClick = (title) => {
+    navigator(`/admin/sub/${title}`);
+  };
   return (
     <div
       style={{
@@ -183,7 +185,7 @@ const SidebarCom = () => {
 
                 cursor: "pointer",
               }}
-              onClick={() => navigator(`/admin/sub/${x?.title}`)}>
+              onClick={() => handlClick(x?.title)}>
               <img
                 alt=""
                 src={`/uploads/${x?.image}`}

@@ -7,12 +7,14 @@ const path = require("path");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // Determine destination based on file type
-    const dest = file.fieldname === "image" ? "uploads/" : "uploads/";
+
+    const dest = "uploads/";
     cb(null, dest);
   },
   filename: function (req, file, cb) {
     // Create unique filename with timestamp
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+
     cb(
       null,
       file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
@@ -36,6 +38,25 @@ const addCategory = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+const editCategories = async (req, res) => {
+  // console.log(req?.file);
+
+  try {
+    const category = await Category.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        title: req.body.title,
+        image: req.file?.filename,
+      },
+      { new: true }
+    );
+    res.status(201).json(category);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: err.message });
+  }
+};
+
 const getCategories = async (req, res) => {
   try {
     const categories = await Category.find({});
@@ -58,8 +79,8 @@ const deleteCategory = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
-const editCategory = async (req, res) => {
-  //console.log(req.files);
+const AddSubCategory = async (req, res) => {
+  console.log(req.files.file[0]?.path);
 
   try {
     const category = await Category.findOne({ title: req.params.title });
@@ -107,25 +128,25 @@ const editCategory = async (req, res) => {
               results: jsonData,
               images: [
                 {
-                  title: "Line",
+                  title: "Graph 1",
                   image: req?.files?.line
                     ? req?.files?.line[0]?.filename
                     : null,
                 },
                 {
-                  title: "Bar",
+                  title: "Graph 2",
                   image: req?.files?.image_bar
                     ? req?.files?.image_bar[0]?.filename
                     : null,
                 },
                 {
-                  title: "Pie",
+                  title: "Graph 3",
                   image: req?.files?.image_pie
                     ? req?.files?.image_pie[0]?.filename
                     : null,
                 },
                 {
-                  title: "Pyramid",
+                  title: "Graph 4",
                   image: req?.files?.image_pyramid
                     ? req?.files?.image_pyramid[0]?.filename
                     : null,
@@ -152,7 +173,6 @@ const editCategory = async (req, res) => {
 const getCategoryByTitle = async (req, res) => {
   try {
     const category = await Category.findOne({ title: req.params.title });
-
     res.status(200).json(category);
   } catch (err) {
     return res.status(500).json({ msg: err.message });
@@ -202,13 +222,73 @@ const getCategoryByTitleAndIdResults = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+
+const editSubCategory = async (req, res) => {
+  console.log(req?.body);
+  console.log(req.params.category, req.params.title);
+
+  try {
+    const category = await Category.findOne({ title: req.params.category });
+
+    // Import data to MongoDB
+    if (category) {
+      console.log("laca");
+
+      const res = await Category.findOneAndUpdate(
+        {
+          title: req.params.category,
+          "subs.title": req.params.title,
+        },
+        {
+          $set: {
+            "subs.$.images": [
+              {
+                title: "Graphe 1",
+                image: req?.files?.line
+                  ? req?.files?.line[0]?.filename
+                  : req.body?.line,
+              },
+              {
+                title: "Graph 2",
+                image: req?.files?.image_bar
+                  ? req?.files?.image_bar[0]?.filename
+                  : req.body?.bar,
+              },
+              {
+                title: "Graph 3",
+                image: req?.files?.image_pie
+                  ? req?.files?.image_pie[0]?.filename
+                  : req.body?.image_pie,
+              },
+              {
+                title: "Graph 4",
+                image: req?.files?.image_pyramid
+                  ? req?.files?.image_pyramid[0]?.filename
+                  : req.body?.image_pyramid,
+              },
+            ],
+          },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+    return res.status(200).json("success");
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: err.message });
+  }
+};
 module.exports = {
   getCategoryByTitleAndIdResults,
   addCategory,
   deleteCategory,
   getCategories,
-  editCategory,
+  AddSubCategory,
   upload,
   getCategoryByTitle,
   deleteSubCategoryByTitleOfCategory,
+  editCategories,
+  editSubCategory,
 };

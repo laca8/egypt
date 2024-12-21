@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Tajawal:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Tajawal:wght@200&display=swap');
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto Condensed','Tajawal','Roboto Condensed', sans-serif;
+  font-family: 'Droid Arabic Kufi', serif;
+  /* font-family: 'Roboto Condensed','Tajawal','Roboto Condensed', sans-serif; */
 font-weight: bold;
 
 }

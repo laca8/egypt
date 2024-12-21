@@ -27,7 +27,7 @@ const Culture = ({ arr, colors }) => {
       labels: {
         color: "white",
         font: {
-          size: 14,
+          size: 10,
           weight: "bold",
         },
       },
@@ -39,7 +39,7 @@ const Culture = ({ arr, colors }) => {
         ticks: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
           minRotation: 90, // This rotates the labels 90 degrees
@@ -62,7 +62,7 @@ const Culture = ({ arr, colors }) => {
         labels: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
         },
@@ -72,7 +72,7 @@ const Culture = ({ arr, colors }) => {
         display: true,
         color: "white",
         font: {
-          size: 14,
+          size: 10,
           weight: "bold",
         },
         text: "عدد المصريين  في الفئة العمريه (5 - 17) طبقاً لوجود صعوبة ونوعهـا  من تعداد 2017",
@@ -94,6 +94,32 @@ const Culture = ({ arr, colors }) => {
         backgroundColor: colors[1],
 
         data: arr && JSON.parse(arr)?.map((x) => Number(x["undrstand"])),
+      },
+      {
+        label:
+          "  السمــع ( حتى أثناء إستخدام سماعة أذن ) صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[2],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["hear"])),
+      },
+      {
+        label: " التذكر أو التركيز_صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[3],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["rem"])),
+      },
+      {
+        label:
+          " رعاية نفسه ( الإستحمام ،اللبــس ، ... )_صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[4],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["him"])),
+      },
+      {
+        label: "المشى أو صعود السلالم_ صعوبة من الكبيرة إلى المطلقة",
+        backgroundColor: colors[5],
+
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["walk"])),
       },
     ],
   };

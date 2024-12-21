@@ -8,9 +8,15 @@ router
     categoryController.addCategory
   )
   .get(categoryController.getCategories);
-router.route("/:id").delete(categoryController.deleteCategory);
 router
-  .route("/:title")
+  .route("/:id")
+  .delete(categoryController.deleteCategory)
+  .put(
+    categoryController.upload.single("image"),
+    categoryController.editCategories
+  );
+router
+  .route("/sub/:title")
   .put(
     categoryController.upload.fields([
       { name: "file", maxCount: 1 },
@@ -19,11 +25,7 @@ router
       { name: "image_pie", maxCount: 1 },
       { name: "image_pyramid", maxCount: 1 },
     ]),
-
-    // categoryController.upload.single("image_bar"),
-    // categoryController.upload.single("image_pie"),
-    // categoryController.upload.single("image_pyramid"),
-    categoryController.editCategory
+    categoryController.AddSubCategory
   )
 
   .get(categoryController.getCategoryByTitle);
@@ -33,4 +35,14 @@ router
 router
   .route("/:category/:idResults")
   .get(categoryController.getCategoryByTitleAndIdResults);
+router.route("/subCategory/:category/:title").put(
+  categoryController.upload.fields([
+    { name: "line", maxCount: 1 },
+    { name: "image_bar", maxCount: 1 },
+    { name: "image_pie", maxCount: 1 },
+    { name: "image_pyramid", maxCount: 1 },
+  ]),
+
+  categoryController.editSubCategory
+);
 module.exports = router;

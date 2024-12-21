@@ -21,15 +21,15 @@ ChartJS.register(
 const ChartBarStud = ({ arr, colors }) => {
   const options = {
     responsive: true,
+    type: "bar",
     scales: {
       x: {
         ticks: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
-
           minRotation: 90, // This rotates the labels 90 degrees
           maxRotation: 90, // This ensures they don't rotate beyond 90 degrees
         },

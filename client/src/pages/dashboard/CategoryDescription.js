@@ -145,7 +145,10 @@ const CategoryDescription = () => {
                     //     index ===
                     //     self.findIndex((t) => t["title"] === obj["title"])
                     // )
-                    ?.filter((obj, index) => obj?.image != null)
+                    ?.filter(
+                      (obj, index) =>
+                        obj?.image != null && obj?.image !== "null"
+                    )
                     ?.map((z, i) => (
                       <Tab
                         label={z?.title}

@@ -82,7 +82,7 @@ const ChartBar = ({ arr, colors }) => {
   };
 
   const data = {
-    labels: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+    labels: arr && JSON?.parse(arr)?.map((x) => x["المحافظة"]),
     datasets: [
       {
         label: "اجمالي اعداد الأطفال",

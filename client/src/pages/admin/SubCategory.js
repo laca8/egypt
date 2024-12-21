@@ -44,6 +44,7 @@ import {
   deleteSubCategory,
   listCategoryByTitle,
 } from "../../redux/actions/category/categoryAction";
+import EditSubCategory from "./EditSubCategory";
 
 const SubCategory = () => {
   const dispatch = useDispatch();
@@ -162,8 +163,8 @@ const SubCategory = () => {
     setImagePyramid(e.target.files[0]);
   };
   const handleSubmit = async (e) => {
+    console.log("hello");
     e.preventDefault();
-
     if (!file) {
       alert("Please select a excel file");
       return;
@@ -172,6 +173,7 @@ const SubCategory = () => {
       alert("Please enter name table");
       return;
     }
+    console.log(file);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -179,9 +181,7 @@ const SubCategory = () => {
     formData.append("image_bar", image_bar);
     formData.append("image_pie", image_pie);
     formData.append("image_pyramid", image_pyramid);
-
     formData.append("title", title);
-
     dispatch(AddSubCategory(category, formData));
     setTitle("");
     setLine("");
@@ -189,7 +189,6 @@ const SubCategory = () => {
     setImagePie("");
     setImagePyramid("");
     setFile("");
-
     dispatch(listCategoryByTitle(category));
   };
   const exportCsv = ({ data = [""], filename = "download.xlsx" }) => {
@@ -236,9 +235,6 @@ const SubCategory = () => {
     dispatch(listCategoryByTitle(category));
   };
 
-  useEffect(() => {
-    dispatch(listCategoryByTitle(category));
-  }, [category]);
   const listCategoryByTitlReducer = useSelector(
     (state) => state.listCategoryByTitlReducer
   );
@@ -248,7 +244,9 @@ const SubCategory = () => {
     category: dataCat,
     categories,
   } = listCategoryByTitlReducer;
-
+  useEffect(() => {
+    dispatch(listCategoryByTitle(category));
+  }, [category, dispatch]);
   const AddSubCategoryReducer = useSelector(
     (state) => state.AddSubCategoryReducer
   );
@@ -308,7 +306,8 @@ const SubCategory = () => {
                             <tr>
                               <th>مسلسل</th>
                               <th>اسم الجدول</th>
-                              <th>#</th>
+                              <th>تعديل</th>
+                              <th>حذف</th>
                             </tr>
                           </MDBTableHead>
                           <MDBTableBody>
@@ -316,6 +315,14 @@ const SubCategory = () => {
                               <tr>
                                 <td>{index + 1}</td>
                                 <td>{x?.title}</td>
+
+                                <td>
+                                  <EditSubCategory
+                                    images={x?.images}
+                                    category={category}
+                                    title={x?.title}
+                                  />
+                                </td>
                                 <td>
                                   <Button
                                     variant="outlined"
@@ -387,6 +394,7 @@ const SubCategory = () => {
                               <UploadFileIcon />
                               <input
                                 hidden
+                                name="file"
                                 onChange={handleChange2}
                                 type="file"
                                 accept=".xlsx"
@@ -437,7 +445,7 @@ const SubCategory = () => {
                                   style={{
                                     backgroundColor: "#708040",
                                   }}>
-                                  Image Pyramid
+                                  Graph 4
                                   <input
                                     hidden
                                     onChange={handleChangePyramid}
@@ -470,7 +478,7 @@ const SubCategory = () => {
                                   style={{
                                     backgroundColor: "#708040",
                                   }}>
-                                  Image Pie
+                                  Graph 3
                                   <input
                                     hidden
                                     onChange={handleChangePie}
@@ -504,7 +512,7 @@ const SubCategory = () => {
                                   style={{
                                     backgroundColor: "#708040",
                                   }}>
-                                  Image Bar
+                                  Graph 2
                                   <input
                                     hidden
                                     onChange={handleChangeBar}
@@ -537,7 +545,7 @@ const SubCategory = () => {
                                   style={{
                                     backgroundColor: "#708040",
                                   }}>
-                                  Image Line
+                                  Graph 1
                                   <input
                                     hidden
                                     onChange={handleChangeLine}

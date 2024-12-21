@@ -20,6 +20,12 @@ import {
   GET_SUBCATEGORY_REQUEST,
   GET_SUBCATEGORY_SUCCESS,
   GET_SUBCATEGORY_FAILED,
+  EDIT_CATEGORIES_FAILED,
+  EDIT_CATEGORIES_REQUEST,
+  EDIT_CATEGORIES_SUCCESS,
+  EDIT_SUBCATEGORY_REQUEST,
+  EDIT_SUBCATEGORY_SUCCESS,
+  EDIT_SUBCATEGORY_FAILED,
 } from "../../type.js";
 const initialState = {
   categories: [],
@@ -145,6 +151,57 @@ export const AddSubCategoryReducer = (state = initialState, action) => {
         success: true,
       };
     case ADD_SUBCATEGORY_FAILED:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const EditSubCategoryReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case EDIT_SUBCATEGORY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case EDIT_SUBCATEGORY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+      };
+    case EDIT_SUBCATEGORY_FAILED:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const editCategoriesReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case EDIT_CATEGORIES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case EDIT_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        category: payload,
+        loading: false,
+        success: true,
+      };
+    case EDIT_CATEGORIES_FAILED:
       return {
         ...state,
         error: payload,

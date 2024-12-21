@@ -71,7 +71,12 @@ const Header = () => {
                         <Dropdown.Item
                           key={i}
                           href={`/sub/${x?.title}`}
-                          style={{ color: "#333", textAlign: "right" }}>
+                          style={{
+                            color: "#000",
+                            fontWeight: "bold",
+                            textAlign: "right",
+                            borderBottom: "1px solid #000",
+                          }}>
                           {x?.title}
                         </Dropdown.Item>
                       ))}

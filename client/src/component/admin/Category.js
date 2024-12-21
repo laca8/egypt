@@ -15,7 +15,7 @@ import {
   MDBFile,
 } from "mdb-react-ui-kit";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
-
+import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import Loader from "../../component/features/Loader";
 import Error from "../../component/features/Error";
@@ -26,7 +26,9 @@ import {
   deleteCategory,
   AddCategory,
   listCategory,
+  editCategories,
 } from "../../redux/actions/category/categoryAction";
+import EditCategory from "./EditCategory";
 const Category = () => {
   const dispatch = useDispatch();
   const listCategoryReducer = useSelector((state) => state.listCategoryReducer);
@@ -59,27 +61,21 @@ const Category = () => {
   //   );
   // };
 
-  const [data, setData] = useState([]);
-  const [err, setErr] = useState("");
   const [title, setTitle] = useState("");
   const [file, setFile] = useState("");
-  const [load, setLoad] = useState(false);
+
   const [basicModal, setBasicModal] = useState(false);
-
   const toggleOpen = () => setBasicModal(!basicModal);
-
   const handleChange2 = (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
     if (!x) return;
-
     // Validate file type
     if (!allowedTypes.includes(x.type)) {
       alert("Invalid file type. Please upload a JPEG, PNG, JPG.");
       return;
     }
-
     // Validate file size
     if (x.size > maxSize) {
       alert("File is too large. Maximum size is 1MB.");
@@ -90,15 +86,13 @@ const Category = () => {
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("title", title);
-    if (!file) {
-      alert("please choose image..");
-      return;
-    }
+
     if (file) {
       formData.append("image", file);
     }
     dispatch(AddCategory(formData));
     setBasicModal(!basicModal);
+    window.location.reload();
     dispatch(listCategory());
   };
   const handleRemove = async (id) => {
@@ -107,47 +101,11 @@ const Category = () => {
     dispatch(listCategory());
   };
 
-  //   {
-  //     headerName: "#",
-  //     cellRenderer: (p) => <DeleteButtonComponent id={p.data._id} />,
-  //     sortable: true,
-  //     filter: true,
-  //     flex: 2,
-  //   },
-  //   {
-  //     headerName: "الصورة",
-  //     cellRenderer: (p) => <ImageComponent image={p.data.image} />,
-  //     sortable: true,
-  //     filter: true,
-  //     flex: 2,
-  //   },
-
-  //   {
-  //     headerName: "الأسم",
-  //     field: "title",
-  //     sortable: true,
-  //     filter: true,
-  //     flex: 2,
-  //   },
-  //   {
-  //     headerName: "رقم",
-  //     field: "",
-  //     sortable: true,
-  //     filter: true,
-  //   },
-  // ];
-
-  // const defaultColDef = useMemo(
-  //   () => ({
-  //     sortable: true,
-  //     filter: true,
-  //   }),
-  //   []
-  // );
-
   return (
     <div style={{ marginTop: "35px", width: "95%" }}>
-      <MDBBtn onClick={toggleOpen} style={{ backgroundColor: "#708040" }}>
+      <MDBBtn
+        onClick={toggleOpen}
+        style={{ backgroundColor: "#708040", marginBottom: "10px" }}>
         Add New Category
       </MDBBtn>
       <MDBModal
@@ -205,7 +163,7 @@ const Category = () => {
               animateRows={true}
             />
           </div> */}
-          <div style={{ height: "400px", overflowY: "auto" }} dir="rtl">
+          <div style={{ height: "600px", overflowY: "auto" }} dir="rtl">
             <MDBTable
               className="table-secondary"
               striped
@@ -222,7 +180,8 @@ const Category = () => {
                   <th>مسلسل</th>
                   <th>الاسم</th>
                   <th>الصورة</th>
-                  <th>#</th>
+                  <th>تعديل</th>
+                  <th>حذف</th>
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
@@ -238,10 +197,12 @@ const Category = () => {
                           width: "45px",
                           height: "45px",
                           border: "2px solid #807040",
-
                           borderRadius: "50%",
                         }}
                       />
+                    </td>
+                    <td>
+                      <EditCategory id={x?._id} titleEdit={x?.title} />
                     </td>
                     <td>
                       <Button

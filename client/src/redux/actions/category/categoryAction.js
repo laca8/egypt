@@ -20,6 +20,12 @@ import {
   GET_SUBCATEGORY_REQUEST,
   GET_SUBCATEGORY_SUCCESS,
   GET_SUBCATEGORY_FAILED,
+  EDIT_CATEGORIES_REQUEST,
+  EDIT_CATEGORIES_SUCCESS,
+  EDIT_CATEGORIES_FAILED,
+  EDIT_SUBCATEGORY_REQUEST,
+  EDIT_SUBCATEGORY_FAILED,
+  EDIT_SUBCATEGORY_SUCCESS,
 } from "../../type";
 import axios from "axios";
 export const listCategory = () => async (dispatch) => {
@@ -49,7 +55,7 @@ export const listCategoryByTitle = (title) => async (dispatch) => {
     type: GET_CATEGORY_REQUEST,
   });
   try {
-    const res = await axios.get(`/api/category/${title}`);
+    const res = await axios.get(`/api/category/sub/${title}`);
     dispatch({
       type: GET_CATEGORY_SUCCESS,
       payload: res.data,
@@ -114,17 +120,44 @@ export const AddCategory = (cat) => async (dispatch) => {
   }
 };
 
-export const AddSubCategory = (title, sub) => async (dispatch) => {
+export const editCategories = (cat, id) => async (dispatch) => {
   dispatch({
-    type: ADD_SUBCATEGORY_REQUEST,
+    type: EDIT_CATEGORIES_REQUEST,
   });
   try {
-    const res = await axios.put(`/api/category/${title}`, sub, {
+    const res = await axios.put(`/api/category/${id}`, cat, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(sub);
+    dispatch({
+      type: EDIT_CATEGORIES_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err.response);
+    dispatch({
+      type: EDIT_CATEGORIES_FAILED,
+      payload:
+        err.response && err.response.data
+          ? err.response.data.msg
+          : err.response.data,
+    });
+  }
+};
+
+export const AddSubCategory = (title, sub) => async (dispatch) => {
+  console.log(title, sub);
+
+  dispatch({
+    type: ADD_SUBCATEGORY_REQUEST,
+  });
+  try {
+    const res = await axios.put(`/api/category/sub/${title}`, sub, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     dispatch({
       type: ADD_SUBCATEGORY_SUCCESS,
@@ -134,6 +167,37 @@ export const AddSubCategory = (title, sub) => async (dispatch) => {
     console.log(err.response.data);
     dispatch({
       type: ADD_SUBCATEGORY_FAILED,
+      payload:
+        err.response && err.response.data
+          ? err.response.data.msg
+          : err.response.data,
+    });
+  }
+};
+
+export const editSubCategory = (category, title, sub) => async (dispatch) => {
+  dispatch({
+    type: EDIT_SUBCATEGORY_REQUEST,
+  });
+  try {
+    const res = await axios.put(
+      `/api/category/subCategory/${category}/${title}`,
+      sub,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(sub);
+    dispatch({
+      type: EDIT_SUBCATEGORY_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err.response.data);
+    dispatch({
+      type: EDIT_SUBCATEGORY_FAILED,
       payload:
         err.response && err.response.data
           ? err.response.data.msg

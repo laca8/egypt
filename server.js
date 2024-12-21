@@ -36,6 +36,10 @@ if (process.env.NODE_ENV === "production") {
     res.send("Api is running...");
   });
 }
+// Logging the rejected field from multer error
+app.use((error, req, res, next) => {
+  console.log("This is the rejected field ->", error);
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("server running");
