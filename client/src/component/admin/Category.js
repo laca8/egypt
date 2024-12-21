@@ -92,7 +92,7 @@ const Category = () => {
     }
     dispatch(AddCategory(formData));
     setBasicModal(!basicModal);
-    window.location.reload();
+
     dispatch(listCategory());
   };
   const handleRemove = async (id) => {

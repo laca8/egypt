@@ -72,7 +72,6 @@ const EditCategory = ({ id, titleEdit }) => {
 
     dispatch(editCategories(formData, id));
     setBasicModal(!basicModal);
-    window.location.reload();
 
     dispatch(listCategory());
   };
