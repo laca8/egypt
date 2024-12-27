@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { Chart } from "chart.js";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,26 +11,41 @@ import {
   Title,
   Tooltip,
   Legend,
+  PolarAreaController,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Doughnut, Line, Pie, PolarArea, Radar } from "react-chartjs-2";
 ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  PolarAreaController,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  ArcElement
 );
 
-const ChartBar = ({ arr, colors }) => {
-  // console.log(
-  //   arr &&
-  //     JSON.parse(arr).map((x) =>
-  //       Number(x["العدد"].replace(",", "").replace(",", ""))
-  //     )
-  // );
+const ChartBar = ({ arr, colors, chartTypes }) => {
+  const chartRef = useRef(null);
+  const [chartInstance, setChartInstance] = useState(null);
 
   const options = {
+    // indexAxis: "y",
+    elements: {
+      bar: {
+        // borderWidth: 2,
+        // borderWidth: 0,
+        barPercentage: 0.5,
+        barThickness: 6,
+      },
+    },
     responsive: true,
     plugins: {
       legend: {
@@ -39,15 +56,10 @@ const ChartBar = ({ arr, colors }) => {
             weight: "bold",
           },
         },
-      },
-      tooltip: {
-        bodyFont: {
-          weight: "bold",
-        },
+        position: "top",
       },
       title: {
         display: true,
-        text: "الأطفال",
         color: "white",
         font: {
           size: 14,
@@ -61,7 +73,6 @@ const ChartBar = ({ arr, colors }) => {
           color: "white",
           font: {
             size: 14,
-            weight: "bold",
           },
 
           minRotation: 90, // This rotates the labels 90 degrees
@@ -73,24 +84,27 @@ const ChartBar = ({ arr, colors }) => {
           color: "white",
           font: {
             size: 10,
-            weight: "bold",
           },
         },
       },
     },
-    maintainAspectRatio: false,
   };
-
   const data = {
-    labels: arr && JSON?.parse(arr)?.map((x) => x["المحافظة"]),
+    labels:
+      arr &&
+      JSON?.parse(arr)
+        ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
+
+        ?.map((x) => x["المحافظة"]),
     datasets: [
       {
         label: "اجمالي اعداد الأطفال",
         data:
           arr &&
-          JSON.parse(arr).map((x) =>
-            Number(x["العدد"].replace(",", "").replace(",", ""))
-          ),
+          JSON.parse(arr)
+            ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
+
+            ?.map((x) => Number(x["العدد"].replace(",", "").replace(",", ""))),
         backgroundColor: colors[0],
       },
     ],
@@ -98,7 +112,7 @@ const ChartBar = ({ arr, colors }) => {
 
   return (
     <>
-      <Bar options={options} data={data} />
+      <Bar data={data} options={options} />
     </>
   );
 };

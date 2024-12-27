@@ -21,6 +21,7 @@ import CategoryDescription from "./pages/dashboard/CategoryDescription";
 import ProtectedRoutes from "./utils/ProtectedRoute";
 import CategoriesResults from "./pages/dashboard/CategoriesResults";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Graph from "./component/Graph";
 function App() {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -39,6 +40,7 @@ function App() {
           element={<CategoryDescription />}
         />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/graph" element={<Graph />} />
 
         {/* <Route
           path="/admin/sub/:category"

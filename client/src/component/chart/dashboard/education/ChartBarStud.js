@@ -73,15 +73,6 @@ const ChartBarStud = ({ arr, colors }) => {
 
     datasets: [
       {
-        label: "مدارس",
-        backgroundColor: colors[0],
-        borderWidth: 1,
-        stack: 1,
-        data:
-          arr &&
-          JSON.parse(arr)?.map((x) => Number(x["مدارس"].replace(",", ""))),
-      },
-      {
         label: "الفصول",
         backgroundColor: colors[1],
 
@@ -93,16 +84,26 @@ const ChartBarStud = ({ arr, colors }) => {
           JSON.parse(arr)?.map((x) => Number(x["فصول"].replace(",", ""))),
       },
       {
-        label: "التلاميذ",
-        backgroundColor: colors[2],
-
+        label: "مدارس",
+        backgroundColor: colors[0],
         borderWidth: 1,
         stack: 1,
-
         data:
           arr &&
-          JSON.parse(arr)?.map((x) => Number(x["تلاميذ"].replace(",", ""))),
+          JSON.parse(arr)?.map((x) => Number(x["مدارس"].replace(",", ""))),
       },
+
+      // {
+      //   label: "التلاميذ",
+      //   backgroundColor: colors[2],
+
+      //   borderWidth: 1,
+      //   stack: 1,
+
+      //   data:
+      //     arr &&
+      //     JSON.parse(arr)?.map((x) => Number(x["تلاميذ"].replace(",", ""))),
+      // },
     ],
   };
   return <Bar data={data} options={options} />;

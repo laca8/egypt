@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,7 +9,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
+
 import axios from "axios";
 ChartJS.register(
   CategoryScale,
@@ -20,13 +22,15 @@ ChartJS.register(
 );
 const ChartBarStud = ({ arr, colors }) => {
   const options = {
+    indexAxis: "y",
+
     responsive: true,
     scales: {
       x: {
         ticks: {
           color: "white",
           font: {
-            size: 14,
+            size: 10,
             weight: "bold",
           },
 
@@ -38,8 +42,7 @@ const ChartBarStud = ({ arr, colors }) => {
         ticks: {
           color: "white",
           font: {
-            size: 10,
-            weight: "bold",
+            size: 14,
           },
         },
       },
@@ -50,8 +53,7 @@ const ChartBarStud = ({ arr, colors }) => {
         labels: {
           color: "white",
           font: {
-            size: 14,
-            weight: "bold",
+            size: 10,
           },
         },
         position: "top",
@@ -73,30 +75,39 @@ const ChartBarStud = ({ arr, colors }) => {
     datasets: [
       {
         label: "المعاهد",
-        backgroundColor: colors[0],
+        backgroundColor: colors[3],
+
+        type: "bar",
         data:
           arr &&
-          JSON.parse(arr)?.map((x) => Number(x["معاهد"].replace(",", ""))),
+          JSON.parse(arr)?.map((x) => Number(-x["معاهد"].replace(",", ""))),
       },
       {
         label: "الفصول",
-        backgroundColor: colors[1],
-
+        backgroundColor: colors[2],
+        fill: false,
+        borderColor: colors[2],
+        tension: 0.1,
+        type: "bar",
         data:
           arr &&
           JSON.parse(arr)?.map((x) => Number(x["فصول"].replace(",", ""))),
       },
-      {
-        label: "التلاميذ",
-        backgroundColor: colors[2],
+      // {
+      //   label: "التلاميذ",
+      //   backgroundColor: colors[2],
+      //   fill: false,
+      //   borderColor: colors[2],
+      //   tension: 0.1,
+      //   type: "line",
 
-        data:
-          arr &&
-          JSON.parse(arr)?.map((x) => Number(x["تلاميذ"].replace(",", ""))),
-      },
+      //   data:
+      //     arr &&
+      //     JSON.parse(arr)?.map((x) => Number(x["تلاميذ"].replace(",", ""))),
+      // },
     ],
   };
-  return <Bar data={data} options={options} />;
+  return <Line data={data} options={options} />;
 };
 
 export default ChartBarStud;

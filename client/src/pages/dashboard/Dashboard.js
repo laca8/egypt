@@ -29,7 +29,24 @@ import Internet from "../../component/chart/dashboard/culture/Internet";
 import Disable from "../../component/chart/dashboard/culture/Disable";
 import { AlertTitle, Alert } from "@mui/material";
 const Dashboard = () => {
-  const colors = ["#876FD4", "#F5921B", "#4394E5", "#87BB62", "red", "purple"];
+  const chartTypes = [
+    { value: "line", label: "خط" },
+    { value: "bar", label: "أعمدة" },
+    { value: "radar", label: "رادار" },
+    { value: "pie", label: "دائري" },
+    { value: "polarArea", label: "مساحة قطبية" },
+    { value: "doughnut", label: "حلقي" },
+  ];
+
+  const colors = [
+    "#87BB62",
+    "#F5921B",
+    "#ffc658",
+    "#82ca9d",
+    "#876FD4",
+    "#ff0000",
+    "#4394E5",
+  ];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategoryByTitle("Dashboard"));
@@ -40,13 +57,13 @@ const Dashboard = () => {
   );
   const { loading, error, category } = listCategoryByTitlReducer;
   return (
-    <Container>
+    <>
       {loading ? (
         <Loader />
       ) : error ? (
         <Error error={error} />
       ) : (
-        <>
+        <div className="dash">
           <Alert
             severity="info"
             dir="rtl"
@@ -58,12 +75,10 @@ const Dashboard = () => {
           <Row style={{ marginTop: "10px" }}>
             <Col>
               <Card
-                style={{
-                  padding: "10px",
-                  backgroundColor: "rgba(10,22,0,1)",
-                }}>
+                style={{ paddng: "10px", backgroundColor: "rgb(87, 55, 17)" }}>
                 <ChartBar
                   colors={colors}
+                  chartTypes={chartTypes}
                   arr={category?.subs
                     ?.filter((x) => x.title === "أعداد الأطفال")
                     ?.map((x) => JSON.stringify(x.results))}
@@ -74,7 +89,8 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(10,22,44,1)",
+                  backgroundColor: "#333",
+                  height: "100%",
                 }}>
                 <Sport
                   colors={colors}
@@ -88,7 +104,11 @@ const Dashboard = () => {
           <Row style={{ marginTop: "10px" }}>
             <Col>
               <Card
-                style={{ padding: "10px", backgroundColor: "rgba(0,22,0,50)" }}>
+                style={{
+                  padding: "10px",
+                  backgroundColor: "#111",
+                  height: "100%",
+                }}>
                 <ChartBarClasses
                   colors={colors}
                   arr={category?.subs
@@ -103,7 +123,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(10,22,0,20)",
+                  backgroundColor: "rgb(137, 132, 37)",
                 }}>
                 <ChartBarTeacher
                   colors={colors}
@@ -122,7 +142,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(10,0,0,144)",
+                  backgroundColor: "rgb(70, 48, 67)",
                 }}>
                 <ChartBarStud
                   colors={colors}
@@ -139,7 +159,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(10,22,44,180)",
+                  backgroundColor: "rgb(73, 47, 124)",
                 }}>
                 <Culture
                   colors={colors}
@@ -155,7 +175,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(10,20,10,90)",
+                  backgroundColor: "rgb(0, 129, 0)",
                 }}>
                 <Primary
                   colors={colors}
@@ -171,7 +191,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(10,22,44,1)",
+                  backgroundColor: "rgb(94, 142, 108)",
                 }}>
                 <Secondary
                   colors={colors}
@@ -188,7 +208,10 @@ const Dashboard = () => {
           <Row style={{ marginTop: "10px" }}>
             <Col>
               <Card
-                style={{ padding: "10px", backgroundColor: "rgba(1,2,3,4)" }}>
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgb(53, 90, 126)",
+                }}>
                 <ChartBarDeaths
                   colors={colors}
                   arr={category?.subs
@@ -202,7 +225,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(0,0,10,200)",
+                  backgroundColor: "rgb(100, 57, 57)",
                 }}>
                 <International
                   colors={colors}
@@ -220,7 +243,10 @@ const Dashboard = () => {
           <Row style={{ marginTop: "10px" }}>
             <Col>
               <Card
-                style={{ padding: "10px", backgroundColor: "rgba(0,0,0,1)" }}>
+                style={{
+                  padding: "10px",
+                  backgroundColor: "rgb(130, 125, 92)",
+                }}>
                 <Internet
                   colors={colors}
                   arr={category?.subs
@@ -234,7 +260,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(50,10,0,200)",
+                  backgroundColor: "rgb(146, 83, 68)",
                 }}>
                 <Disable
                   colors={colors}
@@ -245,9 +271,9 @@ const Dashboard = () => {
               </Card>
             </Col>
           </Row>
-        </>
+        </div>
       )}
-    </Container>
+    </>
   );
 };
 

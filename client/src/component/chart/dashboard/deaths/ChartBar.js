@@ -66,6 +66,7 @@ const ChartBarStud = ({ arr, colors }) => {
         font: {
           size: 14,
           weight: "bold",
+          color: "white",
         },
         text: "المواليد والوفيات",
       },
@@ -77,13 +78,13 @@ const ChartBarStud = ({ arr, colors }) => {
     datasets: [
       {
         label: "المواليد",
-        backgroundColor: colors[0],
+        backgroundColor: colors[3],
         data: arr && JSON.parse(arr)?.map((x) => Number(x["المواليد"])),
       },
 
       {
         label: "الوفيات",
-        backgroundColor: colors[1],
+        backgroundColor: colors[2],
 
         data: arr && JSON.parse(arr)?.map((x) => Number(x["الوفيات"])),
       },

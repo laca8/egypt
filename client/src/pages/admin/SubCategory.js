@@ -56,6 +56,7 @@ const SubCategory = () => {
   const [image_pyramid, setImagePyramid] = useState("");
 
   const [title, setTitle] = useState("");
+  const [src, setSrc] = useState("");
 
   const handleChange2 = (e) => {
     const x = e.target.files[0];
@@ -182,6 +183,7 @@ const SubCategory = () => {
     formData.append("image_pie", image_pie);
     formData.append("image_pyramid", image_pyramid);
     formData.append("title", title);
+    formData.append("src", src);
     dispatch(AddSubCategory(category, formData));
     setTitle("");
     setLine("");
@@ -189,6 +191,7 @@ const SubCategory = () => {
     setImagePie("");
     setImagePyramid("");
     setFile("");
+    setSrc("");
     dispatch(listCategoryByTitle(category));
   };
   const exportCsv = ({ data = [""], filename = "download.xlsx" }) => {
@@ -376,6 +379,17 @@ const SubCategory = () => {
                               value={title}
                               onChange={(e) =>
                                 setTitle(e.target.value)
+                              }></Form.Control>
+                          </Form.Group>
+                          <Form.Group style={{ width: "100%" }}>
+                            <Form.Label>المصدر</Form.Label>
+                            <Form.Control
+                              style={{ fontWeight: "bold" }}
+                              type="text"
+                              placeholder="ادخل المصدر"
+                              value={src}
+                              onChange={(e) =>
+                                setSrc(e.target.value)
                               }></Form.Control>
                           </Form.Group>
                           <div

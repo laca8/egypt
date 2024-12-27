@@ -125,6 +125,8 @@ const CategoryDescription = () => {
                   marginBottom: "10px",
                 }}>
                 {x?.title}
+                {"           "}
+                {x?.src != undefined ? ` / المصدر : ${x?.src}` : ""}
               </Typography>
             )}
             <Box sx={{ width: "100%", backgroundColor: "#807040" }} dir="ltr">

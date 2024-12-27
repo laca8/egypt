@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import axios from "axios";
 ChartJS.register(
   CategoryScale,
@@ -73,19 +73,27 @@ const ChartBarStud = ({ arr, colors }) => {
     datasets: [
       {
         label: "ذكور",
-        backgroundColor: colors[0],
+        backgroundColor: colors[5],
+        fill: false,
+        borderColor: colors[5],
+        type: "bubble",
+
+        tension: 0.1,
         data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
       },
 
       {
         label: "إناث",
         backgroundColor: colors[1],
-
-        data: arr && JSON.parse(arr)?.map((x) => x["إناث"]),
+        fill: false,
+        borderColor: colors[1],
+        type: "bubble",
+        tension: 0.1,
+        data: arr && JSON.parse(arr)?.map((x) => -x["إناث"]),
       },
     ],
   };
-  return <Bar data={data} options={options} />;
+  return <Line data={data} options={options} />;
 };
 
 export default ChartBarStud;

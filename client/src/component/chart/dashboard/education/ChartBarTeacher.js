@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import axios from "axios";
 ChartJS.register(
   CategoryScale,
@@ -72,50 +72,58 @@ const ChartBarStud = ({ arr, colors }) => {
 
     datasets: [
       {
-        label: "مدارس",
-        backgroundColor: colors[0],
-        borderWidth: 1,
-        stack: 1,
+        label: "مدرسون",
+        backgroundColor: colors[3],
+
+        // borderWidth: 1,
+        // stack: 1,
+        fill: false,
+        borderColor: colors[3],
+        tension: 0.1,
         data:
           arr &&
-          JSON.parse(arr)?.map((x) => Number(x["مدارس"].replace(",", ""))),
+          JSON.parse(arr)?.map((x) => -Number(x["مدرسون"].replace(",", ""))),
       },
       {
         label: "الفصول",
         backgroundColor: colors[1],
 
-        borderWidth: 1,
-        stack: 1,
-
+        // borderWidth: 1,
+        // stack: 1,
+        fill: false,
+        borderColor: colors[1],
+        tension: 0.1,
         data:
           arr &&
           JSON.parse(arr)?.map((x) => Number(x["فصول"].replace(",", ""))),
       },
       {
-        label: "التلاميذ",
-        backgroundColor: colors[2],
-
-        borderWidth: 1,
-        stack: 1,
-
+        label: "مدارس",
+        backgroundColor: colors[0],
+        // borderWidth: 1,
+        // stack: 1,
+        fill: false,
+        borderColor: colors[0],
+        tension: 0.1,
         data:
           arr &&
-          JSON.parse(arr)?.map((x) => Number(x["تلاميذ"].replace(",", ""))),
+          JSON.parse(arr)?.map((x) => Number(x["مدارس"].replace(",", ""))),
       },
-      {
-        label: "مدرسون",
-        backgroundColor: colors[3],
 
-        borderWidth: 1,
-        stack: 1,
+      // {
+      //   label: "التلاميذ",
+      //   backgroundColor: colors[2],
 
-        data:
-          arr &&
-          JSON.parse(arr)?.map((x) => Number(x["مدرسون"].replace(",", ""))),
-      },
+      //   borderWidth: 1,
+      //   stack: 1,
+
+      //   data:
+      //     arr &&
+      //     JSON.parse(arr)?.map((x) => Number(x["تلاميذ"].replace(",", ""))),
+      // },
     ],
   };
-  return <Bar data={data} options={options} />;
+  return <Line data={data} options={options} />;
 };
 
 export default ChartBarStud;

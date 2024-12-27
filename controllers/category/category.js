@@ -125,6 +125,7 @@ const AddSubCategory = async (req, res) => {
                 .replace(/[^a-z]+/g, "")
                 .substr(2, 10),
               title: req.body.title,
+              src: req.body.src,
               results: jsonData,
               images: [
                 {
