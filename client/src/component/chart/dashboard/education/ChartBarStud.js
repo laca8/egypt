@@ -25,7 +25,7 @@ const ChartBarStud = ({ arr, colors }) => {
     scales: {
       x: {
         ticks: {
-          color: "white",
+          color: "#111",
           font: {
             size: 10,
             weight: "bold",
@@ -36,7 +36,7 @@ const ChartBarStud = ({ arr, colors }) => {
       },
       y: {
         ticks: {
-          color: "white",
+          color: "#111",
           font: {
             size: 10,
             weight: "bold",
@@ -48,7 +48,7 @@ const ChartBarStud = ({ arr, colors }) => {
     plugins: {
       legend: {
         labels: {
-          color: "white",
+          color: "#111",
           font: {
             size: 14,
             weight: "bold",
@@ -58,7 +58,7 @@ const ChartBarStud = ({ arr, colors }) => {
       },
       title: {
         display: true,
-        color: "white",
+        color: "#111",
         font: {
           size: 14,
           weight: "bold",

@@ -9,6 +9,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar, Line } from "react-chartjs-2";
+import ReactApexChart from "react-apexcharts";
+
 import axios from "axios";
 ChartJS.register(
   CategoryScale,
@@ -123,7 +125,107 @@ const ChartBarStud = ({ arr, colors }) => {
       // },
     ],
   };
-  return <Line data={data} options={options} />;
+  const [state, setState] = React.useState({
+    series: [
+      {
+        name: "مدرسون",
+        data:
+          arr &&
+          JSON.parse(arr)?.map((x) => Number(x["مدرسون"].replace(",", ""))),
+      },
+      {
+        name: "فصول",
+        data:
+          arr &&
+          JSON.parse(arr)?.map((x) => Number(x["فصول"].replace(",", ""))),
+      },
+      {
+        name: "مدارس",
+        data:
+          arr &&
+          JSON.parse(arr)?.map((x) => Number(x["مدارس"].replace(",", ""))),
+      },
+    ],
+    options: {
+      chart: {
+        type: "bar",
+        height: 440,
+        stacked: true,
+      },
+      colors: [colors[2], colors[3], colors[4], colors[5]],
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          borderRadiusApplication: "end", // 'around', 'end'
+          borderRadiusWhenStacked: "all", // 'all', 'last'
+          horizontal: true,
+          barHeight: "90%",
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        width: 1,
+        colors: ["#fff"],
+      },
+
+      grid: {
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+      },
+      yaxis: {
+        stepSize: 1,
+        labels: {
+          style: {
+            colors: "#111",
+            fontSize: "14px",
+            tickPlacement: "on",
+          },
+        },
+      },
+
+      title: {
+        text: "التعليم التجريبي",
+        labels: {
+          style: {
+            colors: "#111",
+            fontSize: "12px",
+            tickPlacement: "on",
+          },
+        },
+      },
+      xaxis: {
+        categories: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+        labels: {
+          style: {
+            colors: "#111",
+            fontSize: "12px",
+            tickPlacement: "on",
+          },
+        },
+      },
+    },
+  });
+  return (
+    <>
+      <div>
+        <div id="chart">
+          <ReactApexChart
+            options={state.options}
+            series={state.series}
+            type="bar"
+            height={430}
+          />
+        </div>
+        <div id="html-dist"></div>
+      </div>
+    </>
+  );
+  // <Line data={data} options={options} />;
 };
 
 export default ChartBarStud;

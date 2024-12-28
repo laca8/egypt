@@ -74,8 +74,7 @@ const Dashboard = () => {
           </Alert>
           <Row style={{ marginTop: "10px" }}>
             <Col>
-              <Card
-                style={{ paddng: "10px", backgroundColor: "rgb(87, 55, 17)" }}>
+              <Card style={{ paddng: "10px" }}>
                 <ChartBar
                   colors={colors}
                   chartTypes={chartTypes}
@@ -89,7 +88,8 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "#333",
+                  backgroundColor: "rgb(99, 99, 99)",
+
                   height: "100%",
                 }}>
                 <Sport
@@ -106,7 +106,9 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "#111",
+                  // backgroundColor: "rgb(120, 199, 216)",
+                  backgroundColor: "rgb(99, 99, 99)",
+
                   height: "100%",
                 }}>
                 <ChartBarClasses
@@ -123,7 +125,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(137, 132, 37)",
+                  // backgroundColor: "rgb(137, 132, 37)",
                 }}>
                 <ChartBarTeacher
                   colors={colors}
@@ -142,7 +144,6 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(70, 48, 67)",
                 }}>
                 <ChartBarStud
                   colors={colors}
@@ -159,7 +160,8 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(73, 47, 124)",
+                  height: "100%",
+                  backgroundColor: "rgb(99, 99, 99)",
                 }}>
                 <Culture
                   colors={colors}
@@ -175,7 +177,8 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(0, 129, 0)",
+                  height: "100%",
+                  backgroundColor: "rgb(99, 99, 99)",
                 }}>
                 <Primary
                   colors={colors}
@@ -191,7 +194,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(94, 142, 108)",
+                  // backgroundColor: "rgb(94, 142, 108)",
                 }}>
                 <Secondary
                   colors={colors}
@@ -210,7 +213,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(53, 90, 126)",
+                  // backgroundColor: "rgb(164, 209, 255)",
                 }}>
                 <ChartBarDeaths
                   colors={colors}
@@ -225,7 +228,8 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(100, 57, 57)",
+                  height: "100%",
+                  backgroundColor: "rgb(99, 99, 99)",
                 }}>
                 <International
                   colors={colors}
@@ -245,7 +249,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(130, 125, 92)",
+                  backgroundColor: "rgb(99, 99, 99)",
                 }}>
                 <Internet
                   colors={colors}
@@ -260,7 +264,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgb(146, 83, 68)",
+                  // backgroundColor: "rgb(146, 83, 68)",
                 }}>
                 <Disable
                   colors={colors}

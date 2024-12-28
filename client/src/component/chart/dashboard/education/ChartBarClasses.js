@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar, Line } from "react-chartjs-2";
+import ReactApexChart from "react-apexcharts";
 
 import axios from "axios";
 ChartJS.register(
@@ -20,6 +21,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 const ChartBarStud = ({ arr, colors }) => {
   const options = {
     indexAxis: "y",
@@ -107,7 +109,121 @@ const ChartBarStud = ({ arr, colors }) => {
       // },
     ],
   };
-  return <Line data={data} options={options} />;
+  const [state, setState] = React.useState({
+    series: [
+      {
+        name: "الفصول",
+        data:
+          arr &&
+          JSON.parse(arr)?.map((x) => Number(x["فصول"].replace(",", ""))),
+      },
+      {
+        name: "المعاهد",
+        data:
+          arr &&
+          JSON.parse(arr)?.map((x) => Number(-x["معاهد"].replace(",", ""))),
+      },
+    ],
+    options: {
+      chart: {
+        type: "bar",
+        height: 440,
+        stacked: true,
+      },
+      colors: [colors[0], colors[1]],
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          borderRadiusApplication: "end", // 'around', 'end'
+          borderRadiusWhenStacked: "all", // 'all', 'last'
+          horizontal: true,
+          barHeight: "100%",
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        width: 1,
+        colors: ["#fff"],
+      },
+
+      grid: {
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+      },
+      // xaxis: {
+      //   rotate: -90,
+
+      //   labels: {
+      //     style: {
+      //       colors: "#fff",
+      //       fontSize: "14px",
+      //       tickPlacement: "on",
+      //     },
+      //   },
+      // },
+
+      title: {
+        text: "الازهر",
+
+        style: {
+          color: "#fff",
+          fontSize: "14px",
+        },
+      },
+      xaxis: {
+        categories: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+        labels: {
+          style: {
+            colors: "#fff",
+            fontSize: "10px",
+            tickPlacement: "on",
+          },
+        },
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: "#fff",
+            fontSize: "14px",
+            tickPlacement: "on",
+          },
+        },
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "light",
+          type: "vertical",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 0.85,
+          opacityTo: 0.85,
+          stops: [50, 0, 100],
+        },
+      },
+    },
+  });
+
+  return (
+    <div style={{ width: "97%" }}>
+      <div id="chart">
+        <ReactApexChart
+          options={state.options}
+          series={state.series}
+          type="bar"
+          height={400}
+        />
+      </div>
+      <div id="html-dist"></div>
+    </div>
+  );
+  // <Line data={data} options={options} />;
 };
 
 export default ChartBarStud;

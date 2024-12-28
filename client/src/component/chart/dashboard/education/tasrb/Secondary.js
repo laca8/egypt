@@ -10,6 +10,7 @@ import {
 } from "chart.js";
 import { Bar, Line } from "react-chartjs-2";
 import axios from "axios";
+import ReactApexChart from "react-apexcharts";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -93,7 +94,83 @@ const ChartBarStud = ({ arr, colors }) => {
       },
     ],
   };
-  return <Line data={data} options={options} />;
+  const [state, setState] = React.useState({
+    series: [
+      {
+        name: "ذكور",
+        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"].replace(",", "")),
+      },
+      {
+        name: "إناث",
+        data: arr && JSON.parse(arr)?.map((x) => -x["إناث"].replace(",", "")),
+      },
+    ],
+    options: {
+      chart: {
+        type: "bar",
+        height: 440,
+        stacked: true,
+      },
+      colors: ["#008FFB", "#FF4560"],
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          borderRadiusApplication: "end", // 'around', 'end'
+          borderRadiusWhenStacked: "all", // 'all', 'last'
+          horizontal: true,
+          barHeight: "80%",
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        width: 1,
+        colors: ["#fff"],
+      },
+
+      grid: {
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+      },
+      yaxis: {
+        title: {
+          text: "المحافظات",
+        },
+      },
+
+      title: {
+        display: true,
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
+        text: "التسرب من التعليم المرحلة الأعدادية",
+      },
+      xaxis: {
+        categories: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+      },
+    },
+  });
+
+  return (
+    <div style={{ width: "97%" }}>
+      <div id="chart">
+        <ReactApexChart
+          options={state.options}
+          series={state.series}
+          type="bar"
+          height={440}
+        />
+      </div>
+      <div id="html-dist"></div>
+    </div>
+  );
+  //  <Line data={data} options={options} />;
 };
 
 export default ChartBarStud;

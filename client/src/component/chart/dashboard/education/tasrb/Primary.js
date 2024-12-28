@@ -24,7 +24,7 @@ const ChartBarStud = ({ arr, colors }) => {
     scales: {
       x: {
         ticks: {
-          color: "white",
+          color: "#fff",
           font: {
             size: 14,
             weight: "bold",
@@ -36,7 +36,7 @@ const ChartBarStud = ({ arr, colors }) => {
       },
       y: {
         ticks: {
-          color: "white",
+          color: "#fff",
           font: {
             size: 10,
             weight: "bold",
@@ -49,7 +49,7 @@ const ChartBarStud = ({ arr, colors }) => {
       legend: {
         position: "top",
         labels: {
-          color: "white",
+          color: "#fff",
           font: {
             size: 14,
             weight: "bold",
@@ -58,7 +58,7 @@ const ChartBarStud = ({ arr, colors }) => {
       },
       title: {
         display: true,
-        color: "white",
+        color: "#fff",
         font: {
           size: 14,
           weight: "bold",
@@ -74,19 +74,19 @@ const ChartBarStud = ({ arr, colors }) => {
       {
         label: "ذكور",
         fill: false,
-        borderColor: colors[0],
+        borderColor: "#008FFB",
         tension: 0.1,
-        backgroundColor: colors[0],
-        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"]),
+        backgroundColor: "#008FFB",
+        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"].replace(",", "")),
       },
 
       {
         label: "إناث",
-        backgroundColor: colors[4],
+        backgroundColor: "#FF4560",
         fill: false,
-        borderColor: colors[4],
+        borderColor: "#FF4560",
         tension: 0.1,
-        data: arr && JSON.parse(arr)?.map((x) => -x["إناث"]),
+        data: arr && JSON.parse(arr)?.map((x) => -x["إناث"].replace(",", "")),
       },
     ],
   };

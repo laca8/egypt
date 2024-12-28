@@ -9,6 +9,8 @@ import {
   Legend,
 } from "chart.js";
 import { Bar, Line } from "react-chartjs-2";
+import ReactApexChart from "react-apexcharts";
+
 import axios from "axios";
 ChartJS.register(
   CategoryScale,
@@ -90,7 +92,83 @@ const ChartBarStud = ({ arr, colors }) => {
       },
     ],
   };
-  return <Bar data={data} options={options} />;
+  const [state, setState] = React.useState({
+    series: [
+      {
+        name: "المواليد",
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["المواليد"])),
+      },
+      {
+        name: "الوفيات",
+
+        data: arr && JSON.parse(arr)?.map((x) => -Number(x["الوفيات"])),
+      },
+    ],
+    options: {
+      chart: {
+        type: "line",
+        height: 440,
+        stacked: true,
+      },
+      colors: [colors[1], colors[4]],
+      plotOptions: {
+        bar: {
+          borderRadius: 5,
+          borderRadiusApplication: "end", // 'around', 'end'
+          borderRadiusWhenStacked: "all", // 'all', 'last'
+          horizontal: true,
+          barHeight: "100%",
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        width: 1,
+        colors: ["#fff"],
+      },
+
+      grid: {
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+      },
+      yaxis: {
+        title: {
+          text: "المحافظات",
+        },
+      },
+
+      title: {
+        display: true,
+        color: "white",
+        font: {
+          size: 14,
+          weight: "bold",
+        },
+        text: "المواليد والوفيات",
+      },
+      xaxis: {
+        categories: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+      },
+    },
+  });
+
+  return (
+    <div style={{ width: "97%" }}>
+      <div id="chart">
+        <ReactApexChart
+          options={state.options}
+          series={state.series}
+          type="bar"
+          height={440}
+        />
+      </div>
+      <div id="html-dist"></div>
+    </div>
+  );
 };
 
 export default ChartBarStud;

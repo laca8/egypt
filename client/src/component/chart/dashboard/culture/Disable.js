@@ -25,7 +25,7 @@ const Culture = ({ arr, colors }) => {
     responsive: true,
     legend: {
       labels: {
-        color: "white",
+        color: "#111",
         font: {
           size: 10,
           weight: "bold",
@@ -37,9 +37,9 @@ const Culture = ({ arr, colors }) => {
     scales: {
       x: {
         ticks: {
-          color: "white",
+          color: "#111",
           font: {
-            size: 10,
+            size: 14,
             weight: "bold",
           },
           minRotation: 90, // This rotates the labels 90 degrees
@@ -48,7 +48,7 @@ const Culture = ({ arr, colors }) => {
       },
       y: {
         ticks: {
-          color: "white",
+          color: "#111",
           font: {
             size: 10,
             weight: "bold",
@@ -60,9 +60,9 @@ const Culture = ({ arr, colors }) => {
     plugins: {
       legend: {
         labels: {
-          color: "white",
+          color: "#111",
           font: {
-            size: 10,
+            size: 12,
             weight: "bold",
           },
         },
@@ -70,7 +70,7 @@ const Culture = ({ arr, colors }) => {
       },
       title: {
         display: true,
-        color: "white",
+        color: "#111",
         font: {
           size: 10,
           weight: "bold",

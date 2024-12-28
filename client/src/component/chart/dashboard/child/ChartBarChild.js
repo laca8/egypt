@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { Chart } from "chart.js";
+
+import ReactApexChart from "react-apexcharts";
 
 import {
   Chart as ChartJS,
@@ -31,88 +31,111 @@ ChartJS.register(
   LineElement,
   ArcElement
 );
-
 const ChartBar = ({ arr, colors, chartTypes }) => {
-  const chartRef = useRef(null);
-  const [chartInstance, setChartInstance] = useState(null);
+  //       data:
+  //         arr &&
+  //         JSON.parse(arr)
+  //           ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
 
-  const options = {
-    // indexAxis: "y",
-    elements: {
-      bar: {
-        // borderWidth: 2,
-        // borderWidth: 0,
-        barPercentage: 0.5,
-        barThickness: 6,
-      },
-    },
-    responsive: true,
-    plugins: {
-      legend: {
-        labels: {
-          color: "white",
-          font: {
-            size: 14,
-            weight: "bold",
-          },
-        },
-        position: "top",
-      },
-      title: {
-        display: true,
-        color: "white",
-        font: {
-          size: 14,
-          weight: "bold",
-        },
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: "white",
-          font: {
-            size: 14,
-          },
+  //           ?.map((x) => Number(x["العدد"].replace(",", "").replace(",", ""))),
 
-          minRotation: 90, // This rotates the labels 90 degrees
-          maxRotation: 90, // This ensures they don't rotate beyond 90 degrees
-        },
-      },
-      y: {
-        ticks: {
-          color: "white",
-          font: {
-            size: 10,
-          },
-        },
-      },
-    },
-  };
-  const data = {
-    labels:
-      arr &&
-      JSON?.parse(arr)
-        ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
-
-        ?.map((x) => x["المحافظة"]),
-    datasets: [
+  //   labels:
+  //     arr &&
+  //     JSON?.parse(arr)
+  //       ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
+  const [state, setState] = React.useState({
+    series: [
       {
-        label: "اجمالي اعداد الأطفال",
         data:
           arr &&
           JSON.parse(arr)
             ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
 
             ?.map((x) => Number(x["العدد"].replace(",", "").replace(",", ""))),
-        backgroundColor: colors[0],
       },
     ],
-  };
+    options: {
+      chart: {
+        height: 400,
+        type: "bar",
+        events: {
+          click: function (chart, w, e) {
+            // console.log(chart, w, e)
+          },
+        },
+      },
+      colors: colors,
+      plotOptions: {
+        bar: {
+          columnWidth: "80%",
+          distributed: true,
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      legend: {
+        show: false,
+      },
+      xaxis: {
+        categories:
+          arr &&
+          JSON?.parse(arr)
+            ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
 
+            ?.map((x) => x["المحافظة"]),
+
+        labels: {
+          rotate: -90,
+
+          style: {
+            colors: "#111",
+            fontSize: "14px",
+            tickPlacement: "on",
+          },
+        },
+      },
+
+      title: {
+        text: "أعداد الأطفال",
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: "#111",
+            fontSize: "9px",
+          },
+        },
+      },
+
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 0.85,
+          opacityTo: 0.85,
+          stops: [50, 0, 100],
+        },
+      },
+    },
+  });
   return (
     <>
-      <Bar data={data} options={options} />
+      <div>
+        <div id="chart" style={{ padding: "2px" }}>
+          <ReactApexChart
+            options={state.options}
+            series={state.series}
+            type="bar"
+            height={400}
+          />
+        </div>
+        <div id="html-dist"></div>
+      </div>
     </>
   );
 };
