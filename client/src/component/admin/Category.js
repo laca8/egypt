@@ -97,8 +97,11 @@ const Category = () => {
   };
   const handleRemove = async (id) => {
     console.log(id);
-    dispatch(deleteCategory(id));
-    dispatch(listCategory());
+    let isBoss = window.confirm("هل تريد حذف البيانات؟");
+    if (isBoss) {
+      dispatch(deleteCategory(id));
+      dispatch(listCategory());
+    }
   };
 
   return (

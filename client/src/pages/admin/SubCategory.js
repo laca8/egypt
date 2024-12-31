@@ -232,10 +232,11 @@ const SubCategory = () => {
     window.URL.revokeObjectURL(url);
   };
   const removeSub = async (i, x) => {
-    console.log(i);
-    console.log(x);
-    dispatch(deleteSubCategory(category, x));
-    dispatch(listCategoryByTitle(category));
+    let isBoss = window.confirm("هل تريد حذف البيانات؟");
+    if (isBoss) {
+      dispatch(deleteSubCategory(category, x));
+      dispatch(listCategoryByTitle(category));
+    }
   };
 
   const listCategoryByTitlReducer = useSelector(
