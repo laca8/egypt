@@ -67,14 +67,20 @@ const Dashboard = () => {
           <Alert
             severity="info"
             dir="rtl"
-            style={{ marginTop: "10px", fontSize: "20px", fontWeight: "bold" }}>
+            style={{
+              marginTop: "10px",
+              fontSize: "20px",
+              fontWeight: "bold",
+              color: "#fff",
+              backgroundColor: "#111",
+            }}>
             <AlertTitle>ملاحظة</AlertTitle>
             يمكنك تحديد اي فئة تريد ان تراها في الرسومات البيانية عن طريقة الضغط
-            علي الفئات الاخري
+            علي الفئات الاخري لأخفائها
           </Alert>
           <Row style={{ marginTop: "10px" }}>
             <Col>
-              <Card style={{ paddng: "10px" }}>
+              <Card style={{ paddng: "10px", height: "100%" }}>
                 <ChartBar
                   colors={colors}
                   chartTypes={chartTypes}
@@ -89,7 +95,6 @@ const Dashboard = () => {
                 style={{
                   padding: "10px",
                   backgroundColor: "rgb(99, 99, 99)",
-
                   height: "100%",
                 }}>
                 <Sport
@@ -126,6 +131,7 @@ const Dashboard = () => {
                 style={{
                   padding: "10px",
                   // backgroundColor: "rgb(137, 132, 37)",
+                  height: "100%",
                 }}>
                 <ChartBarTeacher
                   colors={colors}
@@ -144,6 +150,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   padding: "10px",
+                  height: "100%",
                 }}>
                 <ChartBarStud
                   colors={colors}
@@ -195,6 +202,7 @@ const Dashboard = () => {
                 style={{
                   padding: "10px",
                   // backgroundColor: "rgb(94, 142, 108)",
+                  height: "100%",
                 }}>
                 <Secondary
                   colors={colors}
@@ -214,6 +222,7 @@ const Dashboard = () => {
                 style={{
                   padding: "10px",
                   // backgroundColor: "rgb(164, 209, 255)",
+                  height: "100%",
                 }}>
                 <ChartBarDeaths
                   colors={colors}
@@ -250,6 +259,7 @@ const Dashboard = () => {
                 style={{
                   padding: "10px",
                   backgroundColor: "rgb(99, 99, 99)",
+                  height: "100%",
                 }}>
                 <Internet
                   colors={colors}
@@ -265,6 +275,7 @@ const Dashboard = () => {
                 style={{
                   padding: "10px",
                   // backgroundColor: "rgb(146, 83, 68)",
+                  height: "100%",
                 }}>
                 <Disable
                   colors={colors}

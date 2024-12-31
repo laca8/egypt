@@ -98,11 +98,23 @@ const ChartBarStud = ({ arr, colors }) => {
     series: [
       {
         name: "ذكور",
-        data: arr && JSON.parse(arr)?.map((x) => x["ذكور"].replace(",", "")),
+        data:
+          arr &&
+          JSON.parse(arr)
+            ?.sort(
+              (a, b) => b["ذكور"].replace(",", "") - a["ذكور"].replace(",", "")
+            )
+            ?.map((x) => x["ذكور"].replace(",", "")),
       },
       {
         name: "إناث",
-        data: arr && JSON.parse(arr)?.map((x) => -x["إناث"].replace(",", "")),
+        data:
+          arr &&
+          JSON.parse(arr)
+            ?.sort(
+              (a, b) => b["ذكور"].replace(",", "") - a["ذكور"].replace(",", "")
+            )
+            ?.map((x) => -x["إناث"].replace(",", "")),
       },
     ],
     options: {
@@ -110,6 +122,34 @@ const ChartBarStud = ({ arr, colors }) => {
         type: "bar",
         height: 440,
         stacked: true,
+      },
+      legend: {
+        show: true,
+        position: "top",
+        fontSize: "14px",
+        fontFamily: "Arial, sans-serif",
+        fontWeight: 600,
+        labels: {
+          colors: "#111",
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: "#111",
+          radius: 12,
+        },
+        itemMargin: {
+          horizontal: 10,
+          vertical: 0,
+        },
+        onItemClick: {
+          toggleDataSeries: true,
+        },
+        onItemHover: {
+          highlightDataSeries: true,
+        },
       },
       colors: ["#008FFB", "#FF4560"],
       plotOptions: {
@@ -119,6 +159,7 @@ const ChartBarStud = ({ arr, colors }) => {
           borderRadiusWhenStacked: "all", // 'all', 'last'
           horizontal: true,
           barHeight: "80%",
+          barWidth: "100%",
         },
       },
       dataLabels: {
@@ -152,7 +193,26 @@ const ChartBarStud = ({ arr, colors }) => {
         text: "التسرب من التعليم المرحلة الأعدادية",
       },
       xaxis: {
-        categories: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+        categories:
+          arr &&
+          JSON.parse(arr)
+            ?.sort(
+              (a, b) => b["ذكور"].replace(",", "") - a["ذكور"].replace(",", "")
+            )
+            ?.map((x) => x["المحافظة"]),
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          type: "horizontal",
+          shadeIntensity: 0.01,
+          gradientToColors: undefined,
+          inverseColors: false,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 50, 100],
+        },
       },
     },
   });

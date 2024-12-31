@@ -116,6 +116,34 @@ const Culture = ({ arr, colors }) => {
         type: "line",
         height: 430,
       },
+      legend: {
+        show: true,
+        position: "top",
+        fontSize: "14px",
+        fontFamily: "Arial, sans-serif",
+        fontWeight: 600,
+        labels: {
+          colors: "#fff",
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: "#fff",
+          radius: 12,
+        },
+        itemMargin: {
+          horizontal: 10,
+          vertical: 0,
+        },
+        onItemClick: {
+          toggleDataSeries: true,
+        },
+        onItemHover: {
+          highlightDataSeries: true,
+        },
+      },
       stroke: {
         width: [4, 4],
         curve: "smooth",

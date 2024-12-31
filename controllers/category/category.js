@@ -225,8 +225,8 @@ const getCategoryByTitleAndIdResults = async (req, res) => {
 };
 
 const editSubCategory = async (req, res) => {
-  console.log(req?.body);
-  console.log(req.params.category, req.params.title);
+  // console.log(req?.body);
+  // console.log(req.params.category, req.params.title);
 
   try {
     const category = await Category.findOne({ title: req.params.category });
@@ -242,6 +242,8 @@ const editSubCategory = async (req, res) => {
         },
         {
           $set: {
+            "subs.$.title": req.body.name,
+            "subs.$.src": req.body.src,
             "subs.$.images": [
               {
                 title: "Graphe 1",

@@ -110,6 +110,34 @@ const ChartBarStud = ({ arr, colors }) => {
         height: 440,
         stacked: true,
       },
+      legend: {
+        show: true,
+        position: "top",
+        fontSize: "14px",
+        fontFamily: "Arial, sans-serif",
+        fontWeight: 600,
+        labels: {
+          colors: "#111",
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: "#111",
+          radius: 12,
+        },
+        itemMargin: {
+          horizontal: 10,
+          vertical: 0,
+        },
+        onItemClick: {
+          toggleDataSeries: true,
+        },
+        onItemHover: {
+          highlightDataSeries: true,
+        },
+      },
       colors: [colors[1], colors[4]],
       plotOptions: {
         bar: {
@@ -152,6 +180,19 @@ const ChartBarStud = ({ arr, colors }) => {
       },
       xaxis: {
         categories: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          type: "horizontal",
+          shadeIntensity: 0.01,
+          gradientToColors: undefined,
+          inverseColors: false,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 50, 100],
+        },
       },
     },
   });

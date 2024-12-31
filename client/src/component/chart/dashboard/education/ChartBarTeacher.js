@@ -152,14 +152,43 @@ const ChartBarStud = ({ arr, colors }) => {
         height: 440,
         stacked: true,
       },
+      legend: {
+        show: true,
+        position: "top",
+        fontSize: "14px",
+        fontFamily: "Arial, sans-serif",
+        fontWeight: 600,
+        labels: {
+          colors: "#111",
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: "#fff",
+          radius: 12,
+        },
+        itemMargin: {
+          horizontal: 10,
+          vertical: 0,
+        },
+        onItemClick: {
+          toggleDataSeries: true,
+        },
+        onItemHover: {
+          highlightDataSeries: true,
+        },
+      },
       colors: [colors[2], colors[3], colors[4], colors[5]],
       plotOptions: {
         bar: {
-          borderRadius: 5,
-          borderRadiusApplication: "end", // 'around', 'end'
-          borderRadiusWhenStacked: "all", // 'all', 'last'
+          borderRadius: 3,
+          // borderRadiusApplication: "end", // 'around', 'end'
+          // borderRadiusWhenStacked: "all", // 'all', 'last'
           horizontal: true,
           barHeight: "90%",
+          barWidth: "90%",
         },
       },
       dataLabels: {
@@ -182,7 +211,7 @@ const ChartBarStud = ({ arr, colors }) => {
         labels: {
           style: {
             colors: "#111",
-            fontSize: "14px",
+            fontSize: "12px",
             tickPlacement: "on",
           },
         },
@@ -193,7 +222,7 @@ const ChartBarStud = ({ arr, colors }) => {
         labels: {
           style: {
             colors: "#111",
-            fontSize: "12px",
+            fontSize: "16px",
             tickPlacement: "on",
           },
         },
@@ -208,11 +237,24 @@ const ChartBarStud = ({ arr, colors }) => {
           },
         },
       },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          type: "horizontal",
+          shadeIntensity: 0.01,
+          gradientToColors: undefined,
+          inverseColors: false,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 50, 100],
+        },
+      },
     },
   });
   return (
     <>
-      <div>
+      <div style={{ width: "99%" }}>
         <div id="chart">
           <ReactApexChart
             options={state.options}

@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import ReactApexChart from "react-apexcharts";
 import axios from "axios";
 ChartJS.register(
   CategoryScale,
@@ -88,10 +89,136 @@ const Sport = ({ arr, colors }) => {
       },
     ],
   };
+  const [state, setState] = React.useState({
+    series: [
+      {
+        style: {
+          color: "#fff",
+        },
 
+        name: "اجمالى الاندیه",
+        data: arr && JSON.parse(arr)?.map((x) => Number(x["اجمالى الاندیه"])),
+      },
+      {
+        name: "اجمالى مراكز الشباب",
+        data:
+          arr && JSON.parse(arr)?.map((x) => Number(x["اجمالى مراكز الشباب"])),
+      },
+    ],
+    options: {
+      chart: {
+        height: 400,
+        type: "bar",
+        events: {
+          click: function (chart, w, e) {
+            // console.log(chart, w, e)
+          },
+        },
+      },
+      legend: {
+        show: true,
+        position: "top",
+        fontSize: "14px",
+        fontFamily: "Arial, sans-serif",
+        fontWeight: 600,
+        labels: {
+          colors: "#fff",
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: "#fff",
+          radius: 12,
+        },
+        itemMargin: {
+          horizontal: 10,
+          vertical: 0,
+        },
+        onItemClick: {
+          toggleDataSeries: true,
+        },
+        onItemHover: {
+          highlightDataSeries: true,
+        },
+      },
+      colors: colors,
+      plotOptions: {
+        bar: {
+          columnWidth: "90%",
+          distributed: true,
+          borderRadius: 5,
+          borderRadiusApplication: "end", // 'around', 'end'
+          borderRadiusWhenStacked: "all", // 'all', 'last'
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+
+      xaxis: {
+        categories:
+          arr &&
+          JSON?.parse(arr)
+            ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
+
+            ?.map((x) => x["المحافظة"]),
+
+        labels: {
+          rotate: -90,
+
+          style: {
+            colors: "#fff",
+            fontSize: "14px",
+            tickPlacement: "on",
+          },
+        },
+      },
+
+      title: {
+        text: "الرياضة",
+        style: {
+          color: "#fff",
+        },
+      },
+      yaxis: {
+        labels: {
+          style: {
+            colors: "#fff",
+            fontSize: "9px",
+          },
+        },
+      },
+
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 0.85,
+          opacityTo: 0.85,
+          stops: [50, 0, 100],
+        },
+      },
+    },
+  });
   return (
     <>
-      <Bar options={options} data={data} />
+      <div style={{ width: "97%" }}>
+        <div id="chart" style={{ padding: "2px" }}>
+          <ReactApexChart
+            options={state.options}
+            series={state.series}
+            type="bar"
+            height={400}
+          />
+        </div>
+        <div id="html-dist"></div>
+      </div>
     </>
   );
 };

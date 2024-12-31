@@ -119,9 +119,13 @@ const ChartBarStud = ({ arr, colors }) => {
       },
       {
         name: "المعاهد",
+
         data:
           arr &&
           JSON.parse(arr)?.map((x) => Number(-x["معاهد"].replace(",", ""))),
+        style: {
+          colors: "#fff",
+        },
       },
     ],
     options: {
@@ -130,14 +134,52 @@ const ChartBarStud = ({ arr, colors }) => {
         height: 440,
         stacked: true,
       },
-      colors: [colors[0], colors[1]],
+      legend: {
+        show: true,
+        position: "top",
+        fontSize: "14px",
+        fontFamily: "Arial, sans-serif",
+        fontWeight: 600,
+        labels: {
+          colors: "#fff",
+          useSeriesColors: false,
+        },
+        markers: {
+          width: 12,
+          height: 12,
+          strokeWidth: 0,
+          strokeColor: "#fff",
+          radius: 12,
+        },
+        itemMargin: {
+          horizontal: 10,
+          vertical: 0,
+        },
+        onItemClick: {
+          toggleDataSeries: true,
+        },
+        onItemHover: {
+          highlightDataSeries: true,
+        },
+      },
+      colors: [colors[4], colors[5]],
       plotOptions: {
+        series: {
+          name: {
+            show: true,
+            fontSize: "14px",
+            fontFamily: "Arial, sans-serif",
+            color: "#fff",
+            offsetY: 0,
+          },
+        },
         bar: {
+          distributed: false,
           borderRadius: 5,
           borderRadiusApplication: "end", // 'around', 'end'
           borderRadiusWhenStacked: "all", // 'all', 'last'
-          horizontal: true,
-          barHeight: "100%",
+
+          columnWidth: "70%",
         },
       },
       dataLabels: {
@@ -148,45 +190,18 @@ const ChartBarStud = ({ arr, colors }) => {
         colors: ["#fff"],
       },
 
-      grid: {
-        xaxis: {
-          lines: {
-            show: false,
-          },
-        },
-      },
-      // xaxis: {
-      //   rotate: -90,
-
-      //   labels: {
-      //     style: {
-      //       colors: "#fff",
-      //       fontSize: "14px",
-      //       tickPlacement: "on",
-      //     },
-      //   },
-      // },
-
       title: {
         text: "الازهر",
 
         style: {
           color: "#fff",
-          fontSize: "14px",
+          fontSize: "16px",
         },
       },
       xaxis: {
         categories: arr && JSON.parse(arr)?.map((x) => x["المحافظة"]),
         labels: {
-          style: {
-            colors: "#fff",
-            fontSize: "10px",
-            tickPlacement: "on",
-          },
-        },
-      },
-      yaxis: {
-        labels: {
+          rotate: -90,
           style: {
             colors: "#fff",
             fontSize: "14px",
@@ -194,11 +209,39 @@ const ChartBarStud = ({ arr, colors }) => {
           },
         },
       },
+      yaxis: {
+        labels: {
+          rotateAlways: false,
+          hideOverlappingLabels: true,
+          // Increase spacing between labels
+          offsetX: 2,
+          // Adjust distance between label and axis
+          offsetY: 5,
+          style: {
+            colors: "#fff",
+            fontSize: "14px",
+            // Add padding between labels
+            padding: 5,
+          },
+        },
+        // Increase tick amount to create more space
+        tickAmount: 6,
+        // Add padding to axis
+        axisBorder: {
+          offsetX: 0,
+          offsetY: 0,
+        },
+        // Adjust axis padding
+        axisTicks: {
+          offsetX: 0,
+          offsetY: 0,
+        },
+      },
       fill: {
         type: "gradient",
         gradient: {
-          shade: "light",
-          type: "vertical",
+          shade: "dark",
+          type: "horizontal",
           shadeIntensity: 0.25,
           gradientToColors: undefined,
           inverseColors: true,
@@ -211,7 +254,7 @@ const ChartBarStud = ({ arr, colors }) => {
   });
 
   return (
-    <div style={{ width: "97%" }}>
+    <div style={{ width: "99%" }}>
       <div id="chart">
         <ReactApexChart
           options={state.options}

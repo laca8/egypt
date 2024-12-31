@@ -46,11 +46,11 @@ const ChartBar = ({ arr, colors, chartTypes }) => {
   const [state, setState] = React.useState({
     series: [
       {
+        name: "أعداد الأطفال",
         data:
           arr &&
-          JSON.parse(arr)
+          JSON.parse(`${arr}`)
             ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
-
             ?.map((x) => Number(x["العدد"].replace(",", "").replace(",", ""))),
       },
     ],
@@ -67,8 +67,9 @@ const ChartBar = ({ arr, colors, chartTypes }) => {
       colors: colors,
       plotOptions: {
         bar: {
-          columnWidth: "80%",
+          columnWidth: "70%",
           distributed: true,
+          borderRadius: 6,
         },
       },
       dataLabels: {
@@ -80,9 +81,8 @@ const ChartBar = ({ arr, colors, chartTypes }) => {
       xaxis: {
         categories:
           arr &&
-          JSON?.parse(arr)
+          JSON.parse(`${arr}`)
             ?.sort((x, y) => x["المحافظة"].localeCompare(y["المحافظة"], "ar"))
-
             ?.map((x) => x["المحافظة"]),
 
         labels: {
@@ -98,6 +98,11 @@ const ChartBar = ({ arr, colors, chartTypes }) => {
 
       title: {
         text: "أعداد الأطفال",
+
+        style: {
+          fontSize: "14px",
+          colors: "#111",
+        },
       },
       yaxis: {
         labels: {

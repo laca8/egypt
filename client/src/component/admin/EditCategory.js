@@ -34,6 +34,7 @@ const EditCategory = ({ id, titleEdit }) => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
+
   const [file, setFile] = useState("");
   const [basicModal, setBasicModal] = useState(false);
   const toggleOpen = () => {

@@ -324,6 +324,7 @@ const SubCategory = () => {
                                     images={x?.images}
                                     category={category}
                                     title={x?.title}
+                                    srcEdit={x?.src}
                                   />
                                 </td>
                                 <td>

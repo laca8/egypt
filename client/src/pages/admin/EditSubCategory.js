@@ -12,6 +12,8 @@ import {
   editCategories,
   editSubCategory,
 } from "../../redux/actions/category/categoryAction";
+import Form from "react-bootstrap/Form";
+
 import {
   MDBRow,
   MDBBtn,
@@ -30,7 +32,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import ButtonMaterial from "@mui/material/Button";
 import { Input, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-const EditSubCategory = ({ category, title, images }) => {
+const EditSubCategory = ({ category, title, images, srcEdit }) => {
   const dispatch = useDispatch();
   // console.log(images);
 
@@ -39,6 +41,12 @@ const EditSubCategory = ({ category, title, images }) => {
   const [image_bar, setImageBar] = useState("");
   const [image_pie, setImagePie] = useState("");
   const [image_pyramid, setImagePyramid] = useState("");
+  const [name, setName] = useState("");
+  const [src, setSrc] = useState("");
+  useEffect(() => {
+    setSrc(srcEdit);
+    setName(title);
+  }, [srcEdit, title]);
   const toggleOpen = () => {
     setBasicModal(!basicModal);
   };
@@ -146,7 +154,8 @@ const EditSubCategory = ({ category, title, images }) => {
     } else {
       formData.append("image_pyramid", image_pyramid);
     }
-
+    formData.append("name", name);
+    formData.append("src", src);
     dispatch(editSubCategory(category, title, formData));
     setBasicModal(!basicModal);
   };
@@ -171,6 +180,30 @@ const EditSubCategory = ({ category, title, images }) => {
             </MDBModalHeader>
             <MDBModalBody>
               <Row>
+                <Col>
+                  <div>
+                    <Form.Group style={{ width: "100%" }}>
+                      <Form.Label>اسم الجدول</Form.Label>
+                      <Form.Control
+                        style={{ fontWeight: "bold" }}
+                        type="text"
+                        placeholder="ادخل اسم الجدول"
+                        value={name}
+                        onChange={(e) =>
+                          setName(e.target.value)
+                        }></Form.Control>
+                    </Form.Group>
+                    <Form.Group style={{ width: "100%" }}>
+                      <Form.Label>المصدر</Form.Label>
+                      <Form.Control
+                        style={{ fontWeight: "bold" }}
+                        type="text"
+                        placeholder="ادخل المصدر"
+                        value={src}
+                        onChange={(e) => setSrc(e.target.value)}></Form.Control>
+                    </Form.Group>
+                  </div>
+                </Col>
                 <Col
                   style={{
                     display: "flex",

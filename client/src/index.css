@@ -5,9 +5,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Droid Arabic Kufi', serif;
-  /* font-family: 'Roboto Condensed','Tajawal','Roboto Condensed', sans-serif; */
-font-weight: bold;
+  font-family: "El Messiri", serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
 
 }
 .dash{

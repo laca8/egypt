@@ -125,8 +125,6 @@ const CategoryDescription = () => {
                   marginBottom: "10px",
                 }}>
                 {x?.title}
-                {"           "}
-                {x?.src != undefined ? ` / المصدر : ${x?.src}` : ""}
               </Typography>
             )}
             <Box sx={{ width: "100%", backgroundColor: "#807040" }} dir="ltr">
@@ -215,6 +213,7 @@ const CategoryDescription = () => {
                   />
                 </div>
               </TabPanel>
+
               {x?.images
                 ?.filter((obj, index) => obj?.image != null)
                 ?.map((z, i) => (
@@ -228,6 +227,19 @@ const CategoryDescription = () => {
                     </div>
                   </TabPanel>
                 ))}
+              <Typography
+                variant="h6"
+                style={{
+                  textAlign: "center",
+                  // margin: "5px",
+                  backgroundColor: "#111",
+                  color: "#fff",
+                  // width: "auto",
+                  borderRadius: "5px",
+                  padding: "3px",
+                }}>
+                {x?.src != "" ? `${x?.src} : المصدر ` : ""}
+              </Typography>
             </Box>
           </div>
         ))}
