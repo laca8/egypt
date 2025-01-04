@@ -127,7 +127,8 @@ const SidebarCom = () => {
     categories,
   } = listCategoryReducer;
   const handlClick = (title) => {
-    navigator(`/admin/sub/${title}`);
+    // navigator(`/admin/sub/${title}`);
+    window.location.href = `/admin/sub/${title}`;
   };
   return (
     <div
@@ -193,7 +194,6 @@ const SidebarCom = () => {
                   width: "45px",
                   height: "45px",
                   border: "2px solid #807040",
-
                   borderRadius: "50%",
                 }}
               />

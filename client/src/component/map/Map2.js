@@ -65,7 +65,10 @@ const Map2 = () => {
         )
     );
 
-    console.log(data);
+    // console.log(data);
+    console.log(
+      categories?.filter((y) => y.title == "السكان")?.map((y) => y?.subs[0])
+    );
   }, []);
   return (
     <div style={{ height: "500px" }}>
@@ -114,44 +117,40 @@ const Map2 = () => {
               {categories
                 ?.filter((y) => y.title == "الفئات العمرية")
                 ?.map((y) =>
-                  y?.subs
-                    ?.filter((z) => z.title == "عدد السكان فئات عمرية")
-                    ?.map((z) =>
-                      z?.results
-                        ?.filter((c) => c["القسم أو المركز"] == x["المركز"])
+                  y?.subs[0].results
+                    ?.filter((c) => c["القسم أو المركز"]?.trim() == x["المركز"])
 
-                        ?.reduce((acc, curr) => {
-                          const value = parseFloat(curr["عدد السكان"]) || 0;
-                          const existingItem = acc.find(
-                            (item) => item["النوع"] === curr["النوع"]
-                          );
+                    ?.reduce((acc, curr) => {
+                      const value = parseFloat(curr["عدد السكان"]) || 0;
+                      const existingItem = acc.find(
+                        (item) => item["النوع"] === curr["النوع"]
+                      );
 
-                          if (existingItem) {
-                            existingItem["عدد السكان"] =
-                              parseInt(existingItem["عدد السكان"]) + value;
-                          } else {
-                            acc.push({ ...curr, value: value.toString() });
-                          }
+                      if (existingItem) {
+                        existingItem["عدد السكان"] =
+                          parseInt(existingItem["عدد السكان"]) + value;
+                      } else {
+                        acc.push({ ...curr, value: value.toString() });
+                      }
 
-                          return acc;
-                        }, [])
+                      return acc;
+                    }, [])
 
-                        ?.map((v) => (
-                          <span
-                            style={{
-                              margin: "2px 2px ",
-                              color: "#fff",
-                              padding: "5px",
-                              backgroundColor: "#807040",
-                              textAlign: "right",
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "start",
-                            }}>
-                            {v["النوع"]}: {v["عدد السكان"]}
-                          </span>
-                        ))
-                    )
+                    ?.map((v) => (
+                      <span
+                        style={{
+                          margin: "2px 2px ",
+                          color: "#fff",
+                          padding: "5px",
+                          backgroundColor: "#807040",
+                          textAlign: "right",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "start",
+                        }}>
+                        {v["النوع"]?.trim()}: {v["عدد السكان"]}
+                      </span>
+                    ))
                 )}
             </Popup>
           </Marker>
@@ -184,30 +183,31 @@ const Map2 = () => {
               </span>
               {categories
                 ?.filter((y) => y.title == "السكان")
-                ?.map((y) =>
-                  y?.subs
-                    ?.filter((z) => z.title == "عدد السكان أول العام")
-                    ?.map((z) =>
-                      z.results
-                        .filter((c) => c["المحافظة"] == x.name)
-                        ?.sort((a, b) => b["السنة"] - a["السنة"])
-                        .slice(0, 2)
-                        ?.map((v) => (
-                          <span
-                            style={{
-                              margin: "2px 2px ",
-                              color: "#fff",
-                              padding: "5px",
-                              backgroundColor: "#807040",
-                              textAlign: "right",
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "start",
-                            }}>
-                            {v["النوع"]}: {v["عدد السكان"]}
-                          </span>
-                        ))
-                    )
+                ?.map(
+                  (y) =>
+                    y?.subs[0].results
+                      // ?.filter((z) => z.title == "عدد السكان أول العام")
+                      // ?.map((z) =>
+                      //   z.results
+                      .filter((c) => c["المحافظة"]?.trim() == x.name)
+                      ?.sort((a, b) => b["السنة"]?.trim() - a["السنة"]?.trim())
+                      .slice(0, 2)
+                      ?.map((v) => (
+                        <span
+                          style={{
+                            margin: "2px 2px ",
+                            color: "#fff",
+                            padding: "5px",
+                            backgroundColor: "#807040",
+                            textAlign: "right",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "start",
+                          }}>
+                          {v["النوع"]?.trim()}: {v["عدد السكان"]?.trim()}
+                        </span>
+                      ))
+                  // )
                 )}
             </Popup>
           </Marker>

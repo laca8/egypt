@@ -208,7 +208,7 @@ const Sport = ({ arr, colors }) => {
   });
   return (
     <>
-      <div style={{ width: "97%" }}>
+      <div style={{ width: "95%" }}>
         <div id="chart" style={{ padding: "2px" }}>
           <ReactApexChart
             options={state.options}

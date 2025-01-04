@@ -46,9 +46,9 @@ import {
 } from "../../redux/actions/category/categoryAction";
 import EditSubCategory from "./EditSubCategory";
 
-const SubCategory = () => {
+const SubCategory = ({ category }) => {
   const dispatch = useDispatch();
-  const { category } = useParams();
+  // const { category } = useParams();
   const [file, setFile] = useState("");
   const [line, setLine] = useState("");
   const [image_bar, setImageBar] = useState("");

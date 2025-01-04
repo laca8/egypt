@@ -102,9 +102,9 @@ const CategoryDescription = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(dataCat);
-  }, [cho]);
+  // useEffect(() => {
+  //   console.log(dataCat);
+  // }, [cho]);
   return (
     <Container>
       {loading && <Loader />}
@@ -178,7 +178,9 @@ const CategoryDescription = () => {
                           )
                       )
                       ?.map((z) => (
-                        <option>{z["المحافظة"]}</option>
+                        <option value={z["المحافظة"]}>
+                          {z["المحافظة"]?.trim()}
+                        </option>
                       ))}
                   </Form.Select>
                 ) : null}
@@ -238,7 +240,7 @@ const CategoryDescription = () => {
                   borderRadius: "5px",
                   padding: "3px",
                 }}>
-                {x?.src != "" ? `${x?.src} : المصدر ` : ""}
+                {x?.src != "" ? `المصدر : ${x?.src} ` : ""}
               </Typography>
             </Box>
           </div>

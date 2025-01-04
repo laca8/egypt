@@ -130,7 +130,7 @@ const ChartBar = ({ arr, colors, chartTypes }) => {
   });
   return (
     <>
-      <div>
+      <div style={{ width: "95%" }}>
         <div id="chart" style={{ padding: "2px" }}>
           <ReactApexChart
             options={state.options}

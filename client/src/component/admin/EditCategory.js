@@ -43,7 +43,7 @@ const EditCategory = ({ id, titleEdit }) => {
   useEffect(() => {
     dispatch(listCategoryByTitle(titleEdit));
     setTitle(titleEdit);
-  }, [titleEdit, id]);
+  }, [titleEdit, id, dispatch]);
   const handleChange2 = (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];

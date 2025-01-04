@@ -22,7 +22,11 @@ const AdminPanel = () => {
         <Sidebar />
       </MDBCol>
       <MDBCol md="9">
-        {category == "categories" ? <Category /> : <SubCategory />}
+        {category == "categories" ? (
+          <Category />
+        ) : (
+          <SubCategory category={category} />
+        )}
       </MDBCol>
     </MDBRow>
   );
