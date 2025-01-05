@@ -35,7 +35,7 @@ router
 router
   .route("/:category/:idResults")
   .get(categoryController.getCategoryByTitleAndIdResults);
-router.route("/subCategory/:category/:title").put(
+router.route("/subCategory/:category/:id").put(
   categoryController.upload.fields([
     { name: "line", maxCount: 1 },
     { name: "image_bar", maxCount: 1 },

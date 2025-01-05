@@ -175,13 +175,15 @@ export const AddSubCategory = (title, sub) => async (dispatch) => {
   }
 };
 
-export const editSubCategory = (category, title, sub) => async (dispatch) => {
+export const editSubCategory = (category, id, sub) => async (dispatch) => {
   dispatch({
     type: EDIT_SUBCATEGORY_REQUEST,
   });
+  console.log(category, id);
+
   try {
     const res = await axios.put(
-      `/api/category/subCategory/${category}/${title}`,
+      `/api/category/subCategory/${category}/${id}`,
       sub,
       {
         headers: {

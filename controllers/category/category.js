@@ -3,13 +3,15 @@ const multer = require("multer");
 const xlsx = require("xlsx");
 var fs = require("fs");
 const path = require("path");
-
+const uploadDir = "/opt/render/project/src/uploads";
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // Determine destination based on file type
+    // In production (Render), use a persistent storage directory
 
-    const dest = "uploads/";
-    cb(null, dest);
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
     // Create unique filename with timestamp
@@ -46,7 +48,9 @@ const editCategories = async (req, res) => {
       { _id: req.params.id },
       {
         title: req.body.title,
-        image: req.file?.filename,
+        image: `${req.protocol}://${req.get("host")}/uploads/${
+          req.file.filename
+        }`,
       },
       { new: true }
     );
@@ -131,25 +135,33 @@ const AddSubCategory = async (req, res) => {
                 {
                   title: "Graph 1",
                   image: req?.files?.line
-                    ? req?.files?.line[0]?.filename
+                    ? `${req.protocol}://${req.get("host")}/uploads/${
+                        req?.files?.line[0]?.filename
+                      }`
                     : null,
                 },
                 {
                   title: "Graph 2",
                   image: req?.files?.image_bar
-                    ? req?.files?.image_bar[0]?.filename
+                    ? `${req.protocol}://${req.get("host")}/uploads/${
+                        req?.files?.image_bar[0]?.filename
+                      }`
                     : null,
                 },
                 {
                   title: "Graph 3",
                   image: req?.files?.image_pie
-                    ? req?.files?.image_pie[0]?.filename
+                    ? `${req.protocol}://${req.get("host")}/uploads/${
+                        req?.files?.image_pie[0]?.filename
+                      }`
                     : null,
                 },
                 {
                   title: "Graph 4",
                   image: req?.files?.image_pyramid
-                    ? req?.files?.image_pyramid[0]?.filename
+                    ? `${req.protocol}://${req.get("host")}/uploads/${
+                        req?.files?.image_pyramid[0]?.filename
+                      }`
                     : null,
                 },
               ],
@@ -238,7 +250,7 @@ const editSubCategory = async (req, res) => {
       const res = await Category.findOneAndUpdate(
         {
           title: req.params.category,
-          "subs.title": req.params.title,
+          "subs.id": req.params.id,
         },
         {
           $set: {
@@ -248,25 +260,33 @@ const editSubCategory = async (req, res) => {
               {
                 title: "Graphe 1",
                 image: req?.files?.line
-                  ? req?.files?.line[0]?.filename
+                  ? `${req.protocol}://${req.get("host")}/uploads/${
+                      req?.files?.line[0]?.filename
+                    }`
                   : req.body?.line,
               },
               {
                 title: "Graph 2",
                 image: req?.files?.image_bar
-                  ? req?.files?.image_bar[0]?.filename
+                  ? `${req.protocol}://${req.get("host")}/uploads/${
+                      req?.files?.image_bar[0]?.filename
+                    }`
                   : req.body?.bar,
               },
               {
                 title: "Graph 3",
                 image: req?.files?.image_pie
-                  ? req?.files?.image_pie[0]?.filename
+                  ? `${req.protocol}://${req.get("host")}/uploads/${
+                      req?.files?.image_pie[0]?.filename
+                    }`
                   : req.body?.image_pie,
               },
               {
                 title: "Graph 4",
                 image: req?.files?.image_pyramid
-                  ? req?.files?.image_pyramid[0]?.filename
+                  ? `${req.protocol}://${req.get("host")}/uploads/${
+                      req?.files?.image_pyramid[0]?.filename
+                    }`
                   : req.body?.image_pyramid,
               },
             ],

@@ -189,7 +189,7 @@ const SidebarCom = () => {
               onClick={() => handlClick(x?.title)}>
               <img
                 alt=""
-                src={`/uploads/${x?.image}`}
+                src={`${x?.image}`}
                 style={{
                   width: "45px",
                   height: "45px",

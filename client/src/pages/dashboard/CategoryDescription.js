@@ -224,7 +224,7 @@ const CategoryDescription = () => {
                       <img
                         style={{ width: "100%" }}
                         alt=""
-                        src={`/uploads/${z.image}`}
+                        src={`${z.image}`}
                       />
                     </div>
                   </TabPanel>

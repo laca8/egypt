@@ -195,7 +195,7 @@ const Category = () => {
                     <td>
                       <img
                         alt={""}
-                        src={`/uploads/${x?.image}`}
+                        src={`${x?.image}`}
                         style={{
                           width: "45px",
                           height: "45px",

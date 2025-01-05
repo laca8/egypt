@@ -32,7 +32,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import ButtonMaterial from "@mui/material/Button";
 import { Input, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-const EditSubCategory = ({ category, title, images, srcEdit }) => {
+const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
   const dispatch = useDispatch();
   // console.log(images);
 
@@ -156,7 +156,7 @@ const EditSubCategory = ({ category, title, images, srcEdit }) => {
     }
     formData.append("name", name);
     formData.append("src", src);
-    dispatch(editSubCategory(category, title, formData));
+    dispatch(editSubCategory(category, id, formData));
     setBasicModal(!basicModal);
   };
   return (
@@ -221,7 +221,7 @@ const EditSubCategory = ({ category, title, images, srcEdit }) => {
                         src={
                           line !== ""
                             ? URL.createObjectURL(line)
-                            : images && `/uploads/${images[0]?.image}`
+                            : images && `${images[0]?.image}`
                         }
                         alt="graph"
                         style={{
@@ -256,7 +256,7 @@ const EditSubCategory = ({ category, title, images, srcEdit }) => {
                         src={
                           image_bar !== ""
                             ? URL.createObjectURL(image_bar)
-                            : images && `/uploads/${images[1]?.image}`
+                            : images && `${images[1]?.image}`
                         }
                         alt="graph"
                         style={{
@@ -291,7 +291,7 @@ const EditSubCategory = ({ category, title, images, srcEdit }) => {
                         src={
                           image_pie !== ""
                             ? URL.createObjectURL(image_pie)
-                            : images && `/uploads/${images[2]?.image}`
+                            : images && `${images[2]?.image}`
                         }
                         alt="graph"
                         style={{
@@ -326,7 +326,7 @@ const EditSubCategory = ({ category, title, images, srcEdit }) => {
                         src={
                           image_pyramid !== ""
                             ? URL.createObjectURL(image_pyramid)
-                            : images && `/uploads/${images[3]?.image}`
+                            : images && `${images[3]?.image}`
                         }
                         alt="graph"
                         style={{

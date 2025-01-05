@@ -72,7 +72,7 @@ const Category = () => {
                               </Link>
 
                               <img
-                                src={`/uploads/${x?.image}`}
+                                src={`${x?.image}`}
                                 alt=""
                                 style={{
                                   width: "50px",
