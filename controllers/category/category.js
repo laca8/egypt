@@ -28,11 +28,12 @@ const upload = multer({ storage: storage });
 
 const addCategory = async (req, res) => {
   //console.log(req.file);
+  // console.log(req.body);
 
   try {
     const category = await Category.create({
       title: req.body.title,
-      image: req.file?.filename,
+      image: req.body.image,
     });
     res.status(201).json(category);
   } catch (err) {
@@ -48,9 +49,10 @@ const editCategories = async (req, res) => {
       { _id: req.params.id },
       {
         title: req.body.title,
-        image: `${req.protocol}://${req.get("host")}/uploads/${
-          req.file.filename
-        }`,
+        image: req.body.image,
+        // `${req.protocol}://${req.get("host")}/uploads/${
+        //   req.file.filename
+        // }`
       },
       { new: true }
     );

@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { Card } from "react-bootstrap";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import ButtonMaterial from "@mui/material/Button";
-import { Input, Typography, Button } from "@mui/material";
+import { Input, Typography, Button, Alert, AlertTitle } from "@mui/material";
 import axios from "axios";
 import Error from "../../component/features/Error";
 import Loader from "../../component/features/Loader";
@@ -287,6 +287,26 @@ const SubCategory = ({ category }) => {
                   }}>
                   {category}
                 </h2>
+                <Alert
+                  severity="info"
+                  dir="rtl"
+                  style={{
+                    marginTop: "10px",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    color: "#fff",
+                    backgroundColor: "#111",
+                  }}>
+                  <AlertTitle>ملاحظات</AlertTitle>
+                  1- عملية الفلتر تقوم علي العمودان ("المحافظة" , "المديرية")
+                  فتأكد من وجود احد العمودان في الملف
+                  <br />
+                  2- تأكد من أن لايوجد مسافات في جوانب العمودان تكون بنفس هذا
+                  السياق ('"المحافظة" , "المديرية")
+                  <br />
+                  3- عند رفع جدول في الفئة الخاصة بالسكان تأكد من أن اعداد
+                  السكان تكون تحت عمود يسمي ("عدد السكان")
+                </Alert>
                 <Accordion
                   className="mt-2 mb-2 "
                   style={{ backgroundColor: "whitesmoke" }}>
@@ -346,7 +366,6 @@ const SubCategory = ({ category }) => {
                   </AccordionDetails>
                 </Accordion>
               </div>
-
               <div
                 className="rounded-lg p-4 bg-white shadow-md mb-2"
                 style={{

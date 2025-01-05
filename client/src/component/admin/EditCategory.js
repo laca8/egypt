@@ -26,6 +26,21 @@ import {
 } from "mdb-react-ui-kit";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import EditIcon from "@mui/icons-material/Edit";
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// Initialize Firebase (replace with your config)
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_ApiKey,
+  authDomain: process.env.REACT_APP_AuthDomain,
+  projectId: process.env.REACT_APP_ProjectId,
+  storageBucket: process.env.REACT_APP_StorageBucket,
+  messagingSenderId: process.env.REACT_APP_MessagingSenderId,
+  appId: process.env.REACT_APP_AppId,
+  measurementId: process.env.REACT_APP_MeasurementId,
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 const EditCategory = ({ id, titleEdit }) => {
   const listCategoryByTitlReducer = useSelector(
     (state) => state.listCategoryByTitlReducer
@@ -44,7 +59,7 @@ const EditCategory = ({ id, titleEdit }) => {
     dispatch(listCategoryByTitle(titleEdit));
     setTitle(titleEdit);
   }, [titleEdit, id, dispatch]);
-  const handleChange2 = (e) => {
+  const handleChange2 = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -59,7 +74,16 @@ const EditCategory = ({ id, titleEdit }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setFile(e.target.files[0]);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `images/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setFile(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleSubmit = async () => {
     const formData = new FormData();

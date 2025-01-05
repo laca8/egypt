@@ -178,9 +178,29 @@ const CategoryDescription = () => {
                           )
                       )
                       ?.map((z) => (
-                        <option value={z["المحافظة"]}>
-                          {z["المحافظة"]?.trim()}
-                        </option>
+                        <option value={z["المحافظة"]}>{z["المحافظة"]}</option>
+                      ))}
+                  </Form.Select>
+                ) : [
+                    ...new Set(
+                      [].concat(...x?.results?.map((e) => Object.keys(e)))
+                    ),
+                  ]?.includes("المديرية") ? (
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={cho}
+                    onChange={(e) => setCho(e.target.value)}>
+                    <option value={""}>اختر</option>
+                    {x?.results
+                      .filter(
+                        (obj, index, self) =>
+                          index ===
+                          self.findIndex(
+                            (t) => t["المديرية"] === obj["المديرية"]
+                          )
+                      )
+                      ?.map((z) => (
+                        <option value={z["المديرية"]}>{z["المديرية"]}</option>
                       ))}
                   </Form.Select>
                 ) : null}
@@ -191,7 +211,9 @@ const CategoryDescription = () => {
                     rowData={
                       cho == ""
                         ? x?.results
-                        : x?.results.filter((y) => y["المحافظة"] == cho)
+                        : x?.results.filter(
+                            (y) => y["المحافظة"] == cho || y["المديرية"] == cho
+                          )
                     }
                     columnDefs={[
                       ...new Set(

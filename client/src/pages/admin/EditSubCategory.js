@@ -30,7 +30,7 @@ import {
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { Row, Col, Container } from "react-bootstrap";
 import ButtonMaterial from "@mui/material/Button";
-import { Input, Typography } from "@mui/material";
+import { Alert, AlertTitle, Input, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
   const dispatch = useDispatch();
