@@ -136,35 +136,19 @@ const AddSubCategory = async (req, res) => {
               images: [
                 {
                   title: "Graph 1",
-                  image: req?.files?.line
-                    ? `${req.protocol}://${req.get("host")}/uploads/${
-                        req?.files?.line[0]?.filename
-                      }`
-                    : null,
+                  image: req.body?.line,
                 },
                 {
                   title: "Graph 2",
-                  image: req?.files?.image_bar
-                    ? `${req.protocol}://${req.get("host")}/uploads/${
-                        req?.files?.image_bar[0]?.filename
-                      }`
-                    : null,
+                  image: req.body?.image_bar,
                 },
                 {
                   title: "Graph 3",
-                  image: req?.files?.image_pie
-                    ? `${req.protocol}://${req.get("host")}/uploads/${
-                        req?.files?.image_pie[0]?.filename
-                      }`
-                    : null,
+                  image: req.body?.image_pie,
                 },
                 {
                   title: "Graph 4",
-                  image: req?.files?.image_pyramid
-                    ? `${req.protocol}://${req.get("host")}/uploads/${
-                        req?.files?.image_pyramid[0]?.filename
-                      }`
-                    : null,
+                  image: req.body?.image_pyramid,
                 },
               ],
 
@@ -261,35 +245,19 @@ const editSubCategory = async (req, res) => {
             "subs.$.images": [
               {
                 title: "Graphe 1",
-                image: req?.files?.line
-                  ? `${req.protocol}://${req.get("host")}/uploads/${
-                      req?.files?.line[0]?.filename
-                    }`
-                  : req.body?.line,
+                image: req.body?.line,
               },
               {
                 title: "Graph 2",
-                image: req?.files?.image_bar
-                  ? `${req.protocol}://${req.get("host")}/uploads/${
-                      req?.files?.image_bar[0]?.filename
-                    }`
-                  : req.body?.bar,
+                image: req.body?.image_bar,
               },
               {
                 title: "Graph 3",
-                image: req?.files?.image_pie
-                  ? `${req.protocol}://${req.get("host")}/uploads/${
-                      req?.files?.image_pie[0]?.filename
-                    }`
-                  : req.body?.image_pie,
+                image: req.body?.image_pie,
               },
               {
                 title: "Graph 4",
-                image: req?.files?.image_pyramid
-                  ? `${req.protocol}://${req.get("host")}/uploads/${
-                      req?.files?.image_pyramid[0]?.filename
-                    }`
-                  : req.body?.image_pyramid,
+                image: req.body?.image_pyramid,
               },
             ],
           },

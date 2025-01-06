@@ -32,6 +32,21 @@ import { Row, Col, Container } from "react-bootstrap";
 import ButtonMaterial from "@mui/material/Button";
 import { Alert, AlertTitle, Input, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// Initialize Firebase (replace with your config)
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_ApiKey,
+  authDomain: process.env.REACT_APP_AuthDomain,
+  projectId: process.env.REACT_APP_ProjectId,
+  storageBucket: process.env.REACT_APP_StorageBucket,
+  messagingSenderId: process.env.REACT_APP_MessagingSenderId,
+  appId: process.env.REACT_APP_AppId,
+  measurementId: process.env.REACT_APP_MeasurementId,
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
   const dispatch = useDispatch();
   // console.log(images);
@@ -50,7 +65,7 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
   const toggleOpen = () => {
     setBasicModal(!basicModal);
   };
-  const handleChangeLine = (e) => {
+  const handleChangeLine = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -67,11 +82,18 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-
-    setLine(e.target.files[0]);
-    console.log(line);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `line/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setLine(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleChangeBar = (e) => {
+  const handleChangeBar = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -88,10 +110,18 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setImageBar(e.target.files[0]);
-    console.log(image_bar);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `bar/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setImageBar(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleChangePie = (e) => {
+  const handleChangePie = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -108,9 +138,17 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setImagePie(e.target.files[0]);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `pie/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setImagePie(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleChangePyramid = (e) => {
+  const handleChangePyramid = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -127,7 +165,16 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setImagePyramid(e.target.files[0]);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `pyramid/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setImagePyramid(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = async () => {
@@ -219,9 +266,7 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
                       <img
                         id="selectedImage"
                         src={
-                          line !== ""
-                            ? URL.createObjectURL(line)
-                            : images && `${images[0]?.image}`
+                          line !== "" ? line : images && `${images[0]?.image}`
                         }
                         alt="graph"
                         style={{
@@ -255,7 +300,7 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
                         id="selectedImage"
                         src={
                           image_bar !== ""
-                            ? URL.createObjectURL(image_bar)
+                            ? image_bar
                             : images && `${images[1]?.image}`
                         }
                         alt="graph"
@@ -290,7 +335,7 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
                         id="selectedImage"
                         src={
                           image_pie !== ""
-                            ? URL.createObjectURL(image_pie)
+                            ? image_pie
                             : images && `${images[2]?.image}`
                         }
                         alt="graph"
@@ -325,7 +370,7 @@ const EditSubCategory = ({ category, title, id, images, srcEdit }) => {
                         id="selectedImage"
                         src={
                           image_pyramid !== ""
-                            ? URL.createObjectURL(image_pyramid)
+                            ? image_pyramid
                             : images && `${images[3]?.image}`
                         }
                         alt="graph"

@@ -146,8 +146,7 @@ const CategoryDescription = () => {
                     //     self.findIndex((t) => t["title"] === obj["title"])
                     // )
                     ?.filter(
-                      (obj, index) =>
-                        obj?.image != null && obj?.image !== "null"
+                      (obj, index) => obj?.image != null && obj?.image !== ""
                     )
                     ?.map((z, i) => (
                       <Tab
@@ -239,7 +238,7 @@ const CategoryDescription = () => {
               </TabPanel>
 
               {x?.images
-                ?.filter((obj, index) => obj?.image != null)
+                ?.filter((obj, index) => obj?.image != "")
                 ?.map((z, i) => (
                   <TabPanel value={value} index={1 + i}>
                     <div style={{ backgroundColor: "#fff" }}>

@@ -45,7 +45,21 @@ import {
   listCategoryByTitle,
 } from "../../redux/actions/category/categoryAction";
 import EditSubCategory from "./EditSubCategory";
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// Initialize Firebase (replace with your config)
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_ApiKey,
+  authDomain: process.env.REACT_APP_AuthDomain,
+  projectId: process.env.REACT_APP_ProjectId,
+  storageBucket: process.env.REACT_APP_StorageBucket,
+  messagingSenderId: process.env.REACT_APP_MessagingSenderId,
+  appId: process.env.REACT_APP_AppId,
+  measurementId: process.env.REACT_APP_MeasurementId,
+};
 
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 const SubCategory = ({ category }) => {
   const dispatch = useDispatch();
   // const { category } = useParams();
@@ -84,7 +98,7 @@ const SubCategory = ({ category }) => {
 
     setFile(e.target.files[0]);
   };
-  const handleChangeLine = (e) => {
+  const handleChangeLine = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -101,11 +115,18 @@ const SubCategory = ({ category }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-
-    setLine(e.target.files[0]);
-    console.log(line);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `line/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setLine(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleChangeBar = (e) => {
+  const handleChangeBar = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -122,10 +143,18 @@ const SubCategory = ({ category }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setImageBar(e.target.files[0]);
-    console.log(image_bar);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `bar/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setImageBar(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleChangePie = (e) => {
+  const handleChangePie = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -142,9 +171,17 @@ const SubCategory = ({ category }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setImagePie(e.target.files[0]);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `pie/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setImagePie(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const handleChangePyramid = (e) => {
+  const handleChangePyramid = async (e) => {
     const x = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "images/jpg"];
     const maxSize = 1 * 1024 * 1024; // 5MB in bytes
@@ -161,7 +198,16 @@ const SubCategory = ({ category }) => {
       alert("File is too large. Maximum size is 1MB.");
       return;
     }
-    setImagePyramid(e.target.files[0]);
+    try {
+      const filename = `${Date.now()}-${x.name}`;
+      const storageRef = ref(storage, `pyramid/${filename}`);
+      const snapshot = await uploadBytes(storageRef, x);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      setImagePyramid(downloadURL);
+      console.log(downloadURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleSubmit = async (e) => {
     console.log("hello");
@@ -464,7 +510,7 @@ const SubCategory = ({ category }) => {
                                 {image_pyramid && (
                                   <img
                                     id="selectedImage"
-                                    src={URL.createObjectURL(image_pyramid)}
+                                    src={image_pyramid}
                                     alt="pyramid"
                                     style={{
                                       width: "90px",
@@ -496,7 +542,7 @@ const SubCategory = ({ category }) => {
                                 {image_pie && (
                                   <img
                                     id="selectedImage"
-                                    src={URL.createObjectURL(image_pie)}
+                                    src={image_pie}
                                     alt="pie"
                                     style={{
                                       width: "90px",
@@ -530,7 +576,7 @@ const SubCategory = ({ category }) => {
                                 {image_bar && (
                                   <img
                                     id="selectedImage"
-                                    src={URL.createObjectURL(image_bar)}
+                                    src={image_bar}
                                     alt="bar"
                                     style={{
                                       width: "90px",
@@ -563,7 +609,7 @@ const SubCategory = ({ category }) => {
                                 {line && (
                                   <img
                                     id="selectedImage"
-                                    src={URL.createObjectURL(line)}
+                                    src={line}
                                     alt="line"
                                     style={{
                                       width: "90px",
