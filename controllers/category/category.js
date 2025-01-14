@@ -1,6 +1,7 @@
 const Category = require("../../models/category/Category");
 const multer = require("multer");
-const xlsx = require("xlsx");
+const XLSX = require("xlsx");
+const ExcelJS = require("exceljs");
 var fs = require("fs");
 const path = require("path");
 const uploadDir = "/opt/render/project/src/uploads";
@@ -273,6 +274,33 @@ const editSubCategory = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+const downloadExcel = async (req, res) => {
+  const { idResults, category } = req.params;
+  console.log(category, idResults);
+
+  try {
+    const data = await Category.findOne({
+      title: req.params.category,
+      subs: { $elemMatch: { id: idResults } },
+    });
+    const subs = await data?.subs?.filter((x) => x.id == idResults);
+    // console.log(subs);
+
+    if (subs[0]?.results?.length === 0) {
+      return res.status(404).send("No data found in the collection");
+    }
+    const cleanData = subs[0]?.results?.map((doc) => {
+      delete doc._id;
+      delete doc.__v;
+      return doc;
+    });
+    return res.status(200).json(cleanData);
+  } catch (err) {
+    console.log(err);
+
+    return res.status(500).json({ msg: err.message });
+  }
+};
 module.exports = {
   getCategoryByTitleAndIdResults,
   addCategory,
@@ -284,4 +312,5 @@ module.exports = {
   deleteSubCategoryByTitleOfCategory,
   editCategories,
   editSubCategory,
+  downloadExcel,
 };

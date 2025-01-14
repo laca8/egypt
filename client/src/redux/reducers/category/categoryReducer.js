@@ -26,6 +26,9 @@ import {
   EDIT_SUBCATEGORY_REQUEST,
   EDIT_SUBCATEGORY_SUCCESS,
   EDIT_SUBCATEGORY_FAILED,
+  DOWNLOAD_EXCEL_REQUEST,
+  DOWNLOAD_EXCEL_SUCCESS,
+  DOWNLOAD_EXCEL_FAILED,
 } from "../../type.js";
 const initialState = {
   categories: [],
@@ -252,6 +255,31 @@ export const DeleteSubCategoryReducer = (state = initialState, action) => {
         category: payload,
       };
     case DELETE_SUBCATEGORY_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const downloadExcelReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case DOWNLOAD_EXCEL_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DOWNLOAD_EXCEL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        categories: payload,
+      };
+    case DOWNLOAD_EXCEL_FAILED:
       return {
         ...state,
         loading: false,

@@ -219,7 +219,7 @@ const CategoryDescription = () => {
                         [].concat(...x?.results?.map((e) => Object.keys(e)))
                       ),
                     ]
-                      ?.filter((y) => y != "__EMPTY")
+                      ?.filter((y) => !y.includes("__EMPTY"))
                       ?.map((val, index) => {
                         return {
                           field: val,

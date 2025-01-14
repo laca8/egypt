@@ -69,10 +69,10 @@ const Dashboard = () => {
             dir="rtl"
             style={{
               marginTop: "10px",
-              fontSize: "20px",
-              fontWeight: "bold",
+              fontSize: "15px",
+              fontWeight: "300",
               color: "#fff",
-              backgroundColor: "#111",
+              backgroundColor: "rgb(144, 115, 0)",
             }}>
             <AlertTitle>ملاحظة</AlertTitle>
             يمكنك تحديد اي فئة تريد ان تراها في الرسومات البيانية عن طريقة الضغط

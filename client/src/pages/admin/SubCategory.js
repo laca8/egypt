@@ -47,6 +47,7 @@ import {
 import EditSubCategory from "./EditSubCategory";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import DownloadExcel from "./DownloadExcel";
 // Initialize Firebase (replace with your config)
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_ApiKey,
@@ -79,7 +80,7 @@ const SubCategory = ({ category }) => {
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "application/vnd.ms-excel.sheet.macroEnabled.12",
     ];
-    const maxSize = 2.5 * 1024 * 1024; // 2MB in bytes
+    const maxSize = 3 * 1024 * 1024; // 3MB in bytes
     if (!x) return;
 
     // Validate file type
@@ -92,7 +93,7 @@ const SubCategory = ({ category }) => {
 
     // Validate file size
     if (x.size > maxSize) {
-      alert("File is too large. Maximum size is 2MB.");
+      alert("File is too large. Maximum size is 3MB.");
       return;
     }
 
@@ -338,20 +339,35 @@ const SubCategory = ({ category }) => {
                   dir="rtl"
                   style={{
                     marginTop: "10px",
-                    fontSize: "20px",
-                    fontWeight: "bold",
+                    fontSize: "15px",
+                    fontWeight: "300",
                     color: "#fff",
-                    backgroundColor: "#111",
+                    backgroundColor: "rgb(144, 115, 0)",
                   }}>
-                  <AlertTitle>ملاحظات</AlertTitle>
+                  <p style={{ fontSize: "20px" }}>ملاحظات</p>
                   1- عملية الفلتر تقوم علي العمودان ("المحافظة" , "المديرية")
                   فتأكد من وجود احد العمودان في الملف
                   <br />
+                  <hr />
                   2- تأكد من أن لايوجد مسافات في جوانب العمودان تكون بنفس هذا
                   السياق ('"المحافظة" , "المديرية")
                   <br />
-                  3- عند رفع جدول في الفئة الخاصة بالسكان تأكد من أن اعداد
-                  السكان تكون تحت عمود يسمي ("عدد السكان")
+                  <hr />
+                  3- عند رفع جدول في الفئة الخاصة بالسكان او الخاصة بالفئات
+                  العمرية تأكد من أن اعداد السكان تكون تحت عمود يسمي ("عدد
+                  السكان")
+                  <br />
+                  <hr />
+                  4-أقصي حجم لملف الexcel هو 3ميجا
+                  <br />
+                  <hr />
+                  5-أقصي حجم للصور هو 1 ميجا
+                  <br />
+                  <hr />
+                  6- زرار (EXPORT TO EXCEL) يستخدم في تحميل ملف excel فاضي
+                  <br />
+                  <hr />
+                  7-زرار (DOWNLOAD) يمكنك من تحميل الداتا في صورة ملف excel
                 </Alert>
                 <Accordion
                   className="mt-2 mb-2 "
@@ -376,6 +392,7 @@ const SubCategory = ({ category }) => {
                             <tr>
                               <th>مسلسل</th>
                               <th>اسم الجدول</th>
+                              <th>تحميل</th>
                               <th>تعديل</th>
                               <th>حذف</th>
                             </tr>
@@ -385,6 +402,13 @@ const SubCategory = ({ category }) => {
                               <tr>
                                 <td>{index + 1}</td>
                                 <td>{x?.title}</td>
+                                <td>
+                                  <DownloadExcel
+                                    id={x?.id}
+                                    category={category}
+                                    title={x?.title}
+                                  />
+                                </td>
 
                                 <td>
                                   <EditSubCategory

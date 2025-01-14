@@ -25,7 +25,7 @@ const CategoriesResults = () => {
     category: dataCat,
     categories,
   } = listCategoryByTitlReducer;
-
+  const collator = new Intl.Collator("ar");
   return (
     <Container>
       {loading && <Loader />}
@@ -54,30 +54,36 @@ const CategoriesResults = () => {
       <div dir="rtl">
         <Row style={{ marginTop: "10px" }}>
           <Col>
-            <Card
+            <div
               style={{
                 padding: "10px",
                 fontWeight: "bold",
                 marginBottom: "5px",
                 backgroundColor: "#807040",
+                display: "grid",
               }}>
-              {dataCat?.subs?.map((x, index) => (
-                <Link
-                  to={`/sub/${category}/${x.id}`}
-                  style={{
-                    textDecoration: "none",
-                    padding: "4px",
-                    border: "1px solid #fff",
-                    borderRadius: "5px",
-                    width: "auto",
-                    margin: "5px",
-                    fontWeight: "bold",
-                    color: "#fff",
-                  }}>
-                  {x?.title}
-                </Link>
-              ))}
-            </Card>
+              {dataCat?.subs
+                ?.sort((a, b) => collator.compare(b?.title, a?.title))
+                ?.map((x, index) => (
+                  <Card
+                    className="result"
+                    style={{
+                      padding: "9px",
+                      margin: "5px",
+                      color: "#fff",
+                      border: "1px solid #fff",
+                      backgroundColor: "rgba(0,0,0,0.5)",
+                    }}>
+                    <Link
+                      to={`/sub/${category}/${x.id}`}
+                      style={{ color: "#fff", padding: "1px" }}>
+                      {x?.title}
+                      <hr />
+                      <p style={{ marginTop: "4px" }}>المصدر: {x?.src}</p>
+                    </Link>
+                  </Card>
+                ))}
+            </div>
           </Col>
         </Row>
       </div>

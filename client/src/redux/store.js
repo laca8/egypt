@@ -11,6 +11,7 @@ import {
   DeleteSubCategoryReducer,
   listCategoryByTitlReducer,
   getSubCategoryReducer,
+  downloadExcelReducer,
 } from "./reducers/category/categoryReducer";
 import {
   userLoginReducer,
@@ -30,6 +31,7 @@ const finalReducer = combineReducers({
   DeleteCategoryReducer: DeleteCategoryReducer,
   AddSubCategoryReducer: AddSubCategoryReducer,
   AddCategoryReducer: AddCategoryReducer,
+  downloadExcelReducer: downloadExcelReducer,
 });
 const userInfoFormStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))

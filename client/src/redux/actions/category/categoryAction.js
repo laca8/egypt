@@ -26,6 +26,9 @@ import {
   EDIT_SUBCATEGORY_REQUEST,
   EDIT_SUBCATEGORY_FAILED,
   EDIT_SUBCATEGORY_SUCCESS,
+  DOWNLOAD_EXCEL_REQUEST,
+  DOWNLOAD_EXCEL_SUCCESS,
+  DOWNLOAD_EXCEL_FAILED,
 } from "../../type";
 import axios from "axios";
 export const listCategory = () => async (dispatch) => {
@@ -246,6 +249,34 @@ export const deleteCategory = (id) => async (dispatch) => {
     console.log(err.response);
     dispatch({
       type: DELETE_CATEGORY_FAILED,
+      payload:
+        err.response && err.response.data
+          ? err.response.data.msg
+          : err.response.data,
+    });
+  }
+};
+
+export const downloadExcel = (title, idResults) => async (dispatch) => {
+  dispatch({
+    type: DOWNLOAD_EXCEL_REQUEST,
+  });
+  console.log(title, idResults);
+
+  try {
+    const res = await axios.get(
+      `/api/category/download/excel/${title}/${idResults}`
+    );
+    console.log(res);
+
+    dispatch({
+      type: DOWNLOAD_EXCEL_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err.response);
+    dispatch({
+      type: DOWNLOAD_EXCEL_FAILED,
       payload:
         err.response && err.response.data
           ? err.response.data.msg

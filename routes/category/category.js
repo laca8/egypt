@@ -45,4 +45,8 @@ router.route("/subCategory/:category/:id").put(
 
   categoryController.editSubCategory
 );
+
+router
+  .route("/download/excel/:category/:idResults")
+  .get(categoryController.downloadExcel);
 module.exports = router;
