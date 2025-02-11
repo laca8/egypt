@@ -36,13 +36,13 @@ import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 // Initialize Firebase (replace with your config)
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_ApiKey,
-  authDomain: process.env.REACT_APP_AuthDomain,
-  projectId: process.env.REACT_APP_ProjectId,
-  storageBucket: process.env.REACT_APP_StorageBucket,
-  messagingSenderId: process.env.REACT_APP_MessagingSenderId,
-  appId: process.env.REACT_APP_AppId,
-  measurementId: process.env.REACT_APP_MeasurementId,
+  apiKey: "AIzaSyBvJDv_xWE8ri37GPEtplXaWwYK-QX_Yb4",
+  authDomain: "yarab-uploadfile-11dcf.firebaseapp.com",
+  projectId: "yarab-uploadfile-11dcf",
+  storageBucket: "yarab-uploadfile-11dcf.appspot.com",
+  messagingSenderId: "905701233897",
+  appId: "1:905701233897:web:2ce1a796b873b6ec058c78",
+  measurementId: "G-N8D8VL7V67",
 };
 
 const app = initializeApp(firebaseConfig);

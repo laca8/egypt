@@ -1,29 +1,14 @@
 const Category = require("../../models/category/Category");
 const multer = require("multer");
-const XLSX = require("xlsx");
+const xlsx = require("xlsx");
 const ExcelJS = require("exceljs");
 var fs = require("fs");
 const path = require("path");
-const uploadDir = "/opt/render/project/src/uploads";
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // In production (Render), use a persistent storage directory
-
-    cb(null, uploadDir);
-  },
-  filename: function (req, file, cb) {
-    // Create unique filename with timestamp
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-
-    cb(
-      null,
-      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
-    );
-  },
-});
+const storage = multer.diskStorage({});
 
 const upload = multer({ storage: storage });
 

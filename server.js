@@ -23,7 +23,7 @@ app.use("/api/user", require("./routes/user/user"));
 //category
 app.use("/api/category", require("./routes/category/category.js"));
 //population
-
+//&& cd client && npm install && npm run build
 //build
 
 if (process.env.NODE_ENV === "production") {

@@ -8,6 +8,8 @@
     "@ag-grid-community/core": "^32.3.3",
     "@ag-grid-community/react": "^32.3.3",
     "@ag-grid-enterprise/all-modules": "^27.3.0",
+    "@cloudinary/react": "^1.13.1",
+    "@cloudinary/url-gen": "^1.21.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fortawesome/fontawesome-free": "^6.6.0",
