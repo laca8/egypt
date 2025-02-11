@@ -18,6 +18,10 @@
     "routes": [
         {
             "src": "/(.*)",
+            "dest": "server.js"
+        },
+        {
+            "src": "/(.*)",
             "dest": "client/build/index.html"
         }
     ]

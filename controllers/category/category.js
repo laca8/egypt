@@ -5,9 +5,6 @@ const ExcelJS = require("exceljs");
 var fs = require("fs");
 const path = require("path");
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
 const storage = multer.diskStorage({});
 
 const upload = multer({ storage: storage });
