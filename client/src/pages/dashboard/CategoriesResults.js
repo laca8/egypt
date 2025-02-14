@@ -78,8 +78,8 @@ const CategoriesResults = () => {
                       to={`/sub/${category}/${x.id}`}
                       style={{ color: "#fff", padding: "1px" }}>
                       {x?.title}
-                      <hr />
-                      <p style={{ marginTop: "4px" }}>المصدر: {x?.src}</p>
+                      {/* <hr />
+                      <p style={{ marginTop: "4px" }}>المصدر: {x?.src}</p> */}
                     </Link>
                   </Card>
                 ))}
