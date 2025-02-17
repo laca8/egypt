@@ -93,12 +93,14 @@ const CategoryDescription = () => {
       editable: true,
       enableRowGroup: true,
       enablePivot: true,
+minWidth: 90,
+resizable: true
     }),
     []
   );
   const autoGroupColumnDef = useMemo(() => {
     return {
-      minWidth: 100,
+      minWidth: 90,
     };
   }, []);
 
@@ -205,7 +207,7 @@ const CategoryDescription = () => {
                 ) : null}
                 <div
                   className={"ag-theme-alpine"}
-                  style={{ height: '500px', marginTop: "5px" ,direction: 'rtl' }}>
+                  style={{ height: 500px, marginTop: "5px" ,direction: 'rtl' }}>
                   <AgGridReact
                     rowData={
                       cho == ""
@@ -235,8 +237,7 @@ const CategoryDescription = () => {
                     paginationPageSizeSelector={[200, 500, 1000]}
         // Enable RTL at the grid level
         enableRtl={true}
-        // Show all columns by setting appropriate sizes
-        domLayout="autoHeight"
+        
                   />
                 </div>
               </TabPanel>
