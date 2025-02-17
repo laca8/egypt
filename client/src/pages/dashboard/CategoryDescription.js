@@ -98,7 +98,7 @@ const CategoryDescription = () => {
   );
   const autoGroupColumnDef = useMemo(() => {
     return {
-      minWidth: 200,
+      minWidth: 100,
     };
   }, []);
 
@@ -205,7 +205,7 @@ const CategoryDescription = () => {
                 ) : null}
                 <div
                   className={"ag-theme-alpine"}
-                  style={{ height: 500, marginTop: "5px" ,direction: 'rtl' }}>
+                  style={{ height: '500px', marginTop: "5px" ,direction: 'rtl' }}>
                   <AgGridReact
                     rowData={
                       cho == ""
