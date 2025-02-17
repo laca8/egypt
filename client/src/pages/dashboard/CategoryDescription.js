@@ -207,7 +207,7 @@ resizable: true
                 ) : null}
                 <div
                   className={"ag-theme-alpine"}
-                  style={{ height: 500px, marginTop: "5px" ,direction: 'rtl' }}>
+                  style={{ height: 500, marginTop: "5px" ,direction: 'rtl' }}>
                   <AgGridReact
                     rowData={
                       cho == ""
