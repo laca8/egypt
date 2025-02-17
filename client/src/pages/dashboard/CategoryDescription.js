@@ -205,7 +205,8 @@ const CategoryDescription = () => {
                 ) : null}
                 <div
                   className={"ag-theme-alpine"}
-                  style={{ height: 500, marginTop: "5px" }}>
+                  style={{ height: 500, marginTop: "5px" ,width: '100%',
+        direction: 'rtl' }}>
                   <AgGridReact
                     rowData={
                       cho == ""
@@ -233,6 +234,10 @@ const CategoryDescription = () => {
                     pagination={true}
                     paginationPageSize={500}
                     paginationPageSizeSelector={[200, 500, 1000]}
+        // Enable RTL at the grid level
+        enableRtl={true}
+        // Show all columns by setting appropriate sizes
+        domLayout="autoHeight"
                   />
                 </div>
               </TabPanel>
