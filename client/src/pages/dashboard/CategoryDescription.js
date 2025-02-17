@@ -106,7 +106,7 @@ const CategoryDescription = () => {
   //   console.log(dataCat);
   // }, [cho]);
   return (
-    <Container>
+    <div style={{padding:'10px'}}>
       {loading && <Loader />}
       {error && <Error error={error} />}
       <div>
@@ -205,8 +205,7 @@ const CategoryDescription = () => {
                 ) : null}
                 <div
                   className={"ag-theme-alpine"}
-                  style={{ height: 500, marginTop: "5px" ,width: '100%',
-        direction: 'rtl' }}>
+                  style={{ height: 500, marginTop: "5px" ,direction: 'rtl' }}>
                   <AgGridReact
                     rowData={
                       cho == ""
@@ -272,7 +271,7 @@ const CategoryDescription = () => {
           </div>
         ))}
       </div>
-    </Container>
+    </div>
   );
 };
 
