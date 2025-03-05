@@ -65,8 +65,8 @@ const Category = () => {
                                   fontSize: "14px",
                                   borderRadius: "10px",
                                   fontWeight: "bold",
-                                  width: "90px",
-                                  textAlign: "center",
+                                  width: "100px",
+                                  // textAlign: "center",
                                 }}>
                                 Click to view
                               </Link>
