@@ -7,18 +7,25 @@
             "config": {
                 "maxLambdaSize": "50mb",
                 "memory": 3008,
-                "maxDuration": 30
+                "maxDuration": 60
             }
         },
         {
-            "src": "client/build",
-            "use": "@vercel/static"
+            "src": "package.json",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "client/build"
+            }
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
             "dest": "server.js"
+        },
+        {
+            "src": "/",
+            "dest": "client/build/index.html"
         },
         {
             "src": "/(.*)",
